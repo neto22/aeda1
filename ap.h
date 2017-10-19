@@ -2,7 +2,7 @@
 #define AP_H_
 //a tua mae
 //nao, a tua mae
-
+//o joao e gay
 
 
 
