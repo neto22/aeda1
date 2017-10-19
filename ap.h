@@ -3,7 +3,7 @@
 
 //a tua mae
 //nao, a tua mae
-
+//o joao e gay
 
 
 
