@@ -7,6 +7,7 @@
 class Client {
 	public:
 		int addClient(unsigned int type);
+		virtual double pay();
 
 	protected:
 		unsigned int user_id;
