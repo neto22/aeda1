@@ -9,9 +9,9 @@ using namespace std;
 int main()
 {
 
-	cout << "teste :" << endl;
+	/*GETTING SAVED INFORMATION FROM FILES*/
 
-	Company testCompany;
+	Company bikesCompany;
 
 	//reading SharePoints from file "SharePoints.txt"
 
@@ -21,16 +21,33 @@ int main()
 
 	if(inFile.fail())
 	{
-		cerr << "Error opening 'SharePoints' file" << endl;
+		cerr << "Error opening 'SharePoints.txt' file" << endl;
 		exit(1);
 	}
 
-	testCompany.readSharePoints(inFile);
+	bikesCompany.readSharePoints(inFile);
 
-	//experimenting
+	inFile.close();
 
+	//reading SharePoints from file "SharePoints.txt"
+
+	inFile.open("Clients.txt");
+
+	if(inFile.fail())
+	{
+		cerr << "Error opening 'Clients.txt' file" << endl;
+		exit(1);
+	}
+
+	bikesCompany.readClients(inFile);
+
+	inFile.close();
+
+	/*experimenting adding/removing SharePoints/Clients*/
+
+	//adding SharePoints
 	int num;
-	cout << "How many tries to add ? "; cin >> num;
+	cout << "How many tries to add SharePointers ? "; cin >> num;
 
 	for(int i = 0; i < num; i++)
 	{
@@ -40,7 +57,7 @@ int main()
 
 		try
 		{
-			testCompany.addSharePoint(new SharePoint(x,y,capacity));
+			bikesCompany.addSharePoint(new SharePoint(x,y,capacity));
 		}
 
 		catch(ExistentSharePoint & e)
@@ -49,9 +66,10 @@ int main()
 		}
 	}
 
-	cout << "number of SharePoints : " << testCompany.getSharePoints().size() << endl;
+	cout << "number of SharePoints : " << bikesCompany.getSharePoints().size() << endl;
 
-	cout << "How many tries to remove ? "; cin >> num;
+	//removing SharePoints
+	cout << "How many tries to remove SharePointers ? "; cin >> num;
 	for(int i = 0; i < num; i++)
 	{
 		int x, y;
@@ -60,7 +78,7 @@ int main()
 
 		try
 		{
-			testCompany.removeSharePoint(x,y);
+			bikesCompany.removeSharePoint(x,y);
 		}
 
 		catch(NotExistentSharePoint & e)
@@ -70,7 +88,52 @@ int main()
 
 	}
 
-	cout << "number of SharePoints : " << testCompany.getSharePoints().size() << endl;
+	cout << "number of SharePoints : " << bikesCompany.getSharePoints().size() << endl;
+
+	//adding clients
+	cout << "How many tries to add Clients ? "; cin >> num;
+	for(int i = 0; i < num; i++)
+	{
+		string type, name;
+		int x, y;
+
+		cin.ignore();
+		cout << "Type : "; getline(cin, type);
+		cout << "Name : "; getline(cin, name);
+		cout << "x : "; cin >> x; cout << "y : "; cin >> y;
+
+		if(type == "Partner")
+			bikesCompany.addClient(new Regular(name, x, y));
+		else
+			bikesCompany.addClient(new Regular(name, x, y));
+
+	}
+
+	cout << "number of Clients  : " << bikesCompany.getClients().size() << endl;
+
+	//removing clients
+	cout << "How many tries to remove Clients ? "; cin >> num;
+	for(int i = 0; i < num; i++)
+	{
+		int clientID;
+
+		cout << "Cient ID : "; cin >> clientID;
+
+		try
+		{
+			bikesCompany.removeClient(clientID);
+		}
+
+		catch(NotExistentClient & e)
+		{
+			cout << "Ther isn't a client with ID : " << e.getID() << endl;
+		}
+	}
+
+	cout << "number of Clients  : " << bikesCompany.getClients().size() << endl;
+
+
+	/*SAVING INFORMATION IN FILES*/
 
 	//saving SharePoints in file "SharePoints.txt"
 
@@ -84,10 +147,23 @@ int main()
 		exit(1);
 	}
 
-	testCompany.saveSharePoints(outFile);
+	bikesCompany.saveSharePoints(outFile);
 
 	outFile.close();
 
+	//saving Clients in file "Clients.txt"
+
+	outFile.open("Clients.txt");
+
+	if(outFile.fail())
+	{
+		cerr << "Error opening 'SharePoints' file" << endl;
+		exit(1);
+	}
+
+	bikesCompany.saveClients(outFile);
+
+	outFile.close();
 
 	return 0;
 }

@@ -1,0 +1,6 @@
+/* Type ; Name ; Id ; ( x , y ) */
+
+Regular ; 1 ; UIui ; ( 9.000000 , 20.000000 )
+Regular ; 2 ; Anonimous Guy ; ( 90.000000 , 100.000000 )
+Regular ; 3 ; Another ; ( 9.000000 , 9.000000 )
+Regular ; 4 ; Another 2 ; ( 20.000000 , 20.000000 )
