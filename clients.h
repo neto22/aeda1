@@ -3,7 +3,11 @@
 
 #include "ap.h"
 #include "bike.h"
+#include "sharePoint.h"
 
+//=================================================================
+//Client//=========================================================
+//=================================================================
 class Client
 {
 protected:
@@ -11,14 +15,12 @@ protected:
 	string name;
 	double x;
 	double y;
-	static unsigned int id_counter;
 	int type;	//Partner = 1; Regular = 2
-	Bike currentBike;
+	Bike * currentBike = NULL;
 
 public:
 	Client(string nome, double x, double y);
-
-	//virtual double pay();
+	static unsigned int id_counter;
 
 	//get functions
 
@@ -30,14 +32,27 @@ public:
 
 	//set functions
 
+	void setID(unsigned int user_id);	//usefull to get clients correctly from file
 	void setX(double x);
 	void setY(double y);
 	void setType(int type);
 
+	//other functions
+
+	//calculates the distance between the client and a SharePoint (given as argument)
+	double distance(SharePoint p1);
+	//returns closest SharePoint to Client to peek a bike of type bikeType
+	SharePoint closestSHtoPeek(const vector<SharePoint> & sharePoints, string bikeType);
+	//returns closest not full SharePoint to Client
+	SharePoint closestSHtoReturn(const vector<SharePoint> & sharePoints);
+	//virtual double pay();
+
+
 };
 
-//other operator, that automatically turns a Client into a string
-ostream & operator << (ostream & os, Client c1);
+//=================================================================
+//Partner//========================================================
+//=================================================================
 class Partner: public Client
 {
 public:
@@ -45,6 +60,9 @@ public:
 	//double pay();
 };
 
+//=================================================================
+//Partner//========================================================
+//=================================================================
 class Regular: public Client
 {
 public:
@@ -52,5 +70,19 @@ public:
 	//double pay();
 };
 
+
+//operator that automatically turns a Client into a string
+ostream & operator << (ostream & os, Client c1);
+
+//=================================================================
+//Exeptions//======================================================
+//=================================================================
+
+//there is no avaible points to return bike (all SharePoints are full)
+class NotAvaibleSharePoints
+{
+public:
+	NotAvaibleSharePoints() {}
+};
 
 #endif

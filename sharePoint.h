@@ -1,9 +1,10 @@
 #pragma once
 #include "bike.h"
-#include "clients.h"
+#include <iostream>
 #include <vector>
 #include <math.h>
 
+using namespace std;
 
 //=================================================================
 //SharePoint//=====================================================
@@ -40,8 +41,6 @@ public:
 	bool removeBike(/*to complete*/);	//not done
 	//adds a bike, true if sucesseful false otherwise
 	bool addBike(Bike* b1);
-	//calculates the distance between the sharepoint and another one (given as argument)
-	double distance(Client c1);
 
 	//operator to see if 2 SharePoints have the same location
 	bool operator == (SharePoint p2);

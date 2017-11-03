@@ -57,7 +57,7 @@ int main()
 
 		try
 		{
-			bikesCompany.addSharePoint(new SharePoint(x,y,capacity));
+			bikesCompany.addSharePoint(SharePoint(x,y,capacity));
 		}
 
 		catch(ExistentSharePoint & e)
@@ -131,6 +131,21 @@ int main()
 	}
 
 	cout << "number of Clients  : " << bikesCompany.getClients().size() << endl;
+
+	//founding closest SharePoint to a client
+	int clientID;
+	cout << "Client ID to find closest SharePoint : "; cin >>clientID;
+
+	try
+	{
+		SharePoint p1 = bikesCompany.getClients().at(clientID-1)->closestSHtoReturn(bikesCompany.getSharePoints());
+		cout << "Closest SharePoint : "<< p1 << endl;
+	}
+
+	catch(NotAvaibleSharePoints & e)
+	{
+		cout << "Not Avaible SharePoints" << endl;
+	}
 
 
 	/*SAVING INFORMATION IN FILES*/

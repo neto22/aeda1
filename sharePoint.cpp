@@ -58,14 +58,6 @@ bool SharePoint::addBike(Bike* b1)
 
 }
 
-double SharePoint::distance(Client c1)
-{
-	double xVector = x - c1.getX();
-	double yVector = y - c1.getY();
-
-	return sqrt( pow(xVector,2) + pow(yVector,2) );	//return the vector length
-}
-
 
 //operators
 bool SharePoint::operator == (SharePoint p2)

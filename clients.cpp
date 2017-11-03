@@ -54,6 +54,11 @@ int Client::getType() const
 
 //set functions
 
+void Client::setID(unsigned int user_id)
+{
+	this->user_id = user_id;
+}
+
 void Client::setX(double x)
 {
 	this->x = x;
@@ -67,6 +72,55 @@ void Client::setY(double y)
 void Client::setType(int type)
 {
 	this->type = type;
+}
+
+//other functions
+
+double Client::distance(SharePoint p1)
+{
+	double xVector = x - p1.getX();
+	double yVector = y - p1.getY();
+
+	return sqrt( pow(xVector,2) + pow(yVector,2) );	//return the vector length
+}
+
+
+SharePoint Client::closestSHtoReturn(const vector<SharePoint> & sharePoints)
+{
+	int firstMin = -1, sharePointInd;
+	double minDistance;
+
+	//check if there is at least one avaible SharePoint (with first minDistance)
+	for(size_t i = 0; i < sharePoints.size(); i++)
+	{
+		if(!sharePoints.at(i).isFull())
+		{
+			firstMin = i;
+			minDistance = distance(sharePoints.at(i));
+			break;
+		}
+	}
+
+	if(firstMin == -1)
+		throw NotAvaibleSharePoints();
+
+	//already exists one avaible SharePoint, see if there's other closest to client
+	for(size_t i = firstMin; i < sharePoints.size(); i++)
+	{
+		if(!sharePoints.at(i).isFull())
+		{
+			double newDistance = distance(sharePoints.at(i));
+
+			if(newDistance < minDistance)
+			{
+					minDistance = newDistance;
+					sharePointInd = i;
+			}
+		}
+	}
+
+
+	return sharePoints.at(sharePointInd);
 }
 
 //operator
