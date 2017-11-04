@@ -11,7 +11,7 @@
 class Company
 {
 private:
-	vector <SharePoint> sharePoints;
+	vector <SharePoint *> sharePoints;
 	vector<Client *> clients;
 
 
@@ -20,13 +20,13 @@ public:
 
 	//get functions
 
-	vector<SharePoint> getSharePoints() const;	//vector returned by reference so we can manipulate bikes' vector easily
+	vector<SharePoint *> getSharePoints() const;	//vector returned by reference so we can manipulate bikes' vector easily
 	vector<Client *> getClients() const;
 
 	//vectors management
 
 	//add new SharePoint (pointer) to vector sharePointers
-	void addSharePoint(SharePoint p1);
+	void addSharePoint(SharePoint * p1);
 	//remove SharePoint (pointer) at location (x,y)
 	void removeSharePoint(double x, double y);
 	//add new client (pointer) to vector clients
@@ -44,7 +44,7 @@ public:
 	//save clients' information in a file connected to ostream outFile
 	void saveClients(ostream & outFile);
 	//converts a string from a file of sharePoints to an object of type SharePoint and returns a pointer to it
-	SharePoint stringToSharePoint(string p1);
+	SharePoint * stringToSharePoint(string p1);
 	//converts a string from a file of clients to a object of type Client and returns a pointer to it
 	Client * stringToClient(string c1);
 	//read SharePoints from file connected to istream inFile and save them at sharePoints vector

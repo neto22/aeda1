@@ -41,10 +41,10 @@ public:
 
 	//calculates the distance between the client and a SharePoint (given as argument)
 	double distance(SharePoint p1);
-	//returns closest SharePoint to Client to peek a bike of type bikeType
-	SharePoint closestSHtoPeek(const vector<SharePoint> & sharePoints, string bikeType);
-	//returns closest not full SharePoint to Client
-	SharePoint closestSHtoReturn(const vector<SharePoint> & sharePoints);
+	//returns closest SharePoint (pointer) to Client to peek a bike of type bikeType
+	SharePoint * closestSHtoPeek(const vector<SharePoint *> & sharePoints, string bikeType);
+	//returns closest not full SharePoint (pointer) to Client
+	SharePoint * closestSHtoReturn(const vector<SharePoint *> & sharePoints);
 	//virtual double pay();
 
 

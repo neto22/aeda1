@@ -85,7 +85,7 @@ double Client::distance(SharePoint p1)
 }
 
 
-SharePoint Client::closestSHtoReturn(const vector<SharePoint> & sharePoints)
+SharePoint * Client::closestSHtoReturn(const vector<SharePoint *> & sharePoints)
 {
 	int firstMin = -1, sharePointInd;
 	double minDistance;
@@ -93,11 +93,11 @@ SharePoint Client::closestSHtoReturn(const vector<SharePoint> & sharePoints)
 	//check if there is at least one avaible SharePoint (with first minDistance)
 	for(size_t i = 0; i < sharePoints.size(); i++)
 	{
-		if(!sharePoints.at(i).isFull())
+		if(!sharePoints.at(i)->isFull())
 		{
 			firstMin = i;
 			sharePointInd = i;
-			minDistance = distance(sharePoints.at(i));
+			minDistance = distance(*sharePoints.at(i));
 			break;
 		}
 	}
@@ -108,9 +108,9 @@ SharePoint Client::closestSHtoReturn(const vector<SharePoint> & sharePoints)
 	//already exists one avaible SharePoint, see if there's other closest to client
 	for(size_t i = firstMin; i < sharePoints.size(); i++)
 	{
-		if(!sharePoints.at(i).isFull())
+		if(!sharePoints.at(i)->isFull())
 		{
-			double newDistance = distance(sharePoints.at(i));
+			double newDistance = distance(*sharePoints.at(i));
 
 			if(newDistance < minDistance)
 			{
@@ -124,7 +124,7 @@ SharePoint Client::closestSHtoReturn(const vector<SharePoint> & sharePoints)
 	return sharePoints.at(sharePointInd);
 }
 
-SharePoint Client::closestSHtoPeek(const vector<SharePoint> & sharePoints, string bikeType)
+SharePoint * Client::closestSHtoPeek(const vector<SharePoint *> & sharePoints, string bikeType)
 {
 	int firstMin, sharePointInd;
 	double minDistance;
@@ -134,14 +134,14 @@ SharePoint Client::closestSHtoPeek(const vector<SharePoint> & sharePoints, strin
 	for(size_t i = 0; i < sharePoints.size(); i++)
 	{
 		//search bike type at bikes from the SharePoint
-		for(size_t j = 0; j < sharePoints.at(i).getBikes().size(); j++)
+		for(size_t j = 0; j < sharePoints.at(i)->getBikes().size(); j++)
 		{
-			if(sharePoints.at(i).getBikes().at(j)->getType() == bikeType)
+			if(sharePoints.at(i)->getBikes().at(j)->getType() == bikeType)
 			{
 				presentType = true;
 				firstMin = i;
 				sharePointInd = i;
-				minDistance = distance(sharePoints.at(i));
+				minDistance = distance(*sharePoints.at(i));
 				break;
 			}
 		}
@@ -157,14 +157,14 @@ SharePoint Client::closestSHtoPeek(const vector<SharePoint> & sharePoints, strin
 	for(size_t i = firstMin; i < sharePoints.size(); i++)
 	{
 		//search bike type at bikes from the SharePoint
-		for(size_t j = 0; j < sharePoints.at(i).getBikes().size(); j++)
+		for(size_t j = 0; j < sharePoints.at(i)->getBikes().size(); j++)
 		{
 			presentType = false;
 
-			if(sharePoints.at(i).getBikes().at(j)->getType() == bikeType)
+			if(sharePoints.at(i)->getBikes().at(j)->getType() == bikeType)
 			{
 				presentType = true;
-				double newDistance = distance(sharePoints.at(i));
+				double newDistance = distance(*sharePoints.at(i));
 
 				if(newDistance < minDistance)
 				{

@@ -8,7 +8,7 @@ Company::Company()
 
 
 //get functions
-vector<SharePoint>  Company::getSharePoints() const
+vector<SharePoint *>  Company::getSharePoints() const
 {
 	return sharePoints;
 }
@@ -20,11 +20,11 @@ vector<Client *> Company::getClients() const
 
 
 //vectors management
-void Company::addSharePoint(SharePoint p1)
+void Company::addSharePoint(SharePoint * p1)
 {
 	for(size_t i = 0; i < sharePoints.size(); i++)
-		if(sharePoints.at(i) == p1)
-			throw ExistentSharePoint(p1.getX(), p1.getY());	//sharePoint already exists at this location
+		if(*sharePoints.at(i) == *p1)
+			throw ExistentSharePoint(p1->getX(), p1->getY());	//sharePoint already exists at this location
 
 	//if there is no sharePoint at this location
 	sharePoints.push_back(p1);	//add p1 to sharePoints vector
@@ -37,7 +37,7 @@ void Company::removeSharePoint(double x, double y)
 
 	for(size_t i = 0; i < sharePoints.size(); i++)
 	{
-		if( (sharePoints.at(i).getX() == x) && (sharePoints.at(i).getY() == y) )
+		if( (sharePoints.at(i)->getX() == x) && (sharePoints.at(i)->getY() == y) )
 		{
 			sharePointIndex = i;
 			continue;
@@ -81,7 +81,7 @@ void Company::removeClient(unsigned int clientID)
 
 void Company::addBike(Bike *b1, unsigned int sharePointIndex)
 {
-	sharePoints.at(sharePointIndex).addBike(b1);
+	sharePoints.at(sharePointIndex)->addBike(b1);
 }
 
 //files' management
@@ -94,7 +94,7 @@ void Company::saveSharePoints(ostream & outFile)
 		if(i != 0)
 			outFile << endl;
 
-		outFile << sharePoints.at(i);
+		outFile << *sharePoints.at(i);
 	}
 }
 
@@ -111,7 +111,7 @@ void Company::saveClients(ostream & outFile)
 	}
 }
 
-SharePoint Company::stringToSharePoint(string p1)
+SharePoint * Company::stringToSharePoint(string p1)
 {
 	string irrelevant;
 	double x,y;
@@ -121,7 +121,7 @@ SharePoint Company::stringToSharePoint(string p1)
 
 	iStr >> irrelevant >> x >> irrelevant >> y >> irrelevant >> irrelevant >> capacity;
 
-	return ( SharePoint(x,y,capacity) );
+	return ( new SharePoint(x,y,capacity) );
 }
 
 Client * Company::stringToClient(string c1)

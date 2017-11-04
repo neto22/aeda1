@@ -45,7 +45,7 @@ int main()
 
 	/*experimenting adding/removing SharePoints/Clients*/
 
-	//bikesCompany.addBike(new SimpleUrban(), 3);
+	bikesCompany.addBike(new Race(), 5);
 
 	//adding SharePoints
 	int num;
@@ -59,7 +59,7 @@ int main()
 
 		try
 		{
-			bikesCompany.addSharePoint(SharePoint(x,y,capacity));
+			bikesCompany.addSharePoint(new SharePoint(x,y,capacity));
 		}
 
 		catch(ExistentSharePoint & e)
@@ -105,7 +105,7 @@ int main()
 		cout << "x : "; cin >> x; cout << "y : "; cin >> y;
 
 		if(type == "Partner")
-			bikesCompany.addClient(new Regular(name, x, y));
+			bikesCompany.addClient(new Partner(name, x, y));
 		else
 			bikesCompany.addClient(new Regular(name, x, y));
 
@@ -140,8 +140,8 @@ int main()
 
 	try
 	{
-		SharePoint p1 = bikesCompany.getClients().at(clientInd)->closestSHtoReturn(bikesCompany.getSharePoints());
-		cout << "Closest SharePoint : "<< p1 << endl;
+		SharePoint * p1 = bikesCompany.getClients().at(clientInd)->closestSHtoReturn(bikesCompany.getSharePoints());
+		cout << "Closest SharePoint : "<< *p1 << endl;
 	}
 
 	catch(NotAvaibleSharePoints & e)
@@ -155,8 +155,8 @@ int main()
 
 	try
 	{
-		SharePoint p1 = bikesCompany.getClients().at(clientInd)->closestSHtoPeek(bikesCompany.getSharePoints(), bikeType);
-		cout << "Closest SharePoint : "<< p1 << endl;
+		SharePoint * p1 = bikesCompany.getClients().at(clientInd)->closestSHtoPeek(bikesCompany.getSharePoints(), bikeType);
+		cout << "Closest SharePoint : "<< *p1 << endl;
 	}
 
 	catch(NotAvaibleSharePoints & e)
