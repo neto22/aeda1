@@ -20,7 +20,7 @@ public:
 
 	//get functions
 
-	vector<SharePoint> getSharePoints() const;
+	vector<SharePoint> getSharePoints() const;	//vector returned by reference so we can manipulate bikes' vector easily
 	vector<Client *> getClients() const;
 
 	//vectors management
@@ -33,6 +33,8 @@ public:
 	void addClient(Client * c1);
 	//remove client with id clientID
 	void removeClient(unsigned int clientID);
+	//add bike (pointer) b1 to SharePoint with index sharePointIndex
+	void addBike(Bike * b1, unsigned int sharePointIndex);
 
 
 	//file's management

@@ -22,6 +22,12 @@ unsigned int Bike::getID() const
 	return id;
 }
 
+string Bike::getType() const
+{
+	return "NONE";
+}
+
+
 //=================================================================
 //URBAN//==========================================================
 //=================================================================
@@ -33,6 +39,11 @@ Urban::Urban() : Bike()
 unsigned int Urban::getPrice() const
 {
 	return pricePerHour;
+}
+
+string Urban::getType() const
+{
+	return "Urban";
 }
 
 //=================================================================
@@ -48,6 +59,11 @@ unsigned int SimpleUrban::getPrice() const
 	return pricePerHour;
 }
 
+string SimpleUrban::getType() const
+{
+	return "SimpleUrban";
+}
+
 //=================================================================
 //RACE//===========================================================
 //=================================================================
@@ -61,6 +77,11 @@ unsigned int Race::getPrice() const
 	return pricePerHour;
 }
 
+string Race::getType() const
+{
+	return "Race";
+}
+
 //=================================================================
 //CHILD//==========================================================
 //=================================================================
@@ -72,4 +93,9 @@ Child::Child() : Bike()
 unsigned int Child::getPrice() const
 {
 	return pricePerHour;
+}
+
+string Child::getType() const
+{
+	return "Child";
 }

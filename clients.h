@@ -81,8 +81,12 @@ ostream & operator << (ostream & os, Client c1);
 //there is no avaible points to return bike (all SharePoints are full)
 class NotAvaibleSharePoints
 {
+protected:
+	string bikeType = "";
 public:
 	NotAvaibleSharePoints() {}
+	NotAvaibleSharePoints(string bikeType) {this->bikeType = bikeType;}
+	string getBykeType() const {return bikeType;}
 };
 
 #endif

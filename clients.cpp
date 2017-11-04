@@ -96,6 +96,7 @@ SharePoint Client::closestSHtoReturn(const vector<SharePoint> & sharePoints)
 		if(!sharePoints.at(i).isFull())
 		{
 			firstMin = i;
+			sharePointInd = i;
 			minDistance = distance(sharePoints.at(i));
 			break;
 		}
@@ -119,6 +120,66 @@ SharePoint Client::closestSHtoReturn(const vector<SharePoint> & sharePoints)
 		}
 	}
 
+
+	return sharePoints.at(sharePointInd);
+}
+
+SharePoint Client::closestSHtoPeek(const vector<SharePoint> & sharePoints, string bikeType)
+{
+	int firstMin, sharePointInd;
+	double minDistance;
+	bool presentType = false;
+
+	//check if there is at least one SharePoint with bikeType
+	for(size_t i = 0; i < sharePoints.size(); i++)
+	{
+		//search bike type at bikes from the SharePoint
+		for(size_t j = 0; j < sharePoints.at(i).getBikes().size(); j++)
+		{
+			if(sharePoints.at(i).getBikes().at(j)->getType() == bikeType)
+			{
+				presentType = true;
+				firstMin = i;
+				sharePointInd = i;
+				minDistance = distance(sharePoints.at(i));
+				break;
+			}
+		}
+
+		if(presentType)
+			break;
+	}
+
+	//bikeType not found in any SharePoint
+	if(!presentType)
+		throw NotAvaibleSharePoints(bikeType);
+
+	for(size_t i = firstMin; i < sharePoints.size(); i++)
+	{
+		//search bike type at bikes from the SharePoint
+		for(size_t j = 0; j < sharePoints.at(i).getBikes().size(); j++)
+		{
+			presentType = false;
+
+			if(sharePoints.at(i).getBikes().at(j)->getType() == bikeType)
+			{
+				presentType = true;
+				double newDistance = distance(sharePoints.at(i));
+
+				if(newDistance < minDistance)
+				{
+					minDistance = newDistance;
+					sharePointInd = i;
+				}
+
+				break;
+
+			}
+
+			if(presentType)
+				break;
+		}
+	}
 
 	return sharePoints.at(sharePointInd);
 }

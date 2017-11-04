@@ -45,6 +45,8 @@ int main()
 
 	/*experimenting adding/removing SharePoints/Clients*/
 
+	//bikesCompany.addBike(new SimpleUrban(), 3);
+
 	//adding SharePoints
 	int num;
 	cout << "How many tries to add SharePointers ? "; cin >> num;
@@ -132,19 +134,34 @@ int main()
 
 	cout << "number of Clients  : " << bikesCompany.getClients().size() << endl;
 
-	//founding closest SharePoint to a client
-	int clientID;
-	cout << "Client ID to find closest SharePoint : "; cin >>clientID;
+	//closest SharePoint
+	int clientInd;
+	cout << "Client index to find closest SharePoint to return bike: "; cin >>clientInd;
 
 	try
 	{
-		SharePoint p1 = bikesCompany.getClients().at(clientID-1)->closestSHtoReturn(bikesCompany.getSharePoints());
+		SharePoint p1 = bikesCompany.getClients().at(clientInd)->closestSHtoReturn(bikesCompany.getSharePoints());
 		cout << "Closest SharePoint : "<< p1 << endl;
 	}
 
 	catch(NotAvaibleSharePoints & e)
 	{
 		cout << "Not Avaible SharePoints" << endl;
+	}
+
+	string bikeType;
+	cout << "Client index to find closest SharePoint to peek bike: "; cin >> clientInd;
+	cout << "Bike Type : "; cin >> bikeType;
+
+	try
+	{
+		SharePoint p1 = bikesCompany.getClients().at(clientInd)->closestSHtoPeek(bikesCompany.getSharePoints(), bikeType);
+		cout << "Closest SharePoint : "<< p1 << endl;
+	}
+
+	catch(NotAvaibleSharePoints & e)
+	{
+		cout << "Not Avaible SharePoints with : " << e.getBykeType() <<  endl;
 	}
 
 

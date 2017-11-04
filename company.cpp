@@ -8,7 +8,7 @@ Company::Company()
 
 
 //get functions
-vector<SharePoint> Company::getSharePoints() const
+vector<SharePoint>  Company::getSharePoints() const
 {
 	return sharePoints;
 }
@@ -79,7 +79,10 @@ void Company::removeClient(unsigned int clientID)
 	clients.erase(clients.begin() + clientIndex);
 }
 
-
+void Company::addBike(Bike *b1, unsigned int sharePointIndex)
+{
+	sharePoints.at(sharePointIndex).addBike(b1);
+}
 
 //files' management
 void Company::saveSharePoints(ostream & outFile)

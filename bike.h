@@ -1,6 +1,10 @@
 #ifndef BIKE_H
 #define BIKE_H
 
+#include <string>
+
+using namespace std;
+
 //=================================================================
 //BIKE//===========================================================
 //=================================================================
@@ -15,6 +19,7 @@ public:
 	Bike();
 	virtual unsigned int getPrice() const;
 	unsigned int getID() const;
+	virtual string getType() const;
 };
 
 //=================================================================
@@ -29,6 +34,7 @@ private:
 public:
 	Urban();
 	unsigned int getPrice() const ;
+	string getType() const;
 
 };
 
@@ -44,6 +50,7 @@ private:
 public:
 	SimpleUrban();
 	unsigned int getPrice() const;
+	string getType() const;
 };
 
 //=================================================================
@@ -58,6 +65,7 @@ private:
 public:
 	Race();
 	unsigned int getPrice() const;
+	string getType() const;
 };
 
 //=================================================================
@@ -72,6 +80,7 @@ private:
 public:
 	Child();
 	unsigned int getPrice() const;
+	string getType() const;
 };
 
 
