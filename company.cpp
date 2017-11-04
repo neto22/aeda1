@@ -87,7 +87,7 @@ void Company::addBike(Bike *b1, unsigned int sharePointIndex)
 //files' management
 void Company::saveSharePoints(ostream & outFile)
 {
-	outFile << "/* ( x , y ) ; capacity */" << endl << endl;
+	outFile << "/* ( x , y ) ; capacity ; ( Urban , SimpleUrban , Race , Child ) */" << endl << endl;
 
 	for(size_t i = 0; i < sharePoints.size(); i++)
 	{
@@ -100,7 +100,7 @@ void Company::saveSharePoints(ostream & outFile)
 
 void Company::saveClients(ostream & outFile)
 {
-	outFile << "/* Type ; Name ; Id ; ( x , y ) */" << endl << endl;
+	outFile << "/* Type ; Name ; Id ; ( x , y ) ; Current Bike */" << endl << endl;
 
 	for(size_t i = 0; i < clients.size(); i++)
 	{
@@ -115,18 +115,34 @@ SharePoint * Company::stringToSharePoint(string p1)
 {
 	string irrelevant;
 	double x,y;
-	unsigned int capacity;
+	unsigned int capacity, numUrban, numSimpleUrban, numRace, numChild;
 
 	istringstream iStr(p1);
 
-	iStr >> irrelevant >> x >> irrelevant >> y >> irrelevant >> irrelevant >> capacity;
+	iStr >> irrelevant >> x >> irrelevant >> y >> irrelevant >> irrelevant >> capacity >> irrelevant >> irrelevant;
+	iStr >> numUrban >> irrelevant >> numSimpleUrban >> irrelevant >> numRace >> irrelevant >> numChild;
 
-	return ( new SharePoint(x,y,capacity) );
+	SharePoint * result = new SharePoint(x,y,capacity);
+
+	for(size_t i = 0; i < numUrban; i++)
+		result->addBike(new Urban());
+
+	for(size_t i = 0; i < numSimpleUrban; i++)
+		result->addBike(new SimpleUrban());
+
+	for(size_t i = 0; i < numRace; i++)
+		result->addBike(new Race());
+
+	for(size_t i = 0; i < numChild; i++)
+		result->addBike(new Child());
+
+
+	return result;
 }
 
 Client * Company::stringToClient(string c1)
 {
-	string irrelevant, name, type;
+	string irrelevant, name, type, currentBike;
 	double x,y;
 	unsigned int id;
 	char next;
@@ -145,7 +161,7 @@ Client * Company::stringToClient(string c1)
 
 	name = name.substr(1, name.length() - 2); //removing spaces before and after name
 
-	iStr >> irrelevant >> x >> irrelevant >> y;
+	iStr >> irrelevant >> x >> irrelevant >> y >> irrelevant >> irrelevant >> currentBike;
 
 	Client * result;
 
@@ -155,6 +171,18 @@ Client * Company::stringToClient(string c1)
 		result = new Regular(name, x, y);
 
 	result->setID(id);
+
+	if(currentBike == "NONE")
+		result->setCurrentBike(NULL);
+	else if(currentBike == "Urban")
+		result->setCurrentBike(new Urban());
+	else if(currentBike == "SimpleUrban")
+		result->setCurrentBike(new SimpleUrban());
+	else if(currentBike == "Race")
+		result->setCurrentBike(new Race());
+	else
+		result->setCurrentBike(new Child());
+
 
 	return result;
 }

@@ -58,6 +58,39 @@ bool SharePoint::addBike(Bike* b1)
 
 }
 
+bool SharePoint::removeBike(string bikeType)
+{
+	int bikeInd = -1;
+
+	for(size_t i = 0; i < bikes.size(); i++)
+	{
+		if(bikes.at(i)->getType() == bikeType)
+		{
+			bikeInd = i;
+			break;
+		}
+	}
+
+	if(bikeInd == -1)
+		return false;
+
+	bikes.erase(bikes.begin()+bikeInd);
+
+	return true;
+}
+
+//counting functions
+unsigned int SharePoint::countBikes(string bikeType) const
+{
+	unsigned int result = 0;
+
+	for(size_t i = 0; i < bikes.size(); i++)
+		if(bikes.at(i)->getType() == bikeType)
+			result++;
+
+	return result;
+
+}
 
 //operators
 bool SharePoint::operator == (SharePoint p2)
@@ -70,7 +103,11 @@ bool SharePoint::operator == (SharePoint p2)
 
 ostream & operator << (ostream & os, SharePoint p1)
 {
-	os << "( " << p1.getX() << " , " << p1.getY() << " ) ; " << p1.getCapacity();
+	os << "( " << p1.getX() << " , " << p1.getY() << " ) ; " << p1.getCapacity()
+		<< " ; ( " << p1.countBikes("Urban")
+		<< " , " << p1.countBikes("SimpleUrban")
+		<< " , " << p1.countBikes("Race")
+		<< " , " << p1.countBikes("Child") << " )";
 
 	return os;
 }

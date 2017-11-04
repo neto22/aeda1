@@ -38,9 +38,14 @@ public:
 	//checks if the share point is full
 	bool isFull() const;
 	//removes a bike and if sucessuful on doing so returns true, false otherwise
-	bool removeBike(/*to complete*/);	//not done
+	bool removeBike(string bikeType);	//not done
 	//adds a bike, true if sucesseful false otherwise
 	bool addBike(Bike* b1);
+
+	//counting functions
+
+	//return number of bikes of type bikeType
+	unsigned int countBikes(string bikeType) const;
 
 	//operator to see if 2 SharePoints have the same location
 	bool operator == (SharePoint p2);

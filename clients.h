@@ -29,6 +29,7 @@ public:
 	double getX() const;
 	double getY() const;
 	int getType() const;
+	Bike * getCurrentBike() const;
 
 	//set functions
 
@@ -36,6 +37,7 @@ public:
 	void setX(double x);
 	void setY(double y);
 	void setType(int type);
+	void setCurrentBike(Bike * b1);
 
 	//other functions
 

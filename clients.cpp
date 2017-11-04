@@ -52,6 +52,11 @@ int Client::getType() const
 	return type;
 }
 
+Bike * Client::getCurrentBike() const
+{
+	return currentBike;
+}
+
 //set functions
 
 void Client::setID(unsigned int user_id)
@@ -72,6 +77,11 @@ void Client::setY(double y)
 void Client::setType(int type)
 {
 	this->type = type;
+}
+
+void Client::setCurrentBike(Bike * b1)
+{
+	this->currentBike = b1;
 }
 
 //other functions
@@ -194,6 +204,12 @@ ostream & operator << (ostream & os, Client c1)
 		os << "Regular";
 
 	os << " ; " << to_string(c1.getID()) << " ; " << c1.getName() << " ; ( " << to_string(c1.getX()) << " , " << to_string(c1.getY()) << " )";
+
+	os << " ; ";
+	if(c1.getCurrentBike() == NULL)
+		os << "NONE";
+	else
+		os << c1.getCurrentBike()->getType();
 
 	return os;
 }

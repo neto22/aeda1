@@ -45,7 +45,7 @@ int main()
 
 	/*experimenting adding/removing SharePoints/Clients*/
 
-	bikesCompany.addBike(new Race(), 5);
+	//bikesCompany.addBike(new Race(), 5);
 
 	//adding SharePoints
 	int num;
@@ -53,7 +53,8 @@ int main()
 
 	for(int i = 0; i < num; i++)
 	{
-		int x, y, capacity;
+		double x, y;
+		int capacity;
 
 		cout << "x : "; cin >> x; cout << "y : "; cin >> y; cout << "capacity : "; cin >> capacity;
 
@@ -74,7 +75,7 @@ int main()
 	cout << "How many tries to remove SharePointers ? "; cin >> num;
 	for(int i = 0; i < num; i++)
 	{
-		int x, y;
+		double x, y;
 
 		cout << "x : "; cin >> x; cout << "y : "; cin >> y;
 
@@ -97,7 +98,7 @@ int main()
 	for(int i = 0; i < num; i++)
 	{
 		string type, name;
-		int x, y;
+		double x, y;
 
 		cin.ignore();
 		cout << "Type : "; getline(cin, type);
