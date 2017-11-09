@@ -33,8 +33,8 @@ public:
 	void addClient(Client * c1);
 	//remove client with id clientID
 	void removeClient(unsigned int clientID);
-	//add bike (pointer) b1 to SharePoint with index sharePointIndex
-	void addBike(Bike * b1, unsigned int sharePointIndex);
+	//add bike (pointer) of type bikeType to SharePoint at location (x,y)
+	void addBike(double x, double y, string bikeType);
 
 
 	//file's management
@@ -70,6 +70,7 @@ public:
 	string getInformation() {return ("( " + to_string(x) + " , " + to_string(y) + ") ");}
 };
 
+
 //there isn't a SharePoint at coordinates (x,y) to remove
 class NotExistentSharePoint
 {
@@ -80,6 +81,7 @@ public:
 	NotExistentSharePoint(double x, double y) {this->x = x; this->y = y;}
 	string getInformation() {return ("( " + to_string(x) + " , " + to_string(y) + ") ");}
 };
+
 
 //there isn't a client with id user_id to remove
 class NotExistentClient
@@ -93,5 +95,30 @@ public:
 
 };
 
+
+//if we try to add a bike to a Full SharePoint
+class FullSharePoint
+{
+private:
+	double x, y;
+
+public:
+	FullSharePoint(double x, double y) {this->x = x; this->y = y;}
+	double getX() {return x;}
+	double getY() {return y;}
+
+};
+
+
+class NotExistentBikeType
+{
+private:
+	string type;
+
+public:
+	NotExistentBikeType(string type) {this->type = type;}
+	string getType() {return type;}
+
+};
 
 #endif

@@ -79,10 +79,40 @@ void Company::removeClient(unsigned int clientID)
 	clients.erase(clients.begin() + clientIndex);
 }
 
-void Company::addBike(Bike *b1, unsigned int sharePointIndex)
+
+void Company::addBike(double x, double y, string bikeType)
 {
-	sharePoints.at(sharePointIndex)->addBike(b1);
+	int sharePointIndex = -1;	//index of SharePoint to add Bike (pointer)
+
+	for(size_t i = 0; i < sharePoints.size(); i++)
+	{
+		if( (sharePoints.at(i)->getX() == x) && (sharePoints.at(i)->getY() == y) )
+		{
+			sharePointIndex = i;
+			continue;
+		}
+	}
+
+	if(sharePointIndex == -1)	//there isn't a SharePoint at location (x,y)
+		throw NotExistentSharePoint(x, y);
+
+	if((bikeType != "Urban") && (bikeType != "SimpleUrban") && (bikeType != "Race") && (bikeType != "Child"))
+		throw NotExistentBikeType(bikeType);	//bikeType doesn´t exist
+
+	if(sharePoints.at(sharePointIndex)->isFull())
+		throw FullSharePoint(x,y);	//SharePoint can´t take more bikes
+
+	if(bikeType == "Urban")
+		sharePoints.at(sharePointIndex)->addBike(new Urban());
+	else if(bikeType == "SimpleUrban")
+		sharePoints.at(sharePointIndex)->addBike(new SimpleUrban());
+	else if(bikeType == "Race")
+			sharePoints.at(sharePointIndex)->addBike(new SimpleUrban());
+	else if(bikeType == "Child")
+			sharePoints.at(sharePointIndex)->addBike(new SimpleUrban());
+
 }
+
 
 //files' management
 void Company::saveSharePoints(ostream & outFile)

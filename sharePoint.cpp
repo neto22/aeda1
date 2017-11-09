@@ -56,6 +56,7 @@ bool SharePoint::addBike(Bike* b1)
 	else
 		return false;
 
+
 }
 
 bool SharePoint::removeBike(string bikeType)

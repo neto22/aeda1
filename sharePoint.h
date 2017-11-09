@@ -54,3 +54,9 @@ public:
 
 //other operator, that automatically turns a SharePoint into a string
 ostream & operator << (ostream & os, SharePoint p1);
+
+
+//=================================================================
+//Exeptions//======================================================
+//=================================================================
+
