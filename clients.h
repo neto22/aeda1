@@ -39,7 +39,7 @@ public:
 	void setType(int type);
 	void setCurrentBike(Bike * b1);
 
-	//other functions
+	//distance to SharePoint
 
 	//calculates the distance between the client and a SharePoint (given as argument)
 	double distance(SharePoint p1);
@@ -47,7 +47,10 @@ public:
 	SharePoint * closestSHtoPeek(const vector<SharePoint *> & sharePoints, string bikeType);
 	//returns closest not full SharePoint (pointer) to Client
 	SharePoint * closestSHtoReturn(const vector<SharePoint *> & sharePoints);
-	//virtual double pay();
+
+	//payment functions
+
+	//virtual unsigned int pay();	//amount to pay for a bike is different (if client is a partner or regular)
 
 
 };
@@ -57,9 +60,13 @@ public:
 //=================================================================
 class Partner: public Client
 {
+protected:
+	unsigned int monthPayment;	//amount that partner pays monthly to get discounts
+
 public:
 	Partner(string nome, double x, double y);
-	//double pay();
+	//amount that partner must pay when returns current bike (-5% if hours < 20; -10% if hours >= 20)
+	//unsigned int pay(unsigned int hours);
 };
 
 //=================================================================
@@ -69,7 +76,8 @@ class Regular: public Client
 {
 public:
 	Regular(string nome, double x, double y);
-	//double pay();
+	//amount that regular must pay when returns current bike ( bike->pricePerHour * hours , without discount)
+	//unsigned int pay(unsigned int hours);
 };
 
 

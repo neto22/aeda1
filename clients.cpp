@@ -4,6 +4,10 @@
 
 unsigned int Client::id_counter = 1;
 
+//=================================================================
+//Client//=========================================================
+//=================================================================
+
 //constructors
 Client::Client(string name, double x, double y)	: user_id(id_counter)
 {
@@ -12,16 +16,6 @@ Client::Client(string name, double x, double y)	: user_id(id_counter)
 	this->y = y;
 
 	id_counter++;
-}
-
-Partner::Partner(string name, double x, double y) : Client(name, x, y)
-{
-	Client::setType(1);
-}
-
-Regular::Regular(string name, double x, double y) : Client(name, x, y)
-{
-	Client::setType(2);
 }
 
 //get functions
@@ -40,7 +34,6 @@ double Client::getX() const
 {
 	return x;
 }
-
 
 double Client::getY() const
 {
@@ -84,7 +77,7 @@ void Client::setCurrentBike(Bike * b1)
 	this->currentBike = b1;
 }
 
-//other functions
+//distance to sharePoints
 
 double Client::distance(SharePoint p1)
 {
@@ -93,7 +86,6 @@ double Client::distance(SharePoint p1)
 
 	return sqrt( pow(xVector,2) + pow(yVector,2) );	//return the vector length
 }
-
 
 SharePoint * Client::closestSHtoReturn(const vector<SharePoint *> & sharePoints)
 {
@@ -194,7 +186,32 @@ SharePoint * Client::closestSHtoPeek(const vector<SharePoint *> & sharePoints, s
 	return sharePoints.at(sharePointInd);
 }
 
-//operator
+
+//=================================================================
+//Partner//========================================================
+//=================================================================
+
+//constructor
+Partner::Partner(string name, double x, double y) : Client(name, x, y)
+{
+	type = 1;
+}
+
+
+//=================================================================
+//Regular//========================================================
+//=================================================================
+
+//constructor
+Regular::Regular(string name, double x, double y) : Client(name, x, y)
+{
+	type = 2;
+}
+
+
+//=================================================================
+//Operators//======================================================
+//=================================================================
 
 ostream & operator << (ostream & os, Client c1)
 {

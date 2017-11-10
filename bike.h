@@ -12,13 +12,15 @@ class Bike
 {
 protected:
 	//vector<Uses> historyUsages;
-	static unsigned int bikeID;
+	static unsigned int bikeID;	/*acho que deviamos tirar o id das bicicletas, nao vai ter utilidade*/
 	const unsigned int id;
+	unsigned int pricePerHour;	//euros
+	unsigned int speed;
 
 public:
 	Bike();
-	virtual unsigned int getPrice() const;
 	unsigned int getID() const;
+	unsigned int getPrice() const;
 	virtual string getType() const;
 };
 
@@ -28,12 +30,9 @@ public:
 class Urban : public Bike
 {
 private:
-	unsigned int pricePerHour;
-	unsigned int speed;
 
 public:
 	Urban();
-	unsigned int getPrice() const ;
 	string getType() const;
 
 };
@@ -44,12 +43,9 @@ public:
 class SimpleUrban : public Bike
 {
 private: 
-	unsigned int pricePerHour;
-	unsigned int speed;
 
 public:
 	SimpleUrban();
-	unsigned int getPrice() const;
 	string getType() const;
 };
 
@@ -59,12 +55,10 @@ public:
 class Race : public Bike
 {
 private:
-	unsigned int pricePerHour;
-	unsigned int speed;
+
 
 public:
 	Race();
-	unsigned int getPrice() const;
 	string getType() const;
 };
 
@@ -74,12 +68,9 @@ public:
 class Child : public Bike
 {
 private:
-	unsigned int pricePerHour;
-	unsigned int speed;
 
 public:
 	Child();
-	unsigned int getPrice() const;
 	string getType() const;
 };
 

@@ -23,7 +23,7 @@ vector<Client *> Company::getClients() const
 void Company::addSharePoint(SharePoint * p1)
 {
 	for(size_t i = 0; i < sharePoints.size(); i++)
-		if(*sharePoints.at(i) == *p1)
+		if( ( sharePoints.at(i)->getX() == p1->getX() ) && ( sharePoints.at(i)->getY() == p1->getY() ))
 			throw ExistentSharePoint(p1->getX(), p1->getY());	//sharePoint already exists at this location
 
 	//if there is no sharePoint at this location
@@ -130,7 +130,7 @@ void Company::saveSharePoints(ostream & outFile)
 
 void Company::saveClients(ostream & outFile)
 {
-	outFile << "/* Type ; Name ; Id ; ( x , y ) ; Current Bike */" << endl << endl;
+	outFile << "/* Type ; ID ; Name ; ( x , y ) ; Current Bike */" << endl << endl;
 
 	for(size_t i = 0; i < clients.size(); i++)
 	{
