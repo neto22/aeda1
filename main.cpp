@@ -78,10 +78,91 @@ int main()
 			cout << endl;
 			cout << setw(5) << 1 << ". Add Client " << endl;
 			cout << setw(5) << 2 << ". Remove Client " << endl;
-			cout << setw(5) << 3 << ". Change Client's Location " << endl;
-			cout << setw(5) << 3 << ". Peek Bike " << endl;
-			cout << setw(5) << 4 << ". Return Bike " << endl << endl;
+			cout << setw(5) << 3 << ". Change Client's Location " << endl;	/*to implement*/
+			cout << setw(5) << 3 << ". Peek Bike " << endl;	/*to implement*/
+			cout << setw(5) << 4 << ". Return Bike " << endl << endl;	/*to implement*/
 
+			int option1;	//option at Client's Management
+			do
+			{
+				cout << "Choose an option (1 to 5) : "; cin >> option1;
+				if (cin.fail())
+				{
+					cin.clear();
+					cin.ignore(9999, '\n');
+					option1 = 0; //ignore error and set input to a not accepted input
+				}
+
+			} while (option1 < 1 || option1 > 5); //forces user to choose an option between 1 and 2
+			cin.ignore(); //if we want to use getline later
+
+			unsigned int ID;	//Client's ID
+			double x_client, y_client;	//Client's x and y, used at Add Client and Change Client's Location
+
+			switch(option1)
+			{
+
+			//Add Client
+			case 1:
+			{
+				string name, type;
+
+				cout << "Name : "; getline(cin, name);
+
+				do
+				{
+					cout << "Type (Partner/Regular) : "; getline(cin, type);
+
+				}while( (type != "Partner") && (type != "Regular") );
+
+				cout << "x : "; cin >> x_client;
+				while(cin.fail())
+				{
+					cin.clear();
+					cin.ignore(9999, '\n');
+					cout << "x (double) : "; cin >> x_client;
+				}
+
+				cout << "y : "; cin >> y_client;
+				while(cin.fail())
+				{
+					cin.clear();
+					cin.ignore(9999, '\n');
+					cout << "y (double) : "; cin >> y_client;
+				}
+
+				if(type == "Partner")
+					bikesCompany.addClient(new Partner(name, x_client, y_client));
+				else
+					bikesCompany.addClient(new Regular(name, x_client, y_client));
+
+				break;
+			} //for some reason needed parentheses here (other way send "permissive" issue)
+
+			//Remove Client
+			case 2:
+
+				cout << "Client's ID : "; cin >> ID;
+				while(cin.fail())
+				{
+					cin.clear();
+					cin.ignore(9999, '\n');
+					cout << "Client's ID (uns int) : "; cin >> ID;
+				}
+
+				try
+				{
+					bikesCompany.removeClient(ID);
+				}
+
+				catch(NotExistentClient & e)
+				{
+					cout << "There isn't a client with ID : " << e.getID() << endl;
+				}
+
+				break;
+
+			}
 
 			break;	//End of Driver's Management
 
@@ -235,9 +316,9 @@ int main()
 			break;	//End of SharePoint's Management
 
 
-			//*****End of Program*****//
-			case 3:
-				return 0;	//End of program
+		//*****End of Program*****//
+		case 3:
+			return 0;	//End of program
 
 		}
 
