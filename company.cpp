@@ -1,4 +1,6 @@
 #include "company.h"
+#include "display.h"
+#include "global.h"
 
 //constructor
 Company::Company()
@@ -6,8 +8,237 @@ Company::Company()
 	//just creates a company so we can save the clients and the sharepoints
 }
 
+//=========================================================================
+//=================| CLIENT MANAGEMENT |===================================
+//=========================================================================
+//DONE AND TESTED
+void Company::addingNewClient()
+{
+	//local variables
+	string name, type;		//type and name of the new client
+	double x, y;			//initial coordinates of the client
 
-//get functions
+	//getting the name of the new client
+	name = askString("Name: ");
+
+
+	//getting the type of client that is going to be
+	do
+	{
+		type = askString("Type (Partner/Regular): ");
+
+	}while( (type != "Partner") && (type != "Regular") );
+
+	//getting the coordinates
+	x = getDouble("X Coordinate: ", -1000,1000);
+	y = getDouble("Y Coordinate: ", -1000,1000);
+
+	if(type == "Partner")
+		addClient(new Partner(name,x,y));
+	else
+		addClient(new Regular(name,x,y));
+
+}
+
+void Company::removingClient()
+{
+	unsigned int ID = getInteger("Client ID:",1,9999999); //can be changed to the static
+	try
+	{
+		removeClient(ID);
+	}
+	catch(NotExistentClient & e)
+	{
+		cout << "There isn't a client with ID : " << e.getID() << endl;
+	}
+}
+//YET TO BE DONE
+void Company::changeClientLocation()
+{
+
+}
+//YET TO BE DONE
+void Company::pickBike()
+{
+
+}
+//YET TO BE DONE
+void Company::returnBike()
+{
+
+}
+
+void Company::clientManagementMenu()
+{
+	//print the menu
+	displayClientManagement();
+
+	//get the option
+	int option = getInteger("Choose an option: ",1,6);
+	switch(option)
+	{
+	case 1:
+	{
+		addingNewClient();
+		break;
+	}
+	case 2:
+	{
+		removingClient();
+		break;
+	}
+	case 3:
+	{
+		changeClientLocation();
+		break;
+	}
+	case 4:
+	{
+		pickBike();
+		break;
+	}
+	case 5:
+	{
+		returnBike();
+		break;
+	}
+	case 6:
+	{
+		cout << "Leaving Share Point Management Menu" << endl;
+		break;
+	}
+	default:
+	{
+		//it never gets to default since the menu option is delimited by getInteger()
+	}
+	}
+}
+
+//=========================================================================
+//================| SHARE POINT MANAGEMENT |===============================
+//=========================================================================
+//DONE
+void Company::addingNewSharePoint()
+{
+	//local variables
+	unsigned int capacity;		//maximum number of bikes in the sharepoint
+	double x, y;				//coordinates of the share point
+
+	//getting the coordinates
+	x = getDouble("X Coordinate: ", -1000,1000);
+	y = getDouble("Y Coordinate: ", -1000,1000);
+	capacity = getInteger("Capacity: ", 1, 500);
+
+	try
+	{
+		addSharePoint(new SharePoint(x,y,capacity));
+	}
+
+	catch(ExistentSharePoint & e)
+	{
+		cout << "Location Already Occupied : " << e.getInformation() << endl;
+	}
+}
+//DONE
+void Company::removingSharePoint()
+{
+	//local variables
+	double x, y;				//coordinates of the share point
+
+	//getting the coordinates
+	x = getDouble("X Coordinate: ", -1000,1000);
+	y = getDouble("Y Coordinate: ", -1000,1000);
+
+	try
+	{
+		removeSharePoint(x,y);
+	}
+
+	catch(NotExistentSharePoint & e)
+	{
+		cout << "Location doesn't have a SharePoint : " << e.getInformation() << endl;
+	}
+}
+
+void Company::addingBikeToSharePoint()
+{
+	//local variables
+	string bikeType;
+	double x,y;
+
+	//getting the values
+	x = getDouble("X Coordinate: ", -1000,1000);
+	y = getDouble("Y Coordinate: ", -1000,1000);
+	bikeType = askString("Bike Type: ");
+
+	//try to create the sharepoint
+	try
+	{
+	addBike(x, y, bikeType);
+	}
+
+	catch(NotExistentSharePoint & e)
+	{
+	cout << "SharePoint does not exist : ( " << e.getInformation() << endl;
+	}
+
+	catch(NotExistentBikeType & e)
+	{
+		cout << "No such Bike Type : " << e.getType() << endl;
+	}
+
+	catch(FullSharePoint & e)
+	{
+		cout << "Full SharePoint : ( " << e.getX() << " , " << e.getY() << " ) " << endl;
+	}
+}
+
+void Company::sharePointManagementMenu()
+{
+	//local variables
+	int option;
+
+	do
+	{
+		//print the menu
+		displaySharePointManagement();
+
+		//get the option
+		option = getInteger("Choose an option: ",1,4);
+		switch(option)
+		{
+		case 1:
+		{
+			addingNewSharePoint();
+			break;
+		}
+		case 2:
+		{
+			removingSharePoint();
+			break;
+		}
+		case 3:
+		{
+			addingBikeToSharePoint();
+			break;
+		}
+		case 4:
+		{
+			cout << "Leaving Share Point Management Menu" << endl;
+			break;
+		}
+		default:
+		{
+			//it never gets to default since the menu option is delimited by getInteger()
+		}
+		}
+	}while(option != 4);
+
+}
+
+//=========================================================================
+//===========================| GET |=======================================
+//=========================================================================
 vector<SharePoint *>  Company::getSharePoints() const
 {
 	return sharePoints;
@@ -19,7 +250,9 @@ vector<Client *> Company::getClients() const
 }
 
 
-//vectors management
+//=========================================================================
+//===========================| VECTOR MANAGEMENT |=========================
+//=========================================================================
 void Company::addSharePoint(SharePoint * p1)
 {
 	for(size_t i = 0; i < sharePoints.size(); i++)
@@ -114,7 +347,9 @@ void Company::addBike(double x, double y, string bikeType)
 }
 
 
-//files' management
+//=========================================================================
+//=======================| FILES MANAGEMENT |==============================
+//=========================================================================
 void Company::saveSharePoints(ostream & outFile)
 {
 	outFile << "/* ( x , y ) ; capacity ; ( Urban , SimpleUrban , Race , Child ) */" << endl << endl;

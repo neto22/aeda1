@@ -18,12 +18,46 @@ private:
 public:
 	Company();
 
-	//get functions
+	//=========================================================================
+	//=================| GET FUNCTIONS |===================================
+	//=========================================================================
 
 	vector<SharePoint *> getSharePoints() const;	//vector returned by reference so we can manipulate bikes' vector easily
 	vector<Client *> getClients() const;
 
-	//vectors management
+	//=========================================================================
+	//=================| DRIVER MANAGEMENT |===================================
+	//=========================================================================
+	//Menu for client management
+	void clientManagementMenu();
+	//Gets information from the user to add a new client
+	void addingNewClient();
+	//Gets client ID from user and deletes that client
+	void removingClient();
+	//Gets new pair of coordinates and updates the location of a given client
+	void changeClientLocation();
+	//Gets information to set a bike to a user and delete it from the sharepoint it was in
+	void pickBike();
+	//Gets id from the client/user to return the bike to the sharepoint where he is standing
+	void returnBike();
+
+
+
+	//=========================================================================
+	//================| SHARE POINT MANAGEMENT |===============================
+	//=========================================================================
+	void sharePointManagementMenu();
+
+	//Gets information from the user to create a new share point
+	void addingNewSharePoint();
+	//Removes a share point with the coordinates pointed by user
+	void removingSharePoint();
+	//Gets information about which type of bike to add to which sharepoint (already has to exist)
+	 void addingBikeToSharePoint();
+
+	 //=========================================================================
+	 //===================| VECTORS MANAGEMENT |===============================
+	 //=========================================================================
 
 	//add new SharePoint (pointer) to vector sharePointers
 	void addSharePoint(SharePoint * p1);
@@ -37,14 +71,18 @@ public:
 	void addBike(double x, double y, string bikeType);
 
 
-	//Peek and Return bikes management
+	//=========================================================================
+	//==================| PICK AND RETURN BIKES |===============================
+	//=========================================================================
 
 	//if Client with clientID has no current bike, it peeks a bikeType bike from closest SharePoint
 	void ClientPeekBike(unsigned int clientID, string bikeType);
 	//if Client with clientID has current bike, returns bike at closest not full SharePoint
 	void ClientReturnBike(unsigned int clientID);
 
-	//file's management
+	//=========================================================================
+	//======================| FILES MANAGEMENT |===============================
+	//=========================================================================
 
 	//save SharePoints' information in a file connected to ostream outFile
 	void saveSharePoints(ostream & outFile);

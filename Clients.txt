@@ -1,11 +1,16 @@
-/* Type ; Name ; Id ; ( x , y ) ; Current Bike */
+/* Type ; ID ; Name ; ( x , y ) ; Current Bike */
 
 Regular ; 1 ; UIui ; ( 9.000000 , 20.000000 ) ; Race
 Regular ; 4 ; Wahoy ; ( 5.000000 , 5.000000 ) ; NONE
-Regular ; 6 ; L ; ( 29.000000 , 29.000000 ) ; NONE
 Regular ; 8 ; J ; ( 90.000000 , 95.000000 ) ; NONE
 Regular ; 9 ; J2 ; ( 90.000000 , 99.000000 ) ; Urban
 Partner ; 10 ; Try ; ( 20.000000 , 20.000000 ) ; Child
 Regular ; 11 ; Test ; ( 21.000000 , 29.000000 ) ; NONE
 Partner ; 12 ; Teeest ; ( 0.000000 , 1.000000 ) ; NONE
 Regular ; 15 ; Example ; ( 19.000000 , 20.000000 ) ; NONE
+Regular ; 17 ; Joao Miguel ; ( 420.000000 , 120.000000 ) ; NONE
+Regular ; 18 ;  ; ( 3.000000 , 3.000000 ) ; NONE
+Regular ; 19 ; 2 ; ( 32.000000 , 2.000000 ) ; NONE
+Regular ; 20 ;  ; ( 3.000000 , 3.000000 ) ; NONE
+Partner ; 21 ;  ; ( 12.000000 , 32.000000 ) ; NONE
+Regular ; 22 ; Pedro ; ( 43.000000 , 8.000000 ) ; NONE

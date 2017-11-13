@@ -1,8 +1,8 @@
 #ifndef CLIENTS_H_
 #define CLIENTS_H_
 
-#include "ap.h"
 #include "bike.h"
+#include "global.h"
 #include "sharePoint.h"
 
 
