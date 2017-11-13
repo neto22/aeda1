@@ -37,6 +37,13 @@ public:
 	void addBike(double x, double y, string bikeType);
 
 
+	//Peek and Return bikes management
+
+	//if Client with clientID has no current bike, it peeks a bikeType bike from closest SharePoint
+	void ClientPeekBike(unsigned int clientID, string bikeType);
+	//if Client with clientID has current bike, returns bike at closest not full SharePoint
+	void ClientReturnBike(unsigned int clientID);
+
 	//file's management
 
 	//save SharePoints' information in a file connected to ostream outFile

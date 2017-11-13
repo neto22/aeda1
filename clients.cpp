@@ -40,9 +40,14 @@ double Client::getY() const
 	return y;
 }
 
-int Client::getType() const
+string Client::getType() const
 {
-	return type;
+	return ""; //only runs Partner or Reguler function
+}
+
+string Client::getInformation() const
+{
+	return "";	//only will run Partner or Regular function
 }
 
 Bike * Client::getCurrentBike() const
@@ -65,11 +70,6 @@ void Client::setX(double x)
 void Client::setY(double y)
 {
 	this->y = y;
-}
-
-void Client::setType(int type)
-{
-	this->type = type;
 }
 
 void Client::setCurrentBike(Bike * b1)
@@ -194,7 +194,27 @@ SharePoint * Client::closestSHtoPeek(const vector<SharePoint *> & sharePoints, s
 //constructor
 Partner::Partner(string name, double x, double y) : Client(name, x, y)
 {
-	type = 1;
+	monthPayment = 10;
+}
+
+//get functions
+string Partner::getInformation() const
+{
+	string result;
+
+	result = "Partner ; " + to_string(user_id) + " ; " + name + " ; ( " + to_string(x) + " , " + to_string(y) + " ) ; ";
+
+	if(currentBike == NULL)
+		result = result + "NONE";
+	else
+		result = result + currentBike->getType();
+
+	return result;
+}
+
+string Partner::getType() const
+{
+	return "Partner"; //only runs Partner or Reguler function
 }
 
 
@@ -205,28 +225,29 @@ Partner::Partner(string name, double x, double y) : Client(name, x, y)
 //constructor
 Regular::Regular(string name, double x, double y) : Client(name, x, y)
 {
-	type = 2;
+
 }
 
+//get functions
+string Regular::getInformation() const
+{
+	string result;
+
+	result = "Regular ; " + to_string(user_id) + " ; " + name + " ; ( " + to_string(x) + " , " + to_string(y) + " ) ; ";
+
+	if(currentBike == NULL)
+		result = result + "NONE";
+	else
+		result = result + currentBike->getType();
+
+	return result;
+}
+
+string Regular::getType() const
+{
+	return "Regular"; //only runs Partner or Reguler function
+}
 
 //=================================================================
 //Operators//======================================================
 //=================================================================
-
-ostream & operator << (ostream & os, Client c1)
-{
-	if(c1.getType() == 1)
-		os << "Partner";
-	else
-		os << "Regular";
-
-	os << " ; " << to_string(c1.getID()) << " ; " << c1.getName() << " ; ( " << to_string(c1.getX()) << " , " << to_string(c1.getY()) << " )";
-
-	os << " ; ";
-	if(c1.getCurrentBike() == NULL)
-		os << "NONE";
-	else
-		os << c1.getCurrentBike()->getType();
-
-	return os;
-}

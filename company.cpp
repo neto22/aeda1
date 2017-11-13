@@ -137,7 +137,7 @@ void Company::saveClients(ostream & outFile)
 		if(i != 0)
 			outFile << endl;
 
-		outFile << *clients.at(i);
+		outFile << clients.at(i)->getInformation();
 	}
 }
 

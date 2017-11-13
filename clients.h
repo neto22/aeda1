@@ -5,6 +5,7 @@
 #include "bike.h"
 #include "sharePoint.h"
 
+
 //=================================================================
 //Client//=========================================================
 //=================================================================
@@ -15,7 +16,6 @@ protected:
 	string name;
 	double x;
 	double y;
-	int type;	//Partner = 1; Regular = 2
 	Bike * currentBike = NULL;
 
 public:
@@ -28,7 +28,8 @@ public:
 	string getName() const;
 	double getX() const;
 	double getY() const;
-	int getType() const;
+	virtual string getType() const;
+	virtual string getInformation() const;
 	Bike * getCurrentBike() const;
 
 	//set functions
@@ -36,7 +37,6 @@ public:
 	void setID(unsigned int user_id);	//usefull to get clients correctly from file
 	void setX(double x);
 	void setY(double y);
-	void setType(int type);
 	void setCurrentBike(Bike * b1);
 
 	//distance to SharePoint
@@ -65,6 +65,8 @@ protected:
 
 public:
 	Partner(string nome, double x, double y);
+	string getInformation() const;
+	string getType() const;
 	//amount that partner must pay when returns current bike (-5% if hours < 20; -10% if hours >= 20)
 	//unsigned int pay(unsigned int hours);
 };
@@ -76,6 +78,8 @@ class Regular: public Client
 {
 public:
 	Regular(string nome, double x, double y);
+	string getInformation() const;
+	string getType() const;
 	//amount that regular must pay when returns current bike ( bike->pricePerHour * hours , without discount)
 	//unsigned int pay(unsigned int hours);
 };
