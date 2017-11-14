@@ -60,7 +60,21 @@ void Company::changeClientLocation()
 //YET TO BE DONE
 void Company::pickBike()
 {
+	unsigned int ID = getInteger("Client ID:",1,9999999); //can be changed to the static
+	string bikeType = askString("Bike Type: ");
 
+	try
+	{
+		clientPickBike(ID, bikeType);
+	}
+	catch(NotExistentClient & e)
+	{
+		cout << "There isn't a client with ID : " << e.getID() << endl;
+	}
+	catch(ClientAlreadyWithBike & e)
+	{
+		cout << "Client already has a bike : return before pick another " << endl;
+	}
 }
 //YET TO BE DONE
 void Company::returnBike()
@@ -249,6 +263,38 @@ vector<Client *> Company::getClients() const
 	return clients;
 }
 
+//=========================================================================
+//===========================| SEARCH |====================================
+//=========================================================================
+int Company::findSharePoint(double x, double y) const
+{
+	for(size_t i = 0; i < sharePoints.size(); i++)
+	{
+		if( (sharePoints.at(i)->getX() == x) && (sharePoints.at(i)->getY() == y) )
+		{
+			return i;
+			break;
+		}
+	}
+
+	return -1;	//didn't find SharePoint
+}
+
+int Company::findClient(unsigned int clientID) const
+{
+	//search the client in vector clients
+	for(size_t i = 0; i < clients.size(); i++)
+	{
+		if(clients.at(i)->getID() == clientID)
+		{
+			return i;	//client found
+			break;
+		}
+	}
+
+	return -1;	//didn't find client with clientID
+}
+
 
 //=========================================================================
 //===========================| VECTOR MANAGEMENT |=========================
@@ -266,16 +312,7 @@ void Company::addSharePoint(SharePoint * p1)
 
 void Company::removeSharePoint(double x, double y)
 {
-	int sharePointIndex = -1;	//index of SharePoint to remove from sharePoints vector
-
-	for(size_t i = 0; i < sharePoints.size(); i++)
-	{
-		if( (sharePoints.at(i)->getX() == x) && (sharePoints.at(i)->getY() == y) )
-		{
-			sharePointIndex = i;
-			continue;
-		}
-	}
+	int sharePointIndex = findSharePoint(x,y);	//index of SharePoint to remove from sharePoints vector
 
 	if(sharePointIndex == -1)	//there isn't a SharePoint at location (x,y)
 		throw NotExistentSharePoint(x, y);
@@ -292,17 +329,7 @@ void Company::addClient(Client * c1)
 
 void Company::removeClient(unsigned int clientID)
 {
-	int clientIndex = -1;	//index of client we want to find ( =-1 while not found)
-
-	//search the client in vector clients
-	for(size_t i = 0; i < clients.size(); i++)
-	{
-		if(clients.at(i)->getID() == clientID)
-		{
-			clientIndex = i;	//client found
-			break;
-		}
-	}
+	int clientIndex = findClient(clientID);	//index of client we want to find ( =-1 while not found)
 
 	//if client not found
 	if(clientIndex == -1)
@@ -311,7 +338,6 @@ void Company::removeClient(unsigned int clientID)
 	//if client found
 	clients.erase(clients.begin() + clientIndex);
 }
-
 
 void Company::addBike(double x, double y, string bikeType)
 {
@@ -340,10 +366,42 @@ void Company::addBike(double x, double y, string bikeType)
 	else if(bikeType == "SimpleUrban")
 		sharePoints.at(sharePointIndex)->addBike(new SimpleUrban());
 	else if(bikeType == "Race")
-			sharePoints.at(sharePointIndex)->addBike(new SimpleUrban());
+			sharePoints.at(sharePointIndex)->addBike(new Race());
 	else if(bikeType == "Child")
-			sharePoints.at(sharePointIndex)->addBike(new SimpleUrban());
+			sharePoints.at(sharePointIndex)->addBike(new Child());
 
+}
+
+
+//=========================================================================
+//==================| PICK AND RETURN BIKES |==============================
+//=========================================================================
+void Company::clientPickBike(unsigned int clientID, string bikeType)
+{
+	int clientIndex = findClient(clientID);	//index of client we want to find ( =-1 while not found)
+
+	//if client not found
+	if(clientIndex == -1)
+		throw(NotExistentClient(clientID));
+
+
+	//if client found
+	if(clients.at(clientIndex)->getCurrentBike() != NULL)
+		throw ClientAlreadyWithBike();
+
+
+	try
+	{
+		SharePoint * p1 = clients.at(clientIndex)->closestSHtoPick(sharePoints, bikeType);
+		cout << "Closest SharePoint : " << *p1 << endl;
+		p1->removeBike(bikeType);
+		clients.at(clientIndex)->setCurrentBike(stringToBike(bikeType));
+	}
+
+	catch(NotAvaibleSharePoints & e)
+	{
+		cout << "Not Avaible SharePoints with : " << e.getBykeType() << endl;
+	}
 }
 
 
@@ -450,6 +508,20 @@ Client * Company::stringToClient(string c1)
 
 
 	return result;
+}
+
+Bike * Company::stringToBike(string b1)
+{
+	if(b1 == "NONE")
+		return NULL;
+	else if(b1 == "Urban")
+		return (new Urban());
+	else if(b1 == "SimpleUrban")
+		return (new SimpleUrban());
+	else if(b1 == "Race")
+		return (new Race());
+	else
+		return (new Child());
 }
 
 void Company::readSharePoints(istream & inFile)

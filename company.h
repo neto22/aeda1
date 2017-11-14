@@ -56,6 +56,15 @@ public:
 	 void addingBikeToSharePoint();
 
 	 //=========================================================================
+	 //========================| SEARCH |=======================================
+	 //=========================================================================
+
+	 //if there is a SharePoint at (x,y), returns it index, otherwise returns -1
+	 int findSharePoint(double x, double y) const;
+	 //if there is a Client with clientID, returns it index, otherwise returns -1
+	 int findClient(unsigned int clientID) const;
+
+	 //=========================================================================
 	 //===================| VECTORS MANAGEMENT |===============================
 	 //=========================================================================
 
@@ -72,13 +81,13 @@ public:
 
 
 	//=========================================================================
-	//==================| PICK AND RETURN BIKES |===============================
+	//==================| PICK AND RETURN BIKES |==============================
 	//=========================================================================
 
 	//if Client with clientID has no current bike, it peeks a bikeType bike from closest SharePoint
-	void ClientPeekBike(unsigned int clientID, string bikeType);
+	void clientPickBike(unsigned int clientID, string bikeType);
 	//if Client with clientID has current bike, returns bike at closest not full SharePoint
-	void ClientReturnBike(unsigned int clientID);
+	void clientReturnBike(unsigned int clientID);
 
 	//=========================================================================
 	//======================| FILES MANAGEMENT |===============================
@@ -92,6 +101,8 @@ public:
 	SharePoint * stringToSharePoint(string p1);
 	//converts a string from a file of clients to a object of type Client and returns a pointer to it
 	Client * stringToClient(string c1);
+	//returns a pointer to a bike of type b1
+	Bike * stringToBike(string b1);
 	//read SharePoints from file connected to istream inFile and save them at sharePoints vector
 	void readSharePoints(istream & inFile);
 	//read Clients from file connected to istream inFile and save them at clients vector
@@ -164,6 +175,18 @@ public:
 	NotExistentBikeType(string type) {this->type = type;}
 	string getType() {return type;}
 
+};
+
+class ClientAlreadyWithBike
+{
+public:
+	ClientAlreadyWithBike() {}
+};
+
+class ClientWithoutBike
+{
+public:
+	ClientWithoutBike() {}
 };
 
 #endif

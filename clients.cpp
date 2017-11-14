@@ -126,7 +126,7 @@ SharePoint * Client::closestSHtoReturn(const vector<SharePoint *> & sharePoints)
 	return sharePoints.at(sharePointInd);
 }
 
-SharePoint * Client::closestSHtoPeek(const vector<SharePoint *> & sharePoints, string bikeType)
+SharePoint * Client::closestSHtoPick(const vector<SharePoint *> & sharePoints, string bikeType)
 {
 	int firstMin, sharePointInd;
 	double minDistance;
