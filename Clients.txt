@@ -14,3 +14,4 @@ Regular ; 19 ; 2 ; ( 32.000000 , 2.000000 ) ; NONE
 Regular ; 20 ;  ; ( 3.000000 , 3.000000 ) ; NONE
 Partner ; 21 ;  ; ( 12.000000 , 32.000000 ) ; NONE
 Regular ; 22 ; Pedro ; ( 43.000000 , 8.000000 ) ; NONE
+Partner ; 23 ; Andre ; ( 12.000000 , 32.000000 ) ; NONE

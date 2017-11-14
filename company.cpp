@@ -39,7 +39,7 @@ void Company::addingNewClient()
 		addClient(new Regular(name,x,y));
 
 }
-
+//DONE AND TESTED
 void Company::removingClient()
 {
 	unsigned int ID = getInteger("Client ID:",1,9999999); //can be changed to the static
@@ -57,7 +57,7 @@ void Company::changeClientLocation()
 {
 
 }
-//YET TO BE DONE
+//DONE AND TESTED
 void Company::pickBike()
 {
 	unsigned int ID = getInteger("Client ID:",1,9999999); //can be changed to the static
@@ -81,7 +81,7 @@ void Company::returnBike()
 {
 
 }
-
+//DONE AND TESTED
 void Company::clientManagementMenu()
 {
 	//print the menu
@@ -131,7 +131,7 @@ void Company::clientManagementMenu()
 //=========================================================================
 //================| SHARE POINT MANAGEMENT |===============================
 //=========================================================================
-//DONE
+//DONE AND TESTED
 void Company::addingNewSharePoint()
 {
 	//local variables
@@ -153,7 +153,7 @@ void Company::addingNewSharePoint()
 		cout << "Location Already Occupied : " << e.getInformation() << endl;
 	}
 }
-//DONE
+//DONE AND TESTED
 void Company::removingSharePoint()
 {
 	//local variables
@@ -173,7 +173,7 @@ void Company::removingSharePoint()
 		cout << "Location doesn't have a SharePoint : " << e.getInformation() << endl;
 	}
 }
-
+//DONE AND TESTED
 void Company::addingBikeToSharePoint()
 {
 	//local variables
@@ -206,58 +206,56 @@ void Company::addingBikeToSharePoint()
 		cout << "Full SharePoint : ( " << e.getX() << " , " << e.getY() << " ) " << endl;
 	}
 }
-
+//DONE AND TESTED
 void Company::sharePointManagementMenu()
 {
 	//local variables
 	int option;
 
-	do
-	{
-		//print the menu
-		displaySharePointManagement();
+	//print the menu
+	displaySharePointManagement();
 
-		//get the option
-		option = getInteger("Choose an option: ",1,4);
-		switch(option)
-		{
-		case 1:
-		{
-			addingNewSharePoint();
-			break;
-		}
-		case 2:
-		{
-			removingSharePoint();
-			break;
-		}
-		case 3:
-		{
-			addingBikeToSharePoint();
-			break;
-		}
-		case 4:
-		{
-			cout << "Leaving Share Point Management Menu" << endl;
-			break;
-		}
-		default:
-		{
+	//get the option
+	option = getInteger("Choose an option: ",1,4);
+	switch(option)
+	{
+	case 1:
+	{
+		addingNewSharePoint();
+		break;
+	}
+	case 2:
+	{
+		removingSharePoint();
+		break;
+	}
+	case 3:
+	{
+		addingBikeToSharePoint();
+		break;
+	}
+	case 4:
+	{
+		cout << "Leaving Share Point Management Menu" << endl;
+		break;
+	}
+	default:
+	{
 			//it never gets to default since the menu option is delimited by getInteger()
-		}
-		}
-	}while(option != 4);
+	}
+	}
 
 }
 
 //=========================================================================
 //===========================| GET |=======================================
 //=========================================================================
+//DONE AND TESTED
 vector<SharePoint *>  Company::getSharePoints() const
 {
 	return sharePoints;
 }
-
+//DONE AND TESTED
 vector<Client *> Company::getClients() const
 {
 	return clients;
@@ -266,6 +264,7 @@ vector<Client *> Company::getClients() const
 //=========================================================================
 //===========================| SEARCH |====================================
 //=========================================================================
+//DONE AND TESTED
 int Company::findSharePoint(double x, double y) const
 {
 	for(size_t i = 0; i < sharePoints.size(); i++)
@@ -279,7 +278,7 @@ int Company::findSharePoint(double x, double y) const
 
 	return -1;	//didn't find SharePoint
 }
-
+//DONE AND TESTED
 int Company::findClient(unsigned int clientID) const
 {
 	//search the client in vector clients
@@ -292,13 +291,14 @@ int Company::findClient(unsigned int clientID) const
 		}
 	}
 
-	return -1;	//didn't find client with clientID
+	return -1;			//didn't find client with clientID
 }
 
 
 //=========================================================================
 //===========================| VECTOR MANAGEMENT |=========================
 //=========================================================================
+//DONE AND TESTED
 void Company::addSharePoint(SharePoint * p1)
 {
 	for(size_t i = 0; i < sharePoints.size(); i++)
@@ -309,7 +309,7 @@ void Company::addSharePoint(SharePoint * p1)
 	sharePoints.push_back(p1);	//add p1 to sharePoints vector
 
 }
-
+//DONE AND TESTED
 void Company::removeSharePoint(double x, double y)
 {
 	int sharePointIndex = findSharePoint(x,y);	//index of SharePoint to remove from sharePoints vector
@@ -321,12 +321,12 @@ void Company::removeSharePoint(double x, double y)
 	sharePoints.erase(sharePoints.begin() + sharePointIndex);	//SharePoint (pointer) removed
 
 }
-
+//DONE AND TESTED
 void Company::addClient(Client * c1)
 {
 	clients.push_back(c1);
 }
-
+//DONE AND TESTED
 void Company::removeClient(unsigned int clientID)
 {
 	int clientIndex = findClient(clientID);	//index of client we want to find ( =-1 while not found)
@@ -338,7 +338,7 @@ void Company::removeClient(unsigned int clientID)
 	//if client found
 	clients.erase(clients.begin() + clientIndex);
 }
-
+//DONE AND TESTED
 void Company::addBike(double x, double y, string bikeType)
 {
 	int sharePointIndex = findSharePoint(x,y);	//index of SharePoint to add Bike (pointer)
@@ -361,6 +361,7 @@ void Company::addBike(double x, double y, string bikeType)
 //=========================================================================
 //==================| PICK AND RETURN BIKES |==============================
 //=========================================================================
+//DONE AND TESTED
 void Company::clientPickBike(unsigned int clientID, string bikeType)
 {
 	int clientIndex = findClient(clientID);	//index of client we want to find ( =-1 while not found)
@@ -393,6 +394,7 @@ void Company::clientPickBike(unsigned int clientID, string bikeType)
 //=========================================================================
 //=======================| FILES MANAGEMENT |==============================
 //=========================================================================
+//DONE AND TESTED
 void Company::saveSharePoints(ostream & outFile)
 {
 	outFile << "/* ( x , y ) ; capacity ; ( Urban , SimpleUrban , Race , Child ) */" << endl << endl;
@@ -405,7 +407,7 @@ void Company::saveSharePoints(ostream & outFile)
 		outFile << *sharePoints.at(i);
 	}
 }
-
+//DONE AND TESTED
 void Company::saveClients(ostream & outFile)
 {
 	outFile << "/* Type ; ID ; Name ; ( x , y ) ; Current Bike */" << endl << endl;
@@ -418,7 +420,7 @@ void Company::saveClients(ostream & outFile)
 		outFile << clients.at(i)->getInformation();
 	}
 }
-
+//DONE AND TESTED
 SharePoint * Company::stringToSharePoint(string p1)
 {
 	string irrelevant;
@@ -447,7 +449,7 @@ SharePoint * Company::stringToSharePoint(string p1)
 
 	return result;
 }
-
+//DONE AND TESTED
 Client * Company::stringToClient(string c1)
 {
 	string irrelevant, name, type, currentBike;
@@ -484,7 +486,7 @@ Client * Company::stringToClient(string c1)
 
 	return result;
 }
-
+//DONE AND TESTED
 Bike * Company::stringToBike(string b1)
 {
 	if(b1 == "NONE")
@@ -498,7 +500,7 @@ Bike * Company::stringToBike(string b1)
 	else
 		return (new Child());
 }
-
+//DONE AND TESTED
 void Company::readSharePoints(istream & inFile)
 {
 	string irrelevant;
@@ -513,7 +515,7 @@ void Company::readSharePoints(istream & inFile)
 		sharePoints.push_back(stringToSharePoint(p1));
 	}
 }
-
+//DONE AND TESTED
 void Company::readClients(istream & inFile)
 {
 	string irrelevant;

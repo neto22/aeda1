@@ -46,8 +46,8 @@ public:
 	//=========================================================================
 	//================| SHARE POINT MANAGEMENT |===============================
 	//=========================================================================
+	//Menu for share point management
 	void sharePointManagementMenu();
-
 	//Gets information from the user to create a new share point
 	void addingNewSharePoint();
 	//Removes a share point with the coordinates pointed by user
@@ -59,9 +59,9 @@ public:
 	 //========================| SEARCH |=======================================
 	 //=========================================================================
 
-	 //if there is a SharePoint at (x,y), returns it index, otherwise returns -1
+	 //if there is a SharePoint at (x,y), returns its index, otherwise returns -1
 	 int findSharePoint(double x, double y) const;
-	 //if there is a Client with clientID, returns it index, otherwise returns -1
+	 //if there is a Client with clientID, returns its index, otherwise returns -1
 	 int findClient(unsigned int clientID) const;
 
 	 //=========================================================================
