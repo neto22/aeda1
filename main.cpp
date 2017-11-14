@@ -124,25 +124,30 @@ int main()
 	int option;
 	do
 	{
-		//Main menu has 3 possible options ( from 1 to 3 inclusive )
+		//Main menu has 4 possible options ( from 1 to 4 inclusive )
 		displayMainMenu();
 
 		//get the option from the user
-		option = getInteger("Choose an option: ",1 , 3);
+		option = getInteger("Choose an option: ",1 , 4);
 
 		switch(option)
 		{
-		case 1:
+		case 1:				//opens the client managemenet menu
 		{
 			bikesCompany.clientManagementMenu();
 			break;
 		}
-		case 2:
+		case 2:				//opens the sharepoint management menu
 		{
 			bikesCompany.sharePointManagementMenu();
 			break;
 		}
-		case 3:
+		case 3:				//acts as if it is the end of the month (due to monthly payments by partner clients)
+		{
+			//preencher aqui joaozinho <3
+			break;
+		}
+		case 4:
 		{
 			cout << "End of program"<< endl;
 			break;
@@ -230,5 +235,5 @@ int main()
 
 		outFile.close();
 
-	}while(option != 3);
+	}while(option != 4);
 }

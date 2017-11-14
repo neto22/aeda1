@@ -1,6 +1,6 @@
 /* Type ; ID ; Name ; ( x , y ) ; Current Bike */
 
-Regular ; 1 ; UIui ; ( 9.000000 , 20.000000 ) ; Race
+Regular ; 1 ; UIui ; ( 10.000000 , 20.000000 ) ; Race
 Regular ; 4 ; Wahoy ; ( 5.000000 , 5.000000 ) ; NONE
 Regular ; 8 ; J ; ( 90.000000 , 95.000000 ) ; NONE
 Regular ; 9 ; J2 ; ( 90.000000 , 99.000000 ) ; Urban

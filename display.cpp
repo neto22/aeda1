@@ -9,7 +9,8 @@ void displayMainMenu()
 	cout << "::::::::::::MENU::::::::::::" << endl;
 	cout << setw(5) << 1 << ". Client's Management " << endl;
 	cout << setw(5) << 2 << ". SharePoint's Management " << endl;
-	cout << setw(5) << 3 << ". Exit " << endl;
+	cout << setw(5)	<< 3 << ". End of the month " << endl;
+	cout << setw(5) << 4 << ". Exit " << endl;
 	cout << "::::::::::::::::::::::::::::" << endl << endl;
 }
 

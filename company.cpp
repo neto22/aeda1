@@ -55,7 +55,28 @@ void Company::removingClient()
 //YET TO BE DONE
 void Company::changeClientLocation()
 {
+	//local variables
+	unsigned int currentID;		//users ID
+	double x,y;					//user new location
+	unsigned int index;			//clients index in the vector of clients
 
+	//finding out which user is requesting a location change
+	currentID = getInteger("Client ID: ", 1,99999);
+
+	//checking if it exists
+	index = findClient(currentID);
+	if(index == -1)
+		throw(NotExistentClient(currentID));
+
+	//after making sure there is a valid client
+	x = getDouble("X Coordinate: ", -1000,1000);
+	y = getDouble("Y Coordinate: ", -1000,1000);
+
+	//updating the clients information with new information
+	clients.at(index)->setX(x);
+	clients.at(index)->setY(y);
+
+	cout << "Location changed successfully!" << endl;
 }
 //DONE AND TESTED
 void Company::pickBike()
@@ -91,27 +112,34 @@ void Company::clientManagementMenu()
 	int option = getInteger("Choose an option: ",1,6);
 	switch(option)
 	{
-	case 1:
+	case 1:						//adding a new client to the company
 	{
 		addingNewClient();
 		break;
 	}
-	case 2:
+	case 2:						//removing a client from the company
 	{
 		removingClient();
 		break;
 	}
-	case 3:
+	case 3:						//changing location of a client
 	{
-		changeClientLocation();
+		try
+		{
+			changeClientLocation();
+		}
+		catch(NotExistentClient & e)
+		{
+			cout << "There isn't a client with ID : " << e.getID() << endl;
+		}
 		break;
 	}
-	case 4:
+	case 4:						//atributing a bike to a client
 	{
 		pickBike();
 		break;
 	}
-	case 5:
+	case 5:						//returning a bike back to a sharepoint (from a client)
 	{
 		returnBike();
 		break;
@@ -219,17 +247,17 @@ void Company::sharePointManagementMenu()
 	option = getInteger("Choose an option: ",1,4);
 	switch(option)
 	{
-	case 1:
+	case 1:								//adding a new sharepoint to the company
 	{
 		addingNewSharePoint();
 		break;
 	}
-	case 2:
+	case 2:								//removing a sharepoing from the company
 	{
 		removingSharePoint();
 		break;
 	}
-	case 3:
+	case 3:								//adding a bike to a sharepoint (new bike)
 	{
 		addingBikeToSharePoint();
 		break;
