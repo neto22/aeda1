@@ -50,7 +50,8 @@ public:
 
 	//payment functions
 
-	//virtual void pay(unsigned int hours);
+	virtual void pay(unsigned int hours);
+	virtual void payMonth();	//only relevant to partner
 
 
 };
@@ -69,8 +70,10 @@ public:
 	Partner(string nome, double x, double y);
 	string getInformation() const;
 	string getType() const;
-	//acumulate bike payment to bikesPayment and hoursMonth
-	//void pay(unsigned int hours);
+	//accumulate bike payment to bikesPayment and hoursMonth
+	void pay(unsigned int hours);
+	//client pays end of the month (apply discounts and reset bikesPayment and hoursMonth
+	void payMonth();
 };
 
 //=================================================================
@@ -83,7 +86,7 @@ public:
 	string getInformation() const;
 	string getType() const;
 	//print value that regular pays ( bike->pricePerHour * hours)
-	//void pay(unsigned int hours);
+	void pay(unsigned int hours);
 };
 
 

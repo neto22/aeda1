@@ -58,7 +58,7 @@ void Company::changeClientLocation()
 	//local variables
 	unsigned int currentID;		//users ID
 	double x,y;					//user new location
-	unsigned int index;			//clients index in the vector of clients
+	int index;			//clients index in the vector of clients
 
 	//finding out which user is requesting a location change
 	currentID = getInteger("Client ID: ", 1,99999);
@@ -100,6 +100,20 @@ void Company::pickBike()
 //YET TO BE DONE
 void Company::returnBike()
 {
+	unsigned int ID = getInteger("Client ID:",1,9999999); //can be changed to the static
+
+	try
+	{
+		clientReturnBike(ID);
+	}
+	catch(NotExistentClient & e)
+	{
+		cout << "There isn't a client with ID : " << e.getID() << endl;
+	}
+	catch(ClientWithoutBike & e)
+	{
+		cout << "Client doesn't have a bike : pick one if you wish " << endl;
+	}
 
 }
 //DONE AND TESTED
@@ -418,6 +432,47 @@ void Company::clientPickBike(unsigned int clientID, string bikeType)
 	}
 }
 
+//TO TEST
+void Company::clientReturnBike(unsigned int clientID)
+{
+	int clientIndex = findClient(clientID);	//index of client we want to find ( =-1 while not found)
+
+	//if client not found
+	if(clientIndex == -1)
+		throw(NotExistentClient(clientID));
+
+
+	//if client found
+	if(clients.at(clientIndex)->getCurrentBike() == NULL)
+		throw ClientWithoutBike();
+
+	try
+	{
+		SharePoint * p1 = clients.at(clientIndex)->closestSHtoReturn(sharePoints);
+		cout << "Closest SharePoint : " << *p1 << endl;
+
+		unsigned int hours = getInteger("Hours current bike was used:",1,9999);
+		clients.at(clientIndex)->pay(hours);
+
+		p1->addBike(clients.at(clientIndex)->getCurrentBike());	//add bike to sharePoint
+		clients.at(clientIndex)->setCurrentBike(NULL);			//"remove" bike from client
+
+	}
+
+	catch(NotAvaibleSharePoints & e)
+	{
+		cout << "All SharePoints Full" << endl;
+	}
+
+}
+
+//TO TEST
+void Company::endOfMonth()
+{
+	for(size_t i=0; i < clients.size(); i++)
+		if(clients.at(i)->getType() == "Partner")
+			clients.at(i)->payMonth();
+}
 
 //=========================================================================
 //=======================| FILES MANAGEMENT |==============================

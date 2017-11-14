@@ -81,13 +81,15 @@ public:
 
 
 	//=========================================================================
-	//==================| PICK AND RETURN BIKES |==============================
+	//==================| PICK/RETURN BIKES AND PAYMENTS |=====================
 	//=========================================================================
 
 	//if Client with clientID has no current bike, it peeks a bikeType bike from closest SharePoint
 	void clientPickBike(unsigned int clientID, string bikeType);
 	//if Client with clientID has current bike, returns bike at closest not full SharePoint
 	void clientReturnBike(unsigned int clientID);
+	//end of month (partners pay)
+	void endOfMonth();
 
 	//=========================================================================
 	//======================| FILES MANAGEMENT |===============================

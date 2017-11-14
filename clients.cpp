@@ -78,7 +78,6 @@ void Client::setCurrentBike(Bike * b1)
 }
 
 //distance to sharePoints
-
 double Client::distance(SharePoint p1)
 {
 	double xVector = x - p1.getX();
@@ -186,6 +185,16 @@ SharePoint * Client::closestSHtoPick(const vector<SharePoint *> & sharePoints, s
 	return sharePoints.at(sharePointInd);
 }
 
+//payment functions
+void Client::pay(unsigned int hours)
+{
+	//will only run partner or regular pay
+}
+
+void Client::payMonth()
+{
+	//will only run partner payMonth
+}
 
 //=================================================================
 //Partner//========================================================
@@ -217,6 +226,27 @@ string Partner::getType() const
 	return "Partner"; //only runs Partner or Reguler function
 }
 
+//payment functions
+void Partner::pay(unsigned int hours)
+{
+	bikesPayment = bikesPayment + currentBike->getPrice()*hours;	//nos discounted yet
+	hoursMonth = hoursMonth + hours;
+}
+
+void Partner::payMonth()
+{
+	unsigned int price;		//total value to pay, with discounts
+
+	if(hoursMonth > 20)
+		price = monthPayment + 0.90*bikesPayment;	//10% discount
+	else
+		price = monthPayment + 0.95*bikesPayment;	//5% discount
+
+	cout << name << " pays : " << price << " euros" << endl;
+
+	bikesPayment = 0;	//reset bikesPayment
+	hoursMonth = 0;		//reset hoursMonth
+}
 
 //=================================================================
 //Regular//========================================================
@@ -246,6 +276,12 @@ string Regular::getInformation() const
 string Regular::getType() const
 {
 	return "Regular"; //only runs Partner or Reguler function
+}
+
+//payment functions
+void Regular::pay(unsigned int hours)
+{
+	cout << name << " pays : " << currentBike->getPrice()*hours << endl;
 }
 
 //=================================================================

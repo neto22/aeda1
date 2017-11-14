@@ -144,7 +144,7 @@ int main()
 		}
 		case 3:				//acts as if it is the end of the month (due to monthly payments by partner clients)
 		{
-			//preencher aqui joaozinho <3
+			bikesCompany.endOfMonth();
 			break;
 		}
 		case 4:
