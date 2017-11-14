@@ -341,16 +341,7 @@ void Company::removeClient(unsigned int clientID)
 
 void Company::addBike(double x, double y, string bikeType)
 {
-	int sharePointIndex = -1;	//index of SharePoint to add Bike (pointer)
-
-	for(size_t i = 0; i < sharePoints.size(); i++)
-	{
-		if( (sharePoints.at(i)->getX() == x) && (sharePoints.at(i)->getY() == y) )
-		{
-			sharePointIndex = i;
-			continue;
-		}
-	}
+	int sharePointIndex = findSharePoint(x,y);	//index of SharePoint to add Bike (pointer)
 
 	if(sharePointIndex == -1)	//there isn't a SharePoint at location (x,y)
 		throw NotExistentSharePoint(x, y);
@@ -361,14 +352,8 @@ void Company::addBike(double x, double y, string bikeType)
 	if(sharePoints.at(sharePointIndex)->isFull())
 		throw FullSharePoint(x,y);	//SharePoint can´t take more bikes
 
-	if(bikeType == "Urban")
-		sharePoints.at(sharePointIndex)->addBike(new Urban());
-	else if(bikeType == "SimpleUrban")
-		sharePoints.at(sharePointIndex)->addBike(new SimpleUrban());
-	else if(bikeType == "Race")
-			sharePoints.at(sharePointIndex)->addBike(new Race());
-	else if(bikeType == "Child")
-			sharePoints.at(sharePointIndex)->addBike(new Child());
+	//if we have all conditions to add bike
+	sharePoints.at(sharePointIndex)->addBike(stringToBike(bikeType));
 
 }
 
@@ -495,17 +480,7 @@ Client * Company::stringToClient(string c1)
 
 	result->setID(id);
 
-	if(currentBike == "NONE")
-		result->setCurrentBike(NULL);
-	else if(currentBike == "Urban")
-		result->setCurrentBike(new Urban());
-	else if(currentBike == "SimpleUrban")
-		result->setCurrentBike(new SimpleUrban());
-	else if(currentBike == "Race")
-		result->setCurrentBike(new Race());
-	else
-		result->setCurrentBike(new Child());
-
+	result->setCurrentBike(stringToBike(currentBike));
 
 	return result;
 }

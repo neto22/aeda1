@@ -50,7 +50,7 @@ public:
 
 	//payment functions
 
-	//virtual unsigned int pay();	//amount to pay for a bike is different (if client is a partner or regular)
+	//virtual void pay(unsigned int hours);
 
 
 };
@@ -61,14 +61,16 @@ public:
 class Partner: public Client
 {
 protected:
-	unsigned int monthPayment;	//amount that partner pays monthly to get discounts
+	unsigned int monthPayment;		//amount that partner pays monthly to get discounts
+	unsigned int bikesPayment = 0;	//amount to pay for bikes rented along month
+	unsigned int hoursMonth = 0;	//hours of rent
 
 public:
 	Partner(string nome, double x, double y);
 	string getInformation() const;
 	string getType() const;
-	//amount that partner must pay when returns current bike (-5% if hours < 20; -10% if hours >= 20)
-	//unsigned int pay(unsigned int hours);
+	//acumulate bike payment to bikesPayment and hoursMonth
+	//void pay(unsigned int hours);
 };
 
 //=================================================================
@@ -80,13 +82,10 @@ public:
 	Regular(string nome, double x, double y);
 	string getInformation() const;
 	string getType() const;
-	//amount that regular must pay when returns current bike ( bike->pricePerHour * hours , without discount)
-	//unsigned int pay(unsigned int hours);
+	//print value that regular pays ( bike->pricePerHour * hours)
+	//void pay(unsigned int hours);
 };
 
-
-//operator that automatically turns a Client into a string
-ostream & operator << (ostream & os, Client c1);
 
 //=================================================================
 //Exeptions//======================================================
