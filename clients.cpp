@@ -9,7 +9,7 @@ unsigned int Client::id_counter = 1;
 //=================================================================
 
 //constructors
-Client::Client(string name, double x, double y)	: user_id(id_counter)
+Client::Client(string name, int x, int y)	: user_id(id_counter)
 {
 	this->name = name;
 	this->x = x;
@@ -30,12 +30,12 @@ string Client::getName() const
 	return name;
 }
 
-double Client::getX() const
+int Client::getX() const
 {
 	return x;
 }
 
-double Client::getY() const
+int Client::getY() const
 {
 	return y;
 }
@@ -62,12 +62,12 @@ void Client::setID(unsigned int user_id)
 	this->user_id = user_id;
 }
 
-void Client::setX(double x)
+void Client::setX(int x)
 {
 	this->x = x;
 }
 
-void Client::setY(double y)
+void Client::setY(int y)
 {
 	this->y = y;
 }
@@ -201,7 +201,7 @@ void Client::payMonth()
 //=================================================================
 
 //constructor
-Partner::Partner(string name, double x, double y) : Client(name, x, y)
+Partner::Partner(string name, int x, int y) : Client(name, x, y)
 {
 	monthPayment = 10;
 }
@@ -253,7 +253,7 @@ void Partner::payMonth()
 //=================================================================
 
 //constructor
-Regular::Regular(string name, double x, double y) : Client(name, x, y)
+Regular::Regular(string name, int x, int y) : Client(name, x, y)
 {
 
 }

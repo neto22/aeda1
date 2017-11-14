@@ -12,20 +12,20 @@ using namespace std;
 class SharePoint
 {
 protected:
-	double x;
-	double y;
+	int x;
+	int y;
 	unsigned int capacity;
 	vector<Bike*> bikes;
 
 public:
-	SharePoint(double x, double y, unsigned int capacity);
+	SharePoint(int x, int y, unsigned int capacity);
 
 	//get functions
 
 	//returns x coordinate
-	double getX() const;
+	int getX() const;
 	//returns y coordinate
-	double getY() const;
+	int getY() const;
 	//returns the vector of bikes on the share point
 	vector<Bike*> getBikes() const;
 	//returns the number of bikes on the share point

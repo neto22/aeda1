@@ -14,20 +14,20 @@ class Client
 protected:
 	unsigned int user_id;
 	string name;
-	double x;
-	double y;
+	int x;
+	int y;
 	Bike * currentBike = NULL;
 
 public:
-	Client(string nome, double x, double y);
+	Client(string name,int x, int y);
 	static unsigned int id_counter;
 
 	//get functions
 
 	unsigned int getID() const;
 	string getName() const;
-	double getX() const;
-	double getY() const;
+	int getX() const;
+	int getY() const;
 	virtual string getType() const;
 	virtual string getInformation() const;
 	Bike * getCurrentBike() const;
@@ -35,15 +35,15 @@ public:
 	//set functions
 
 	void setID(unsigned int user_id);	//usefull to get clients correctly from file
-	void setX(double x);
-	void setY(double y);
+	void setX(int x);
+	void setY(int y);
 	void setCurrentBike(Bike * b1);
 
 	//distance to SharePoint
 
 	//calculates the distance between the client and a SharePoint (given as argument)
 	double distance(SharePoint p1);
-	//returns closest SharePoint (pointer) to Client to peek a bike of type bikeType
+	//returns closest SharePoint (pointer) to Client to pick a bike of type bikeType
 	SharePoint * closestSHtoPick(const vector<SharePoint *> & sharePoints, string bikeType);
 	//returns closest not full SharePoint (pointer) to Client
 	SharePoint * closestSHtoReturn(const vector<SharePoint *> & sharePoints);
@@ -67,7 +67,7 @@ protected:
 	unsigned int hoursMonth = 0;	//hours of rent
 
 public:
-	Partner(string nome, double x, double y);
+	Partner(string name, int x, int y);
 	string getInformation() const;
 	string getType() const;
 	//accumulate bike payment to bikesPayment and hoursMonth
@@ -77,12 +77,12 @@ public:
 };
 
 //=================================================================
-//Partner//========================================================
+//Regular//========================================================
 //=================================================================
 class Regular: public Client
 {
 public:
-	Regular(string nome, double x, double y);
+	Regular(string name, int x, int y);
 	string getInformation() const;
 	string getType() const;
 	//print value that regular pays ( bike->pricePerHour * hours)

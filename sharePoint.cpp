@@ -2,7 +2,7 @@
 
 
 //constructor
-SharePoint::SharePoint(double x, double y, unsigned int capacity)
+SharePoint::SharePoint(int x, int y, unsigned int capacity)
 {
 	this->x = x;
 	this->y = y;
@@ -11,12 +11,12 @@ SharePoint::SharePoint(double x, double y, unsigned int capacity)
 
 
 //get functions
-double SharePoint::getX() const
+int SharePoint::getX() const
 {
 	return x;
 }
 
-double SharePoint::getY() const
+int SharePoint::getY() const
 {
 	return y;
 }
@@ -55,7 +55,6 @@ bool SharePoint::addBike(Bike* b1)
 
 	else
 		return false;
-
 
 }
 

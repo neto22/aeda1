@@ -60,7 +60,7 @@ public:
 	 //=========================================================================
 
 	 //if there is a SharePoint at (x,y), returns its index, otherwise returns -1
-	 int findSharePoint(double x, double y) const;
+	 int findSharePoint(int x, int y) const;
 	 //if there is a Client with clientID, returns its index, otherwise returns -1
 	 int findClient(unsigned int clientID) const;
 
@@ -71,13 +71,13 @@ public:
 	//add new SharePoint (pointer) to vector sharePointers
 	void addSharePoint(SharePoint * p1);
 	//remove SharePoint (pointer) at location (x,y)
-	void removeSharePoint(double x, double y);
+	void removeSharePoint(int x, int y);
 	//add new client (pointer) to vector clients
 	void addClient(Client * c1);
 	//remove client with id clientID
 	void removeClient(unsigned int clientID);
 	//add bike (pointer) of type bikeType to SharePoint at location (x,y)
-	void addBike(double x, double y, string bikeType);
+	void addBike(int x, int y, string bikeType);
 
 
 	//=========================================================================
@@ -86,7 +86,7 @@ public:
 
 	//if Client with clientID has no current bike, it peeks a bikeType bike from closest SharePoint
 	void clientPickBike(unsigned int clientID, string bikeType);
-	//if Client with clientID has current bike, returns bike at closest not full SharePoint
+	//if Client with clientID has current bike, returns bike at closest not full SharePoint and pays/accumulate amount too pay
 	void clientReturnBike(unsigned int clientID);
 	//end of month (partners pay)
 	void endOfMonth();
@@ -121,10 +121,10 @@ public:
 class ExistentSharePoint
 {
 private:
-	double x, y;
+	int x, y;
 
 public:
-	ExistentSharePoint(double x, double y) {this->x = x; this->y = y;}
+	ExistentSharePoint(int x, int y) {this->x = x; this->y = y;}
 	string getInformation() {return ("( " + to_string(x) + " , " + to_string(y) + ") ");}
 };
 
@@ -133,10 +133,10 @@ public:
 class NotExistentSharePoint
 {
 private:
-	double x, y;
+	int x, y;
 
 public:
-	NotExistentSharePoint(double x, double y) {this->x = x; this->y = y;}
+	NotExistentSharePoint(int x, int y) {this->x = x; this->y = y;}
 	string getInformation() {return ("( " + to_string(x) + " , " + to_string(y) + ") ");}
 };
 
@@ -158,12 +158,12 @@ public:
 class FullSharePoint
 {
 private:
-	double x, y;
+	int x, y;
 
 public:
-	FullSharePoint(double x, double y) {this->x = x; this->y = y;}
-	double getX() {return x;}
-	double getY() {return y;}
+	FullSharePoint(int x, int y) {this->x = x; this->y = y;}
+	int getX() {return x;}
+	int getY() {return y;}
 
 };
 

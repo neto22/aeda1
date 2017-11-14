@@ -16,7 +16,7 @@ void Company::addingNewClient()
 {
 	//local variables
 	string name, type;		//type and name of the new client
-	double x, y;			//initial coordinates of the client
+	int x, y;			//initial coordinates of the client
 
 	//getting the name of the new client
 	name = askString("Name: ");
@@ -30,8 +30,8 @@ void Company::addingNewClient()
 	}while( (type != "Partner") && (type != "Regular") );
 
 	//getting the coordinates
-	x = getDouble("X Coordinate: ", -1000,1000);
-	y = getDouble("Y Coordinate: ", -1000,1000);
+	x = getInteger("X Coordinate: ", -1000,1000);
+	y = getInteger("Y Coordinate: ", -1000,1000);
 
 	if(type == "Partner")
 		addClient(new Partner(name,x,y));
@@ -57,7 +57,7 @@ void Company::changeClientLocation()
 {
 	//local variables
 	unsigned int currentID;		//users ID
-	double x,y;					//user new location
+	int x,y;					//user new location
 	int index;			//clients index in the vector of clients
 
 	//finding out which user is requesting a location change
@@ -69,8 +69,8 @@ void Company::changeClientLocation()
 		throw(NotExistentClient(currentID));
 
 	//after making sure there is a valid client
-	x = getDouble("X Coordinate: ", -1000,1000);
-	y = getDouble("Y Coordinate: ", -1000,1000);
+	x = getInteger("X Coordinate: ", -1000,1000);
+	y = getInteger("Y Coordinate: ", -1000,1000);
 
 	//updating the clients information with new information
 	clients.at(index)->setX(x);
@@ -178,11 +178,11 @@ void Company::addingNewSharePoint()
 {
 	//local variables
 	unsigned int capacity;		//maximum number of bikes in the sharepoint
-	double x, y;				//coordinates of the share point
+	int x, y;				//coordinates of the share point
 
 	//getting the coordinates
-	x = getDouble("X Coordinate: ", -1000,1000);
-	y = getDouble("Y Coordinate: ", -1000,1000);
+	x = getInteger("X Coordinate: ", -1000,1000);
+	y = getInteger("Y Coordinate: ", -1000,1000);
 	capacity = getInteger("Capacity: ", 1, 500);
 
 	try
@@ -199,11 +199,11 @@ void Company::addingNewSharePoint()
 void Company::removingSharePoint()
 {
 	//local variables
-	double x, y;				//coordinates of the share point
+	int x, y;				//coordinates of the share point
 
 	//getting the coordinates
-	x = getDouble("X Coordinate: ", -1000,1000);
-	y = getDouble("Y Coordinate: ", -1000,1000);
+	x = getInteger("X Coordinate: ", -1000,1000);
+	y = getInteger("Y Coordinate: ", -1000,1000);
 
 	try
 	{
@@ -220,11 +220,11 @@ void Company::addingBikeToSharePoint()
 {
 	//local variables
 	string bikeType;
-	double x,y;
+	int x,y;
 
 	//getting the values
-	x = getDouble("X Coordinate: ", -1000,1000);
-	y = getDouble("Y Coordinate: ", -1000,1000);
+	x = getInteger("X Coordinate: ", -1000,1000);
+	y = getInteger("Y Coordinate: ", -1000,1000);
 	bikeType = askString("Bike Type: ");
 
 	//try to create the sharepoint
@@ -307,7 +307,7 @@ vector<Client *> Company::getClients() const
 //===========================| SEARCH |====================================
 //=========================================================================
 //DONE AND TESTED
-int Company::findSharePoint(double x, double y) const
+int Company::findSharePoint(int x, int y) const
 {
 	for(size_t i = 0; i < sharePoints.size(); i++)
 	{
@@ -352,7 +352,7 @@ void Company::addSharePoint(SharePoint * p1)
 
 }
 //DONE AND TESTED
-void Company::removeSharePoint(double x, double y)
+void Company::removeSharePoint(int x, int y)
 {
 	int sharePointIndex = findSharePoint(x,y);	//index of SharePoint to remove from sharePoints vector
 
@@ -381,7 +381,7 @@ void Company::removeClient(unsigned int clientID)
 	clients.erase(clients.begin() + clientIndex);
 }
 //DONE AND TESTED
-void Company::addBike(double x, double y, string bikeType)
+void Company::addBike(int x, int y, string bikeType)
 {
 	int sharePointIndex = findSharePoint(x,y);	//index of SharePoint to add Bike (pointer)
 
@@ -422,6 +422,7 @@ void Company::clientPickBike(unsigned int clientID, string bikeType)
 	{
 		SharePoint * p1 = clients.at(clientIndex)->closestSHtoPick(sharePoints, bikeType);
 		cout << "Closest SharePoint : " << *p1 << endl;
+		cout << "Distance : " << clients.at(clientIndex)->distance(*p1) << endl;
 		p1->removeBike(bikeType);
 		clients.at(clientIndex)->setCurrentBike(stringToBike(bikeType));
 	}
@@ -450,11 +451,12 @@ void Company::clientReturnBike(unsigned int clientID)
 	{
 		SharePoint * p1 = clients.at(clientIndex)->closestSHtoReturn(sharePoints);
 		cout << "Closest SharePoint : " << *p1 << endl;
+		cout << "Distance : " << clients.at(clientIndex)->distance(*p1) << endl;
 
 		unsigned int hours = getInteger("Hours current bike was used:",1,9999);
 		clients.at(clientIndex)->pay(hours);
 
-		p1->addBike(clients.at(clientIndex)->getCurrentBike());	//add bike to sharePoint
+		p1->addBike(clients.at(clientIndex)->getCurrentBike());	//add bike (pointer) to sharePoint
 		clients.at(clientIndex)->setCurrentBike(NULL);			//"remove" bike from client
 
 	}
@@ -507,7 +509,7 @@ void Company::saveClients(ostream & outFile)
 SharePoint * Company::stringToSharePoint(string p1)
 {
 	string irrelevant;
-	double x,y;
+	int x,y;
 	unsigned int capacity, numUrban, numSimpleUrban, numRace, numChild;
 
 	istringstream iStr(p1);
@@ -536,7 +538,7 @@ SharePoint * Company::stringToSharePoint(string p1)
 Client * Company::stringToClient(string c1)
 {
 	string irrelevant, name, type, currentBike;
-	double x,y;
+	int x,y;
 	unsigned int id;
 	char next;
 
