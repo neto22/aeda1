@@ -123,7 +123,7 @@ void Company::clientManagementMenu()
 	displayClientManagement();
 
 	//get the option
-	int option = getInteger("Choose an option: ",1,6);
+	int option = getInteger("Choose an option: ",1,8);
 	switch(option)
 	{
 	case 1:						//adding a new client to the company
@@ -160,7 +160,17 @@ void Company::clientManagementMenu()
 	}
 	case 6:
 	{
-		cout << "Leaving Share Point Management Menu" << endl;
+		showClients("Partner");
+		break;
+	}
+	case 7:
+	{
+		showClients("Regular");
+		break;
+	}
+	case 8:
+	{
+		cout << "Leaving Clients Management Menu" << endl;
 		break;
 	}
 	default:
@@ -258,7 +268,7 @@ void Company::sharePointManagementMenu()
 	displaySharePointManagement();
 
 	//get the option
-	option = getInteger("Choose an option: ",1,4);
+	option = getInteger("Choose an option: ",1,5);
 	switch(option)
 	{
 	case 1:								//adding a new sharepoint to the company
@@ -277,6 +287,11 @@ void Company::sharePointManagementMenu()
 		break;
 	}
 	case 4:
+	{
+		showSharePoints();
+		break;
+	}
+	case 5:
 	{
 		cout << "Leaving Share Point Management Menu" << endl;
 		break;
@@ -397,6 +412,19 @@ void Company::addBike(int x, int y, string bikeType)
 	//if we have all conditions to add bike
 	sharePoints.at(sharePointIndex)->addBike(stringToBike(bikeType));
 
+}
+//TO BE TESTED
+void Company::showClients(string clientType) const
+{
+	for(size_t i = 0; i < clients.size(); i++)
+		if(clients.at(i)->getType() == clientType)
+			cout << clients.at(i)->getInformation() << endl;
+}
+//TO BE TESTED
+void Company::showSharePoints() const
+{
+	for(size_t i = 0; i < sharePoints.size(); i++)
+		cout << *sharePoints.at(i) << endl;
 }
 
 

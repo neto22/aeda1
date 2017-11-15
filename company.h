@@ -155,6 +155,17 @@ public:
 	 * @return void
 	 */
 	void addBike(int x, int y, string bikeType);
+	/**
+	 * @brief show Clients with type clientType from Company
+	 * @param clientType type of client
+	 * @return void
+	 */
+	void showClients(string clientType) const;
+	/**
+	 * @brief show SharePoints from Company
+	 * @return void
+	 */
+	void showSharePoints() const;
 
 
 	//=========================================================================
