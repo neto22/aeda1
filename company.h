@@ -51,28 +51,28 @@ public:
 	 * @brief Gets information from the user to add a new client
 	 * @return void
 	 */
-	void addingNewClient();
+	void tryAddNewClient();
 	/**
 	 * @brief Gets information from the user to add a new client
 	 * @return void
 	 */
 	//Gets client ID from user and deletes that client
-	void removingClient();
+	void tryRemoveClient();
 	/**
 	 * @brief Gets new pair of coordinates and updates the location of a given client
 	 * @return void
 	 */
-	void changeClientLocation();
+	void tryChangeClientLocation();
 	/**
 	 * @brief Gets information to set a bike to a user and delete it from the sharepoint it was in
 	 * @return void
 	 */
-	void pickBike();
+	void tryPickBike();
 	/**
 	 * @brief Gets id from the client/user to return the bike to the sharepoint where he is standing
 	 * @return void
 	 */
-	void returnBike();
+	void tryReturnBike();
 
 
 
@@ -89,17 +89,17 @@ public:
 	 * @brief Gets information from the user to create a new share point
 	 * @return void
 	 */
-	void addingNewSharePoint();
+	void tryAddNewSharePoint();
 	/**
 	 * @brief Removes a share point with the coordinates pointed by user
 	 * @return void
 	 */
-	void removingSharePoint();
+	void tryRemoveSharePoint();
 	/**
 	 * @brief Gets information about which type of bike to add to which sharepoint (already has to exist)
 	 * @return void
 	 */
-	 void addingBikeToSharePoint();
+	 void tryAddBikeToSharePoint();
 
 	 //=========================================================================
 	 //========================| SEARCH |=======================================
@@ -147,6 +147,14 @@ public:
 	 * @return void
 	 */
 	void removeClient(unsigned int clientID);
+	/**
+	 * @brief Change client with id clientID location to (x,y)
+	 * @param clientID ID of the client
+	 * @param x - new x-coordinate
+	 * @param y - new y-coordinate
+	 * @return void
+	 */
+	void changeClientLocation(unsigned int clientID, int x, int y);
 	 /**
 	 * @brief Add bike (pointer) of type bikeType to SharePoint at location (x,y)
 	 * @param x x-coordinate

@@ -281,7 +281,7 @@ string Regular::getType() const
 //payment functions
 void Regular::pay(unsigned int hours)
 {
-	cout << name << " pays : " << currentBike->getPrice()*hours << endl;
+	cout << name << " pays : " << currentBike->getPrice()*hours << " euros " << endl;
 }
 
 //=================================================================

@@ -12,7 +12,7 @@ Company::Company()
 //=================| CLIENT MANAGEMENT |===================================
 //=========================================================================
 //DONE AND TESTED
-void Company::addingNewClient()
+void Company::tryAddNewClient()
 {
 	//local variables
 	string name, type;		//type and name of the new client
@@ -40,7 +40,7 @@ void Company::addingNewClient()
 
 }
 //DONE AND TESTED
-void Company::removingClient()
+void Company::tryRemoveClient()
 {
 	unsigned int ID = getInteger("Client ID:",1,9999999); //can be changed to the static
 	try
@@ -51,35 +51,32 @@ void Company::removingClient()
 	{
 		cout << "There isn't a client with ID : " << e.getID() << endl;
 	}
+
 }
 //YET TO BE DONE
-void Company::changeClientLocation()
+void Company::tryChangeClientLocation()
 {
 	//local variables
 	unsigned int currentID;		//users ID
 	int x,y;					//user new location
-	int index;			//clients index in the vector of clients
 
 	//finding out which user is requesting a location change
 	currentID = getInteger("Client ID: ", 1,99999);
-
-	//checking if it exists
-	index = findClient(currentID);
-	if(index == -1)
-		throw(NotExistentClient(currentID));
-
-	//after making sure there is a valid client
 	x = getInteger("X Coordinate: ", -1000,1000);
 	y = getInteger("Y Coordinate: ", -1000,1000);
 
-	//updating the clients information with new information
-	clients.at(index)->setX(x);
-	clients.at(index)->setY(y);
+	try
+	{
+		changeClientLocation(currentID, x,y);
+	}
+	catch(NotExistentClient & e)
+	{
+		cout << "There isn't a client with ID : " << e.getID() << endl;
+	}
 
-	cout << "Location changed successfully!" << endl;
 }
 //DONE AND TESTED
-void Company::pickBike()
+void Company::tryPickBike()
 {
 	unsigned int ID = getInteger("Client ID:",1,9999999); //can be changed to the static
 	string bikeType = askString("Bike Type: ");
@@ -96,9 +93,11 @@ void Company::pickBike()
 	{
 		cout << "Client already has a bike : return before pick another " << endl;
 	}
+
+
 }
 //YET TO BE DONE
-void Company::returnBike()
+void Company::tryReturnBike()
 {
 	unsigned int ID = getInteger("Client ID:",1,9999999); //can be changed to the static
 
@@ -128,34 +127,27 @@ void Company::clientManagementMenu()
 	{
 	case 1:						//adding a new client to the company
 	{
-		addingNewClient();
+		tryAddNewClient();
 		break;
 	}
 	case 2:						//removing a client from the company
 	{
-		removingClient();
+		tryRemoveClient();
 		break;
 	}
 	case 3:						//changing location of a client
 	{
-		try
-		{
-			changeClientLocation();
-		}
-		catch(NotExistentClient & e)
-		{
-			cout << "There isn't a client with ID : " << e.getID() << endl;
-		}
+		tryChangeClientLocation();
 		break;
 	}
 	case 4:						//atributing a bike to a client
 	{
-		pickBike();
+		tryPickBike();
 		break;
 	}
 	case 5:						//returning a bike back to a sharepoint (from a client)
 	{
-		returnBike();
+		tryReturnBike();
 		break;
 	}
 	case 6:
@@ -184,7 +176,7 @@ void Company::clientManagementMenu()
 //================| SHARE POINT MANAGEMENT |===============================
 //=========================================================================
 //DONE AND TESTED
-void Company::addingNewSharePoint()
+void Company::tryAddNewSharePoint()
 {
 	//local variables
 	unsigned int capacity;		//maximum number of bikes in the sharepoint
@@ -204,9 +196,10 @@ void Company::addingNewSharePoint()
 	{
 		cout << "Location Already Occupied : " << e.getInformation() << endl;
 	}
+
 }
 //DONE AND TESTED
-void Company::removingSharePoint()
+void Company::tryRemoveSharePoint()
 {
 	//local variables
 	int x, y;				//coordinates of the share point
@@ -226,7 +219,7 @@ void Company::removingSharePoint()
 	}
 }
 //DONE AND TESTED
-void Company::addingBikeToSharePoint()
+void Company::tryAddBikeToSharePoint()
 {
 	//local variables
 	string bikeType;
@@ -273,17 +266,17 @@ void Company::sharePointManagementMenu()
 	{
 	case 1:								//adding a new sharepoint to the company
 	{
-		addingNewSharePoint();
+		tryAddNewSharePoint();
 		break;
 	}
 	case 2:								//removing a sharepoing from the company
 	{
-		removingSharePoint();
+		tryRemoveSharePoint();
 		break;
 	}
 	case 3:								//adding a bike to a sharepoint (new bike)
 	{
-		addingBikeToSharePoint();
+		tryAddBikeToSharePoint();
 		break;
 	}
 	case 4:
@@ -359,7 +352,7 @@ int Company::findClient(unsigned int clientID) const
 void Company::addSharePoint(SharePoint * p1)
 {
 	for(size_t i = 0; i < sharePoints.size(); i++)
-		if( ( sharePoints.at(i)->getX() == p1->getX() ) && ( sharePoints.at(i)->getY() == p1->getY() ))
+		if(*sharePoints.at(i) == *p1)
 			throw ExistentSharePoint(p1->getX(), p1->getY());	//sharePoint already exists at this location
 
 	//if there is no sharePoint at this location
@@ -394,6 +387,19 @@ void Company::removeClient(unsigned int clientID)
 
 	//if client found
 	clients.erase(clients.begin() + clientIndex);
+}
+//TO TEST
+void Company::changeClientLocation(unsigned int clientID, int x, int y)
+{
+	int clientIndex = findClient(clientID);
+
+	//if client not found
+	if(clientIndex == -1)
+		throw(NotExistentClient(clientID));
+
+	//if client found
+	clients.at(clientIndex)->setX(x);
+	clients.at(clientIndex)->setY(y);
 }
 //DONE AND TESTED
 void Company::addBike(int x, int y, string bikeType)
