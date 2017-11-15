@@ -223,7 +223,7 @@ string Partner::getInformation() const
 
 string Partner::getType() const
 {
-	return "Partner"; //only runs Partner or Reguler function
+	return "Partner"; //only runs Partner or Regular function
 }
 
 //payment functions

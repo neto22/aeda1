@@ -47,6 +47,7 @@ bool SharePoint::isFull() const
 
 bool SharePoint::addBike(Bike* b1)
 {
+
 	if(!isFull())
 	{
 		bikes.push_back(b1);
@@ -95,6 +96,7 @@ unsigned int SharePoint::countBikes(string bikeType) const
 //operators
 bool SharePoint::operator == (SharePoint p2)
 {
+
 	if( (x == p2.x) && (y == p2.y) )	//SharePointers have the same location
 		return true;
 	else

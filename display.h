@@ -1,11 +1,20 @@
 #ifndef DISPLAY_H
 #define DISPLAY_H
 
-//displays the numbered options of the main menu
+/**
+ * @brief Displays the numbered options of the main menu
+ * @return void
+ */
 void displayMainMenu();
-//displays the numbered options for the client managemente menu
+/**
+ * @brief Displays the numbered options for the client management menu
+ * @return void
+ */
 void displayClientManagement();
-//displays the numbered options for the sharepoint management menu
+/**
+ * @brief Displays the numbered options for the sharepoint management menu
+ * @return void
+ */
 void displaySharePointManagement();
 
 

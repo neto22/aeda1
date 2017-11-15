@@ -9,6 +9,10 @@ using namespace std;
 //=================================================================
 //SharePoint//=====================================================
 //=================================================================
+
+/**
+ * @brief SharePoint class has x and y coordinates, capacity and a vector with the bikes allocated there
+ */
 class SharePoint
 {
 protected:
@@ -18,41 +22,79 @@ protected:
 	vector<Bike*> bikes;
 
 public:
+
+	/**
+	 * @brief SharePoint constructor
+	 * @param x x-coordinate
+	 * @param y y-coordinate
+	 * @param capacity maximum bikes to have simultaneous at SharePoint
+	 */
 	SharePoint(int x, int y, unsigned int capacity);
 
 	//get functions
 
-	//returns x coordinate
+	/**
+	 * @return x-coordinate
+	 */
 	int getX() const;
-	//returns y coordinate
+	/**
+	 * @return y-coordinate
+	 */
 	int getY() const;
-	//returns the vector of bikes on the share point
+	/**
+	 * @return vector with all the bikes available on this SharePoint
+	 */
 	vector<Bike*> getBikes() const;
-	//returns the number of bikes on the share point
+	/**
+	 * @return number of bikes on this SharePoint
+	 */
 	unsigned int getNumBikes() const;
-	//returns the capacity of the share point
+	/**
+	 * @return capacity (maximum bikes possible to have on this SharePoint)
+	 */
 	unsigned int getCapacity() const;
 
 	//boolean and management functions
 
-	//checks if the share point is full
+	/**
+	 * @brief checks if SharePoint is full
+	 * if there's space available @return false else @return true
+	 */
 	bool isFull() const;
-	//removes a bike and if sucessuful on doing so returns true, false otherwise
+	/**
+	 * @brief removes bike to vector bikes if SharePoint isn't empty
+	 * if successful @return true else @return false
+	 */
 	bool removeBike(string bikeType);	//not done
-	//adds a bike, true if sucesseful false otherwise
+	/**
+	 * @brief adds bike to vector bikes if SharePoint isn't full
+	 * if successful @return true else @return false
+	 */
+
 	bool addBike(Bike* b1);
 
 	//counting functions
 
-	//return number of bikes of type bikeType
+
+	/**
+	 * @param bikeType type of bike
+	 * @return number of bikes from a specific type
+	 */
 	unsigned int countBikes(string bikeType) const;
 
+	/**
+	 * @brief checks if 2 SharePoints are the same by comparing their x and y coordinates
+	 * if theirs position are the same @return true else @return false
+	 */
 	//operator to see if 2 SharePoints have the same location
 	bool operator == (SharePoint p2);
 
 };
 
-//other operator, that automatically turns a SharePoint into a string
+/**
+ * converts SharePoint into a string in the format of:
+ * ( x , y ) ; capacity ; ( number_of_urban_bikes ; number_of_simpleurban_bikes ; number_of_race_bikes ; number_of_child_bikes )
+ */
 ostream & operator << (ostream & os, SharePoint p1);
 
 
