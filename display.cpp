@@ -33,6 +33,7 @@ void displaySharePointManagement()
 	cout << setw(5) << 1 << ". Add SharePoint " << endl;
 	cout << setw(5) << 2 << ". Remove SharePoint " << endl;
 	cout << setw(5) << 3 << ". Add Bike " << endl;
-	cout << setw(5) << 4 << ". Show SharePoints " << endl;
-	cout << setw(5) << 5 << ". Back to Main Menu" << endl << endl;
+	cout << setw(5) << 4 << ". Remove Bike " << endl;
+	cout << setw(5) << 5 << ". Show SharePoints " << endl;
+	cout << setw(5) << 6 << ". Back to Main Menu" << endl << endl;
 }

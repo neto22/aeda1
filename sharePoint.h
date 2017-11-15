@@ -65,7 +65,7 @@ public:
 	 * @brief removes bike to vector bikes if SharePoint isn't empty
 	 * if successful @return true else @return false
 	 */
-	bool removeBike(string bikeType);	//not done
+	bool removeBike(string bikeType);
 	/**
 	 * @brief adds bike to vector bikes if SharePoint isn't full
 	 * if successful @return true else @return false

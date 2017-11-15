@@ -228,22 +228,22 @@ void Company::tryAddBikeToSharePoint()
 	//getting the values
 	x = getInteger("X Coordinate: ", -1000,1000);
 	y = getInteger("Y Coordinate: ", -1000,1000);
-	bikeType = askString("Bike Type: ");
 
-	//try to create the sharepoint
+	do
+	{
+		bikeType = askString("Bike Type (Urban/SimpleUrban/Race/Child) : ");
+
+	}while( (bikeType != "Urban") && (bikeType != "SimpleUrban") && (bikeType != "Race") && (bikeType != "Urban") );
+
+	//try to add bike to sharepoint
 	try
 	{
-	addBike(x, y, bikeType);
+		addBike(x, y, bikeType);
 	}
 
 	catch(NotExistentSharePoint & e)
 	{
-	cout << "SharePoint does not exist : ( " << e.getInformation() << endl;
-	}
-
-	catch(NotExistentBikeType & e)
-	{
-		cout << "No such Bike Type : " << e.getType() << endl;
+		cout << "SharePoint does not exist : " << e.getInformation() << endl;
 	}
 
 	catch(FullSharePoint & e)
@@ -251,6 +251,38 @@ void Company::tryAddBikeToSharePoint()
 		cout << "Full SharePoint : ( " << e.getX() << " , " << e.getY() << " ) " << endl;
 	}
 }
+//TO TEST
+void Company::tryRemoveBikeFromSharePoint()
+{
+	//local variables
+	string bikeType;
+	int x,y;
+
+	//getting the values
+	x = getInteger("X Coordinate: ", -1000,1000);
+	y = getInteger("Y Coordinate: ", -1000,1000);
+
+	do
+	{
+		bikeType = askString("Bike Type (Urban/SimpleUrban/Race/Child) : ");
+
+	}while( (bikeType != "Urban") && (bikeType != "SimpleUrban") && (bikeType != "Race") && (bikeType != "Child") );
+
+	try
+	{
+		removeBike(x,y,bikeType);
+	}
+	catch(NotExistentSharePoint & e)
+	{
+		cout << "SharePoint does not exist : " << e.getInformation() << endl;
+	}
+	catch(NotExistentBikeType & e)
+	{
+		cout << "SharePoint does not have bike type : " << e.getType() << endl;
+	}
+
+}
+
 //DONE AND TESTED
 void Company::sharePointManagementMenu()
 {
@@ -261,7 +293,7 @@ void Company::sharePointManagementMenu()
 	displaySharePointManagement();
 
 	//get the option
-	option = getInteger("Choose an option: ",1,5);
+	option = getInteger("Choose an option: ",1,6);
 	switch(option)
 	{
 	case 1:								//adding a new sharepoint to the company
@@ -281,10 +313,15 @@ void Company::sharePointManagementMenu()
 	}
 	case 4:
 	{
-		showSharePoints();
+		tryRemoveBikeFromSharePoint();
 		break;
 	}
 	case 5:
+	{
+		showSharePoints();
+		break;
+	}
+	case 6:
 	{
 		cout << "Leaving Share Point Management Menu" << endl;
 		break;
@@ -409,14 +446,23 @@ void Company::addBike(int x, int y, string bikeType)
 	if(sharePointIndex == -1)	//there isn't a SharePoint at location (x,y)
 		throw NotExistentSharePoint(x, y);
 
-	if((bikeType != "Urban") && (bikeType != "SimpleUrban") && (bikeType != "Race") && (bikeType != "Child"))
-		throw NotExistentBikeType(bikeType);	//bikeType doesn´t exist
-
 	if(sharePoints.at(sharePointIndex)->isFull())
 		throw FullSharePoint(x,y);	//SharePoint can´t take more bikes
 
 	//if we have all conditions to add bike
 	sharePoints.at(sharePointIndex)->addBike(stringToBike(bikeType));
+
+}
+//TO BE TESTED
+void Company::removeBike(int x, int y, string bikeType)
+{
+	int sharePointIndex = findSharePoint(x,y);	//index of SharePoint to add Bike (pointer)
+
+	if(sharePointIndex == -1)	//there isn't a SharePoint at location (x,y)
+		throw NotExistentSharePoint(x, y);
+
+	if(!sharePoints.at(sharePointIndex)->removeBike(bikeType))
+		throw NotExistentBikeType(bikeType);
 
 }
 //TO BE TESTED

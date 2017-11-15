@@ -100,6 +100,11 @@ public:
 	 * @return void
 	 */
 	 void tryAddBikeToSharePoint();
+	 /**
+	  * @brief Gets information about which type of bike to remove from sharepoint (already has to exist)
+	  * @return void
+	  */
+	 void tryRemoveBikeFromSharePoint();
 
 	 //=========================================================================
 	 //========================| SEARCH |=======================================
@@ -163,6 +168,14 @@ public:
 	 * @return void
 	 */
 	void addBike(int x, int y, string bikeType);
+	/**
+	 * @brief Remove bike (pointer) of type bikeType from SharePoint at location (x,y)
+	 * @param x x-coordinate
+	 * @param y y-coordinate
+	 * @param bikeType type of the bike
+	 * @return void
+	 */
+	void removeBike(int x, int y, string bikeType);
 	/**
 	 * @brief show Clients with type clientType from Company
 	 * @param clientType type of client
@@ -337,7 +350,7 @@ private:
 
 public:
 	/**
-	 * @brief Non-Existent bike type constructor
+	 * @brief Non-Existent bike type at SharePoint
 	 * @param type non-existing type
 	 */
 	NotExistentBikeType(string type) {this->type = type;}
