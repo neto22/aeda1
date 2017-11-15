@@ -423,8 +423,14 @@ void Company::clientPickBike(unsigned int clientID, string bikeType)
 		SharePoint * p1 = clients.at(clientIndex)->closestSHtoPick(sharePoints, bikeType);
 		cout << "Closest SharePoint : " << *p1 << endl;
 		cout << "Distance : " << clients.at(clientIndex)->distance(*p1) << endl;
+
+		//allocating bike
 		p1->removeBike(bikeType);
 		clients.at(clientIndex)->setCurrentBike(stringToBike(bikeType));
+
+		//changing client's position
+		clients.at(clientIndex)->setX(p1->getX());
+		clients.at(clientIndex)->setY(p1->getY());
 	}
 
 	catch(NotAvaibleSharePoints & e)
@@ -456,8 +462,13 @@ void Company::clientReturnBike(unsigned int clientID)
 		unsigned int hours = getInteger("Hours current bike was used:",1,9999);
 		clients.at(clientIndex)->pay(hours);
 
+		//allocating bike
 		p1->addBike(clients.at(clientIndex)->getCurrentBike());	//add bike (pointer) to sharePoint
 		clients.at(clientIndex)->setCurrentBike(NULL);			//"remove" bike from client
+
+		//changing client's position
+		clients.at(clientIndex)->setX(p1->getX());
+		clients.at(clientIndex)->setY(p1->getY());
 
 	}
 
