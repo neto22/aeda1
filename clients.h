@@ -197,7 +197,7 @@ public:
 //=================================================================
 
 /**
- * @brief There are no available points to return bike (all SharePoints are full)
+ * @brief There are no available points to return bike (all SharePoints are full) or to pick bike (no SharePoint has bikeType)
  */
 class NotAvaibleSharePoints
 {
