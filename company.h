@@ -30,11 +30,11 @@ public:
 	//=========================================================================
 
 	/**
-	 * @return vector of all SharePoints
+	 * @return vector of all SharePoints (pointers)
 	 */
 	vector<SharePoint *> getSharePoints() const;	//vector returned by reference so we can manipulate bikes' vector easily
 	/**
-	 * @return vector of all Clients
+	 * @return vector of all Clients (pointers)
 	 */
 	vector<Client *> getClients() const;
 

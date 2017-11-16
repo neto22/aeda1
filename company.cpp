@@ -53,7 +53,7 @@ void Company::tryRemoveClient()
 	}
 
 }
-//YET TO BE DONE
+//DONE AND TESTED
 void Company::tryChangeClientLocation()
 {
 	//local variables
@@ -79,7 +79,14 @@ void Company::tryChangeClientLocation()
 void Company::tryPickBike()
 {
 	unsigned int ID = getInteger("Client ID:",1,9999999); //can be changed to the static
-	string bikeType = askString("Bike Type: ");
+	string bikeType;
+
+	do
+	{
+		bikeType = askString("Bike Type: ");
+
+	}while((bikeType != "Urban") && (bikeType != "SimpleUrban") && (bikeType != "Race") && (bikeType != "Urban"));
+
 
 	try
 	{
@@ -96,7 +103,7 @@ void Company::tryPickBike()
 
 
 }
-//YET TO BE DONE
+//DONE AND TESTED
 void Company::tryReturnBike()
 {
 	unsigned int ID = getInteger("Client ID:",1,9999999); //can be changed to the static
@@ -251,7 +258,7 @@ void Company::tryAddBikeToSharePoint()
 		cout << "Full SharePoint : ( " << e.getX() << " , " << e.getY() << " ) " << endl;
 	}
 }
-//TO TEST
+//DONE AND TESTED
 void Company::tryRemoveBikeFromSharePoint()
 {
 	//local variables
@@ -425,7 +432,7 @@ void Company::removeClient(unsigned int clientID)
 	//if client found
 	clients.erase(clients.begin() + clientIndex);
 }
-//TO TEST
+//DONE AND TESTED
 void Company::changeClientLocation(unsigned int clientID, int x, int y)
 {
 	int clientIndex = findClient(clientID);
@@ -453,7 +460,7 @@ void Company::addBike(int x, int y, string bikeType)
 	sharePoints.at(sharePointIndex)->addBike(stringToBike(bikeType));
 
 }
-//TO BE TESTED
+//DONE AND TESTED
 void Company::removeBike(int x, int y, string bikeType)
 {
 	int sharePointIndex = findSharePoint(x,y);	//index of SharePoint to add Bike (pointer)
@@ -465,14 +472,14 @@ void Company::removeBike(int x, int y, string bikeType)
 		throw NotExistentBikeType(bikeType);
 
 }
-//TO BE TESTED
+//DONE AND TESTED
 void Company::showClients(string clientType) const
 {
 	for(size_t i = 0; i < clients.size(); i++)
 		if(clients.at(i)->getType() == clientType)
 			cout << clients.at(i)->getInformation() << endl;
 }
-//TO BE TESTED
+//DONE AND TESTED
 void Company::showSharePoints() const
 {
 	for(size_t i = 0; i < sharePoints.size(); i++)
@@ -519,7 +526,7 @@ void Company::clientPickBike(unsigned int clientID, string bikeType)
 	}
 }
 
-//TO TEST
+//DONE AND TESTED
 void Company::clientReturnBike(unsigned int clientID)
 {
 	int clientIndex = findClient(clientID);	//index of client we want to find ( =-1 while not found)
@@ -559,7 +566,7 @@ void Company::clientReturnBike(unsigned int clientID)
 
 }
 
-//TO TEST
+//DONE AND TESTED
 void Company::endOfMonth()
 {
 	for(size_t i=0; i < clients.size(); i++)
