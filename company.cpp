@@ -85,7 +85,7 @@ void Company::tryPickBike()
 	{
 		bikeType = askString("Bike Type: ");
 
-	}while((bikeType != "Urban") && (bikeType != "SimpleUrban") && (bikeType != "Race") && (bikeType != "Urban"));
+	}while((bikeType != "Urban") && (bikeType != "SimpleUrban") && (bikeType != "Race") && (bikeType != "Child"));
 
 
 	try
@@ -240,7 +240,7 @@ void Company::tryAddBikeToSharePoint()
 	{
 		bikeType = askString("Bike Type (Urban/SimpleUrban/Race/Child) : ");
 
-	}while( (bikeType != "Urban") && (bikeType != "SimpleUrban") && (bikeType != "Race") && (bikeType != "Urban") );
+	}while( (bikeType != "Urban") && (bikeType != "SimpleUrban") && (bikeType != "Race") && (bikeType != "Child") );
 
 	//try to add bike to sharepoint
 	try
