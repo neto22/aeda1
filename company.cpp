@@ -83,7 +83,7 @@ void Company::tryPickBike()
 
 	do
 	{
-		bikeType = askString("Bike Type: ");
+		bikeType = askString("Bike (Urban/SimpleUrban/Race/Child): ");
 
 	}while((bikeType != "Urban") && (bikeType != "SimpleUrban") && (bikeType != "Race") && (bikeType != "Child"));
 
@@ -289,7 +289,6 @@ void Company::tryRemoveBikeFromSharePoint()
 	}
 
 }
-
 //DONE AND TESTED
 void Company::sharePointManagementMenu()
 {
@@ -339,6 +338,81 @@ void Company::sharePointManagementMenu()
 	}
 	}
 
+}
+
+//=========================================================================
+ //================| SHARE POINT ANALYSIS |===============================
+ //=========================================================================
+//DONE AND TESTED
+void Company::printAllBikesAvailable()
+{
+	//local variables
+	int totUrban = 0, totSimpleUrban = 0, totRace = 0, totChild = 0;	 //initiating all the counters to zero
+	string type;
+
+	//loop all the sharepoints and saving the available bikes
+	for(unsigned int i = 0; i < sharePoints.size();i++)
+	{
+		//for each sharepoint increment the number of bikes of each type
+		totUrban += sharePoints.at(i)->countBikes("Urban");
+		totSimpleUrban += sharePoints.at(i)->countBikes("SimpleUrban");
+		totRace += sharePoints.at(i)->countBikes("Race");
+		totChild += sharePoints.at(i)->countBikes("Child");
+	}
+	//after counting it all up, display the results
+	cout << endl;
+	cout << "Bikes Available:" << endl;
+	cout << "Urban:        " << totUrban << endl;
+	cout << "Simple Urban: " << totSimpleUrban	<< endl;
+	cout << "Race:         " << totRace << endl;
+	cout << "Child:        " << totChild << endl;
+	cout << "Total:        " << totUrban + totSimpleUrban + totRace + totChild << endl;
+
+}
+
+void Company::sharePointAnalysisMenu()
+{
+	//local variables
+	int option;
+
+	//print the menu
+	displaySharePointAnalysis();
+
+	//choose the option
+	option = getInteger("Choose option: ",1,6);
+	switch(option)
+	{
+	case 1:					//bikes available (all of them and by types)
+	{
+		printAllBikesAvailable();
+		break;
+	}
+	case 2:					//sharepoint ordered by % of occupancy (might add crescent and decrescent option)
+	{
+		//printOrderedByOccupancy();
+		break;
+	}
+	case 3:					//sharepoints ordered by total number of bikes (might add crescent and decrescent option)
+	{
+		//code
+		break;
+	}
+	case 4: 				//brief statistic analysis
+	{
+		//code
+		break;
+	}
+	case 5:					//redistribute bikes
+	{
+		//code
+		break;
+	}
+	case 6:					//back to main menu
+	{
+		cout << "Leaving SharePoint Analysis Menu" << endl;
+		break;
+	}
+	}
 }
 
 //=========================================================================

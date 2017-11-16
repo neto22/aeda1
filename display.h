@@ -17,5 +17,11 @@ void displayClientManagement();
  */
 void displaySharePointManagement();
 
+/*
+ * @brief Displays the numbered options for the sharepoint analysis menu
+ * @return void
+ */
+void displaySharePointAnalysis();
+
 
 #endif /* DISPLAY_H */

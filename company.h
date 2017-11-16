@@ -107,6 +107,28 @@ public:
 	 void tryRemoveBikeFromSharePoint();
 
 	 //=========================================================================
+	 //================| SHARE POINT ANALYSIS |===============================
+	 //=========================================================================
+
+	 /**
+	  * @brief Menu for share point analysis
+	  * @return void
+	  */
+	 void sharePointAnalysisMenu();
+
+	 /**
+	  * @brief prints the number of bikes available in all sharepoints by type
+	  * @return void
+	  */
+	 void printAllBikesAvailable();
+
+	 /**
+	  * @brief prints the information of a sharepoint ordered by its occupancy
+	  * @return void
+	  */
+	 void printOrderedByOccupancy();
+
+	 //=========================================================================
 	 //========================| SEARCH |=======================================
 	 //=========================================================================
 

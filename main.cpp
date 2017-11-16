@@ -128,7 +128,7 @@ int main()
 		displayMainMenu();
 
 		//get the option from the user
-		option = getInteger("Choose an option: ",1 , 4);
+		option = getInteger("Choose an option: ",1 , 5);
 
 		switch(option)
 		{
@@ -142,12 +142,17 @@ int main()
 			bikesCompany.sharePointManagementMenu();
 			break;
 		}
-		case 3:				//acts as if it is the end of the month (due to monthly payments by partner clients)
+		case 3:
+		{
+			bikesCompany.sharePointAnalysisMenu();
+			break;
+		}
+		case 4:				//acts as if it is the end of the month (due to monthly payments by partner clients)
 		{
 			bikesCompany.endOfMonth();
 			break;
 		}
-		case 4:
+		case 5:
 		{
 			cout << "End of program"<< endl;
 			break;
@@ -235,5 +240,5 @@ int main()
 
 		outFile.close();
 
-	}while(option != 4);
+	}while(option != 5);
 }

@@ -53,6 +53,10 @@ public:
 	 * @return capacity (maximum bikes possible to have on this SharePoint)
 	 */
 	unsigned int getCapacity() const;
+	/**
+	 * @return percentage of occupancy on this sharepoint
+	 */
+	unsigned int getPercentageOccupancy() const;
 
 	//boolean and management functions
 
@@ -92,8 +96,12 @@ public:
 };
 
 /**
+ * @brief converts SharePoint into a string to be saved in file
+ *
+ *
  * converts SharePoint into a string in the format of:
  * ( x , y ) ; capacity ; ( number_of_urban_bikes ; number_of_simpleurban_bikes ; number_of_race_bikes ; number_of_child_bikes )
+ * @return out stream with organized values of sharepoint as string
  */
 ostream & operator << (ostream & os, SharePoint p1);
 

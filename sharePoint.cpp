@@ -36,6 +36,11 @@ unsigned int SharePoint::getCapacity() const
 	return capacity;
 }
 
+unsigned int SharePoint::getPercentageOccupancy() const
+{
+	return getNumBikes()/capacity;
+}
+
 //boolean and management functions
 bool SharePoint::isFull() const
 {
