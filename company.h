@@ -134,6 +134,12 @@ public:
 	  */
 	 void printOrderedByOccupancy();
 
+	 /**
+	  * @brief prints the average number of bikes per sharepoint, the lowest amount, the highest, and the standart deviaton
+	  * @return void
+	  */
+	 void statisticAnalysis();
+
 	 //=========================================================================
 	 //========================| SEARCH |=======================================
 	 //=========================================================================

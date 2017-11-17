@@ -2,6 +2,7 @@
 #include "display.h"
 #include "global.h"
 #include <iomanip>
+#include <math.h>
 
 //constructor
 Company::Company()
@@ -500,6 +501,52 @@ void Company::printOrderedByTotalBikes()
 
 }
 
+void Company::statisticAnalysis()
+{
+	//local variables
+	double averageBikes=0;					//saves the average amout of bikes per sharepoint
+	int totalBikes = 0;						//saves the total amount of bikes in all sharepoints combined
+	int low = 99999;					//saves the amount of bikes of the sharepoint with the least number of bikes
+	int high = 0;	//saves the amount of bikes of the sharepoint with the most number of bikes
+	double stdDeviationNBikes=0;			//saves the standart deviation of total number of bikes per sharepoint
+	//double stdDeviationPOccupancy;		//saves the standart deviation of percentage of occupancy (not sure if going to implement yet)
+
+	//looping through all the sharepoints
+	for(unsigned int i = 0; i < sharePoints.size();i++)
+	{
+		int numBikes = sharePoints.at(i)->getNumBikes();
+
+		//updating lowest value found
+		if(numBikes < low)
+			low = numBikes;
+
+		//updating highest value found
+		if(numBikes > high)
+			high = numBikes;
+
+		//updating the sum of all bikes
+		totalBikes += numBikes;
+	}
+
+	//calcualting the standart deviation for total amount of bikes using previously computed values
+	averageBikes = (double)totalBikes/(double)sharePoints.size();
+
+	double stdDevTotal = 0;
+	for(unsigned int i = 0 ; i < sharePoints.size();i++)
+	{
+		int numBikes = sharePoints.at(i)->getNumBikes();
+		stdDevTotal += abs(numBikes - averageBikes);
+	}
+
+	stdDeviationNBikes = (double)stdDevTotal/(double)sharePoints.size();
+
+	cout << "Average n Bikes: " << averageBikes << endl;
+	cout << "Number of SP   : " << sharePoints.size() << endl;
+	cout << "Lowest         : " << low << endl;
+	cout << "Highest        : " << high << endl;
+	cout << "Std Deviation  : " << stdDeviationNBikes << endl;
+}
+
 void Company::sharePointAnalysisMenu()
 {
 	//local variables
@@ -529,7 +576,7 @@ void Company::sharePointAnalysisMenu()
 	}
 	case 4: 				//brief statistic analysis
 	{
-		//code
+		statisticAnalysis();
 		break;
 	}
 	case 5:					//redistribute bikes
