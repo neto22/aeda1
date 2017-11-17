@@ -370,7 +370,7 @@ void Company::printAllBikesAvailable()
 	cout << "Total:        " << totUrban + totSimpleUrban + totRace + totChild << endl;
 
 }
-
+//DONE AND TESTED
 void Company::printOrderedByOccupancy()
 {
 	//local variables
@@ -435,6 +435,70 @@ void Company::printOrderedByOccupancy()
 	}
 
 }
+//DONE AND TESTED
+void Company::printOrderedByTotalBikes()
+{
+	//local variables
+	string option;
+	vector <SharePoint *> temporary = sharePoints;
+	vector <SharePoint *> result;
+	int index;
+
+	do
+	{
+		option = askString("Order(Crescent/Decrescent)? ");
+	}while(option != "Decrescent" && option != "decrescent" && option != "Crescent" && option != "crescent");
+
+	if(option == "Decrescent" || option == "decrescent")
+	{
+		//order by decrescent order (HIGH TO LOW)
+		for(unsigned int i = 0 ; i < sharePoints.size(); i++)
+		{
+			unsigned int max = temporary.at(0)->getNumBikes();
+			//for each iteration get the highest value for occupancy in temporary and get it into result
+			for(unsigned int j = 0; j < temporary.size(); j++)
+			{
+				if(temporary.at(j)->getNumBikes() >= max)
+				{
+					max = temporary.at(j)->getNumBikes();
+					index = j;
+				}
+			}
+
+			result.push_back(temporary.at(index));
+			temporary.erase(temporary.begin()+index);
+		}
+
+	}
+	else
+	{
+		//crescent mode
+		//order by crescent order (LOW TO HIGH)
+		for(unsigned int i = 0; i < sharePoints.size();i++)
+		{
+			unsigned int min = temporary.at(0)->getNumBikes();
+
+			for(unsigned int j = 0; j < temporary.size();j++)
+			{
+				if(temporary.at(j)->getNumBikes() <= min)
+				{
+					min = temporary.at(j)->getNumBikes();
+					index = j;
+				}
+			}
+
+			result.push_back(temporary.at(index));
+			temporary.erase(temporary.begin()+index);
+		}
+	}
+
+	//print the results
+	for(unsigned int i = 0 ; i < result.size(); i++)
+	{
+		cout << setw(3) << result.at(i)->getNumBikes() << " :" << *(result.at(i)) << endl;
+	}
+
+}
 
 void Company::sharePointAnalysisMenu()
 {
@@ -453,14 +517,14 @@ void Company::sharePointAnalysisMenu()
 		printAllBikesAvailable();
 		break;
 	}
-	case 2:					//sharepoint ordered by % of occupancy (might add crescent and decrescent option)
+	case 2:					//sharepoint ordered by % of occupancy
 	{
 		printOrderedByOccupancy();
 		break;
 	}
-	case 3:					//sharepoints ordered by total number of bikes (might add crescent and decrescent option)
+	case 3:					//sharepoints ordered by total number of bikes
 	{
-		//code
+		printOrderedByTotalBikes();
 		break;
 	}
 	case 4: 				//brief statistic analysis

@@ -123,6 +123,12 @@ public:
 	 void printAllBikesAvailable();
 
 	 /**
+	  *@brief prints the information of a sharepoint ordered by the total number of bikes
+	  *@return void
+	  */
+	 void printOrderedByTotalBikes();
+
+	 /**
 	  * @brief prints the information of a sharepoint ordered by its occupancy
 	  * @return void
 	  */
