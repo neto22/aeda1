@@ -47,6 +47,6 @@ void displaySharePointAnalysis()
 	cout << setw(5) << 3 << ". SharePoints ordered by total number of bikes " << endl;
 	cout << setw(5) << 4 << ". Brief Statistic Analysis " << endl;
 	cout << setw(5) << 5 << ". Redistribute Bikes " << endl;
-	cout << setw(5) << 6 << ". Back to Main Meny " << endl;
+	cout << setw(5) << 6 << ". Back to Main Meny " << endl << endl;
 
 }

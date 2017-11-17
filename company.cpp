@@ -1,6 +1,7 @@
 #include "company.h"
 #include "display.h"
 #include "global.h"
+#include <iomanip>
 
 //constructor
 Company::Company()
@@ -370,6 +371,71 @@ void Company::printAllBikesAvailable()
 
 }
 
+void Company::printOrderedByOccupancy()
+{
+	//local variables
+	string option;									//choosing either crescent or decrescent order to sort by
+	vector <SharePoint *> result;					//vector that is going to get printe
+	vector <SharePoint *> temporary = sharePoints;	//copy of the original
+	int index;
+
+	//choose if wants to be ordered incresing occupancy or decreasing
+	do
+	{
+		option = askString("Order?(Decrescent/Crescent): ");
+	}while(option != "Decrescent" && option != "decrescent" && option != "Crescent" && option != "crescent");
+
+	//sort the temporary vetor acordingly
+	if(option == "Decrescent" || option == "decrescent")
+	{
+		//order by decrescent order (HIGH TO LOW)
+		for(unsigned int i = 0 ; i < sharePoints.size(); i++)
+		{
+			unsigned int max = temporary.at(0)->getPercentageOccupancy();
+			//for each iteration get the highest value for occupancy in temporary and get it into result
+			for(unsigned int j = 0; j < temporary.size(); j++)
+			{
+				if(temporary.at(j)->getPercentageOccupancy() >= max)
+				{
+					max = temporary.at(j)->getPercentageOccupancy();
+					index = j;
+				}
+			}
+
+			result.push_back(temporary.at(index));
+			temporary.erase(temporary.begin()+index);
+		}
+
+	}
+	else
+	{
+		//order by crescent order (LOW TO HIGH)
+		for(unsigned int i = 0; i < sharePoints.size();i++)
+		{
+			unsigned int min = temporary.at(0)->getPercentageOccupancy();
+
+			for(unsigned int j = 0; j < temporary.size();j++)
+			{
+				if(temporary.at(j)->getPercentageOccupancy() <= min)
+				{
+					min = temporary.at(j)->getPercentageOccupancy();
+					index = j;
+				}
+			}
+
+			result.push_back(temporary.at(index));
+			temporary.erase(temporary.begin()+index);
+		}
+	}
+
+	//after getting the vector ordered display the values
+	for(unsigned int i = 0 ; i < result.size(); i++)
+	{
+		cout << setw(3) << result.at(i)->getPercentageOccupancy() << "% :" << *(result.at(i)) << endl;
+	}
+
+}
+
 void Company::sharePointAnalysisMenu()
 {
 	//local variables
@@ -389,7 +455,7 @@ void Company::sharePointAnalysisMenu()
 	}
 	case 2:					//sharepoint ordered by % of occupancy (might add crescent and decrescent option)
 	{
-		//printOrderedByOccupancy();
+		printOrderedByOccupancy();
 		break;
 	}
 	case 3:					//sharepoints ordered by total number of bikes (might add crescent and decrescent option)

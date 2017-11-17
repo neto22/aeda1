@@ -38,7 +38,7 @@ unsigned int SharePoint::getCapacity() const
 
 unsigned int SharePoint::getPercentageOccupancy() const
 {
-	return getNumBikes()/capacity;
+	return ((double)getNumBikes()/(double)capacity)*100;
 }
 
 //boolean and management functions
