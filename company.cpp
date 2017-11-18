@@ -500,7 +500,7 @@ void Company::printOrderedByTotalBikes()
 	}
 
 }
-
+//DONE AND TESTED
 void Company::statisticAnalysis()
 {
 	//local variables
@@ -547,6 +547,84 @@ void Company::statisticAnalysis()
 	cout << "Std Deviation  : " << stdDeviationNBikes << endl;
 }
 
+void Company::redistributeBikes()
+{
+	//local variables
+	vector<Bike*> allBikesAvailable;
+	vector<Bike*> allBikesOrdered;
+
+	//1 step: make a vector with all the bikes
+	for(unsigned int i = 0; i < sharePoints.size(); i++)
+	{
+		//for each sharepoint find out how many bikes there is
+		unsigned int numBikes = sharePoints.at(i)->getNumBikes();
+
+		//for each bike get it into the all bikesavailable vetor
+		for(unsigned int j = 0; j < numBikes ; j ++)
+		{
+			allBikesAvailable.push_back(sharePoints.at(i)->getBikes().at(j));
+		}
+
+		//before going to next sharepoint, make sure we dont double bikes
+		sharePoints.at(i)->clearBikes();
+	}
+
+	cout << "n bikes:" << allBikesAvailable.size();
+
+	//2 step: order that vector by types
+	for(unsigned int i = 0 ; i < allBikesAvailable.size(); i++)
+	{
+		if(allBikesAvailable.at(i)->getType() == "Urban")
+			allBikesOrdered.push_back(allBikesAvailable.at(i));
+	}
+
+	for(unsigned int i = 0 ; i < allBikesAvailable.size(); i++)
+	{
+		if(allBikesAvailable.at(i)->getType() == "SimpleUrban")
+			allBikesOrdered.push_back(allBikesAvailable.at(i));
+	}
+
+	for(unsigned int i = 0 ; i < allBikesAvailable.size(); i++)
+	{
+		if(allBikesAvailable.at(i)->getType() == "Race")
+			allBikesOrdered.push_back(allBikesAvailable.at(i));
+	}
+
+	for(unsigned int i = 0 ; i < allBikesAvailable.size(); i++)
+	{
+		if(allBikesAvailable.at(i)->getType() == "Child")
+			allBikesOrdered.push_back(allBikesAvailable.at(i));
+	}
+
+	unsigned int numBikes = allBikesOrdered.size();
+	unsigned int indexSP = 0;
+	unsigned int indexBikes = 0;
+	//3 step: loop through all the sharepoints and attribute them
+
+	cout << "prewhile" << endl;
+	while(numBikes > indexBikes)
+	{
+		cout << "indexSP: " << indexSP << endl;
+		if(sharePoints.at(indexSP)->addBike(allBikesOrdered.at(indexBikes)))
+		{
+			cout << "if"<< endl;
+			indexSP++;
+			indexBikes++;
+		}
+		else
+		{
+			cout << "else" << endl;
+			indexSP++;
+		}
+
+		if(indexSP == sharePoints.size())
+			indexSP = 0;
+	}
+
+	//the end
+
+}
+
 void Company::sharePointAnalysisMenu()
 {
 	//local variables
@@ -581,7 +659,7 @@ void Company::sharePointAnalysisMenu()
 	}
 	case 5:					//redistribute bikes
 	{
-		//code
+		redistributeBikes();
 		break;
 	}
 	case 6:					//back to main menu
@@ -643,6 +721,9 @@ int Company::findClient(unsigned int clientID) const
 //=========================================================================
 //===========================| VECTOR MANAGEMENT |=========================
 //=========================================================================
+
+
+
 //DONE AND TESTED
 void Company::addSharePoint(SharePoint * p1)
 {

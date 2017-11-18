@@ -58,6 +58,8 @@ public:
 	 */
 	unsigned int getPercentageOccupancy() const;
 
+	void clearBikes();
+
 	//boolean and management functions
 
 	/**
@@ -74,7 +76,6 @@ public:
 	 * @brief adds bike to vector bikes if SharePoint isn't full
 	 * if successful @return true else @return false
 	 */
-
 	bool addBike(Bike* b1);
 
 	//counting functions

@@ -140,6 +140,15 @@ public:
 	  */
 	 void statisticAnalysis();
 
+	 /**
+	  * @brief redistributes the bikes from all sharepoints so they are more balanced in quantity and type
+	  * 1 step: makes a vector with all the bikes
+	  * 2 step: makes an ordered vector with all the bikes (by type)
+	  * 3 step: loop throught all the sharepoints and give a bike (therefore the quantity and type will be as well distributed as possible
+	  * @return void
+	  */
+	 void redistributeBikes();
+
 	 //=========================================================================
 	 //========================| SEARCH |=======================================
 	 //=========================================================================

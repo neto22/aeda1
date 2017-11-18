@@ -41,6 +41,11 @@ unsigned int SharePoint::getPercentageOccupancy() const
 	return ((double)getNumBikes()/(double)capacity)*100;
 }
 
+void SharePoint::clearBikes()
+{
+	bikes.clear();
+}
+
 //boolean and management functions
 bool SharePoint::isFull() const
 {
