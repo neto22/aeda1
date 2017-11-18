@@ -149,6 +149,12 @@ public:
 	  */
 	 void redistributeBikes();
 
+	 /**
+	  * @brief displays the bikes by type by sharepoint to auxiliate decision of redistribution
+	  * @return void
+	  */
+	 void displayBikesBySharePoint();
+
 	 //=========================================================================
 	 //========================| SEARCH |=======================================
 	 //=========================================================================

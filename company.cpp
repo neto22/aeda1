@@ -546,7 +546,7 @@ void Company::statisticAnalysis()
 	cout << "Highest        : " << high << endl;
 	cout << "Std Deviation  : " << stdDeviationNBikes << endl;
 }
-
+//DONE AND TESTED
 void Company::redistributeBikes()
 {
 	//local variables
@@ -625,6 +625,17 @@ void Company::redistributeBikes()
 
 }
 
+void Company::displayBikesBySharePoint()
+{
+	cout << endl;
+	cout << setw(8) << "Capacity" << setw(8) << "Urban" << setw(8) << "SimpleUrban" << setw(8) << "Race" << setw(8) << "Child" << endl;
+	for(unsigned int i = 0; i < sharePoints.size(); i++)
+	{
+		cout << setw(8) << sharePoints.at(i)->getCapacity() << setw(8) << sharePoints.at(i)->countBikes("Urban") << setw(8) << sharePoints.at(i)->countBikes("SimpleUrban") << setw(8) << sharePoints.at(i)->countBikes("Race") << setw(8) << sharePoints.at(i)->countBikes("Child") << endl;
+	}
+	cout << endl;
+}
+
 void Company::sharePointAnalysisMenu()
 {
 	//local variables
@@ -634,7 +645,7 @@ void Company::sharePointAnalysisMenu()
 	displaySharePointAnalysis();
 
 	//choose the option
-	option = getInteger("Choose option: ",1,6);
+	option = getInteger("Choose option: ",1,7);
 	switch(option)
 	{
 	case 1:					//bikes available (all of them and by types)
@@ -662,7 +673,12 @@ void Company::sharePointAnalysisMenu()
 		redistributeBikes();
 		break;
 	}
-	case 6:					//back to main menu
+	case 6:
+	{
+		displayBikesBySharePoint();
+		break;
+	}
+	case 7:					//back to main menu
 	{
 		cout << "Leaving SharePoint Analysis Menu" << endl;
 		break;
