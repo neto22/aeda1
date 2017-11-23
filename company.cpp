@@ -188,8 +188,12 @@ void Company::clientManagementMenu()
 void Company::tryAddNewSharePoint()
 {
 	//local variables
+	string name;
 	unsigned int capacity;		//maximum number of bikes in the sharepoint
 	int x, y;				//coordinates of the share point
+
+	//getting the name of the new SharePoint
+	name = askString("Name: ");
 
 	//getting the coordinates
 	x = getInteger("X Coordinate: ", -1000,1000);
@@ -198,33 +202,37 @@ void Company::tryAddNewSharePoint()
 
 	try
 	{
-		addSharePoint(new SharePoint(x,y,capacity));
+		addSharePoint(new SharePoint(name,x,y,capacity));
 	}
 
-	catch(ExistentSharePoint & e)
+	catch(AlreadyExistentSharePointAtLocation & e)
 	{
-		cout << "Location Already Occupied : " << e.getInformation() << endl;
+		cout << e.getInformation() << endl;
+	}
+
+	catch(AlreadyExistentSharePointWithName & e)
+	{
+		cout << e.getInformation() << endl;
 	}
 
 }
 //DONE AND TESTED
 void Company::tryRemoveSharePoint()
 {
-	//local variables
-	int x, y;				//coordinates of the share point
 
-	//getting the coordinates
-	x = getInteger("X Coordinate: ", -1000,1000);
-	y = getInteger("Y Coordinate: ", -1000,1000);
+	string sharePointName;	//name of the share point
+
+	//getting SharePoint's name
+	sharePointName = askString("SharePoint Name: ");
 
 	try
 	{
-		removeSharePoint(x,y);
+		removeSharePoint(sharePointName);
 	}
 
 	catch(NotExistentSharePoint & e)
 	{
-		cout << "Location doesn't have a SharePoint : " << e.getInformation() << endl;
+		cout << "SharePoint does not exist : " << e.getName() << endl;
 	}
 }
 //DONE AND TESTED
@@ -232,12 +240,12 @@ void Company::tryAddBikeToSharePoint()
 {
 	//local variables
 	string bikeType;
-	int x,y;
+	string sharePointName;
 
-	//getting the values
-	x = getInteger("X Coordinate: ", -1000,1000);
-	y = getInteger("Y Coordinate: ", -1000,1000);
+	//getting SharePoint name
+	sharePointName = askString("SharePoint Name: ");
 
+	//getting bike type
 	do
 	{
 		bikeType = askString("Bike Type (Urban/SimpleUrban/Race/Child) : ");
@@ -247,17 +255,17 @@ void Company::tryAddBikeToSharePoint()
 	//try to add bike to sharepoint
 	try
 	{
-		addBike(x, y, bikeType);
+		addBike(sharePointName, bikeType);
 	}
 
 	catch(NotExistentSharePoint & e)
 	{
-		cout << "SharePoint does not exist : " << e.getInformation() << endl;
+		cout << "SharePoint does not exist : " << e.getName() << endl;
 	}
 
 	catch(FullSharePoint & e)
 	{
-		cout << "Full SharePoint : ( " << e.getX() << " , " << e.getY() << " ) " << endl;
+		cout << "Full SharePoint : " << e.getName();
 	}
 }
 //DONE AND TESTED
@@ -265,12 +273,12 @@ void Company::tryRemoveBikeFromSharePoint()
 {
 	//local variables
 	string bikeType;
-	int x,y;
+	string sharePointName;
 
-	//getting the values
-	x = getInteger("X Coordinate: ", -1000,1000);
-	y = getInteger("Y Coordinate: ", -1000,1000);
+	//getting SharePoint name
+	sharePointName = askString("SharePoint Name: ");
 
+	//getting bike type
 	do
 	{
 		bikeType = askString("Bike Type (Urban/SimpleUrban/Race/Child) : ");
@@ -279,11 +287,11 @@ void Company::tryRemoveBikeFromSharePoint()
 
 	try
 	{
-		removeBike(x,y,bikeType);
+		removeBike(sharePointName, bikeType);
 	}
 	catch(NotExistentSharePoint & e)
 	{
-		cout << "SharePoint does not exist : " << e.getInformation() << endl;
+		cout << "SharePoint does not exist : " << e.getName() << endl;
 	}
 	catch(NotExistentBikeType & e)
 	{
@@ -569,7 +577,6 @@ void Company::redistributeBikes()
 		sharePoints.at(i)->clearBikes();
 	}
 
-	cout << "n bikes:" << allBikesAvailable.size();
 
 	//2 step: order that vector by types
 	for(unsigned int i = 0 ; i < allBikesAvailable.size(); i++)
@@ -601,19 +608,15 @@ void Company::redistributeBikes()
 	unsigned int indexBikes = 0;
 	//3 step: loop through all the sharepoints and attribute them
 
-	cout << "prewhile" << endl;
 	while(numBikes > indexBikes)
 	{
-		cout << "indexSP: " << indexSP << endl;
 		if(sharePoints.at(indexSP)->addBike(allBikesOrdered.at(indexBikes)))
 		{
-			cout << "if"<< endl;
 			indexSP++;
 			indexBikes++;
 		}
 		else
 		{
-			cout << "else" << endl;
 			indexSP++;
 		}
 
@@ -717,6 +720,21 @@ int Company::findSharePoint(int x, int y) const
 
 	return -1;	//didn't find SharePoint
 }
+//TO TEST
+int Company::findSharePoint(string name) const
+{
+	for(size_t i = 0; i < sharePoints.size(); i++)
+	{
+		if( sharePoints.at(i)->getName() == name )
+		{
+			return i;
+			break;
+		}
+	}
+
+	return -1;	//didn't find SharePoint
+
+}
 //DONE AND TESTED
 int Company::findClient(unsigned int clientID) const
 {
@@ -744,25 +762,30 @@ int Company::findClient(unsigned int clientID) const
 void Company::addSharePoint(SharePoint * p1)
 {
 	for(size_t i = 0; i < sharePoints.size(); i++)
-		if(*sharePoints.at(i) == *p1)
-			throw ExistentSharePoint(p1->getX(), p1->getY());	//sharePoint already exists at this location
+	{
+		if(sharePoints.at(i)->getName() == p1->getName())
+			throw AlreadyExistentSharePointWithName(p1->getName());
 
+		if(*sharePoints.at(i) == *p1)
+			throw AlreadyExistentSharePointAtLocation(p1->getX(), p1->getY());	//sharePoint already exists at this location
+	}
 	//if there is no sharePoint at this location
 	sharePoints.push_back(p1);	//add p1 to sharePoints vector
 
 }
 //DONE AND TESTED
-void Company::removeSharePoint(int x, int y)
+void Company::removeSharePoint(string sharePointName)
 {
-	int sharePointIndex = findSharePoint(x,y);	//index of SharePoint to remove from sharePoints vector
+	int sharePointIndex = findSharePoint(sharePointName);	//index of SharePoint to remove from sharePoints vector
 
 	if(sharePointIndex == -1)	//there isn't a SharePoint at location (x,y)
-		throw NotExistentSharePoint(x, y);
+		throw NotExistentSharePoint(sharePointName);
 
 	//if there is a SharePoint at location (x,y) we must remove it
 	sharePoints.erase(sharePoints.begin() + sharePointIndex);	//SharePoint (pointer) removed
 
 }
+
 //DONE AND TESTED
 void Company::addClient(Client * c1)
 {
@@ -793,33 +816,35 @@ void Company::changeClientLocation(unsigned int clientID, int x, int y)
 	clients.at(clientIndex)->setX(x);
 	clients.at(clientIndex)->setY(y);
 }
+
 //DONE AND TESTED
-void Company::addBike(int x, int y, string bikeType)
+void Company::addBike(string sharePointName, string bikeType)
 {
-	int sharePointIndex = findSharePoint(x,y);	//index of SharePoint to add Bike (pointer)
+	int sharePointIndex = findSharePoint(sharePointName);	//index of SharePoint to add Bike (pointer)
 
 	if(sharePointIndex == -1)	//there isn't a SharePoint at location (x,y)
-		throw NotExistentSharePoint(x, y);
+		throw NotExistentSharePoint(sharePointName);
 
 	if(sharePoints.at(sharePointIndex)->isFull())
-		throw FullSharePoint(x,y);	//SharePoint can´t take more bikes
+		throw FullSharePoint(sharePointName);	//SharePoint can´t take more bikes
 
 	//if we have all conditions to add bike
 	sharePoints.at(sharePointIndex)->addBike(stringToBike(bikeType));
 
 }
 //DONE AND TESTED
-void Company::removeBike(int x, int y, string bikeType)
+void Company::removeBike(string sharePointName, string bikeType)
 {
-	int sharePointIndex = findSharePoint(x,y);	//index of SharePoint to add Bike (pointer)
+	int sharePointIndex = findSharePoint(sharePointName);	//index of SharePoint to add Bike (pointer)
 
 	if(sharePointIndex == -1)	//there isn't a SharePoint at location (x,y)
-		throw NotExistentSharePoint(x, y);
+		throw NotExistentSharePoint(sharePointName);
 
 	if(!sharePoints.at(sharePointIndex)->removeBike(bikeType))
 		throw NotExistentBikeType(bikeType);
 
 }
+
 //DONE AND TESTED
 void Company::showClients(string clientType) const
 {
@@ -928,7 +953,7 @@ void Company::endOfMonth()
 //DONE AND TESTED
 void Company::saveSharePoints(ostream & outFile)
 {
-	outFile << "/* ( x , y ) ; capacity ; ( Urban , SimpleUrban , Race , Child ) */" << endl << endl;
+	outFile << "/* Name ; ( x , y ) ; capacity ; ( Urban , SimpleUrban , Race , Child ) */" << endl << endl;
 
 	for(size_t i = 0; i < sharePoints.size(); i++)
 	{
@@ -954,16 +979,25 @@ void Company::saveClients(ostream & outFile)
 //DONE AND TESTED
 SharePoint * Company::stringToSharePoint(string p1)
 {
-	string irrelevant;
+	string name, irrelevant;
+	char next;	//helps to save name
 	int x,y;
 	unsigned int capacity, numUrban, numSimpleUrban, numRace, numChild;
 
 	istringstream iStr(p1);
 
+	while (next != ';')
+	{
+		name = name + next;
+		iStr.get(next);
+
+	} 	//saving name at string name
+	name = name.substr(1, name.length() - 2); //removing spaces before and after name
+
 	iStr >> irrelevant >> x >> irrelevant >> y >> irrelevant >> irrelevant >> capacity >> irrelevant >> irrelevant;
 	iStr >> numUrban >> irrelevant >> numSimpleUrban >> irrelevant >> numRace >> irrelevant >> numChild;
 
-	SharePoint * result = new SharePoint(x,y,capacity);
+	SharePoint * result = new SharePoint(name, x, y, capacity);
 
 	for(size_t i = 0; i < numUrban; i++)
 		result->addBike(new Urban());

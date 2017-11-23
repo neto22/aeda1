@@ -162,12 +162,20 @@ public:
 
 	 /**
 	  * @brief Gets SharePoint index
-	  * if there is a SharePoint at (x,y), @return its index else @return -1
+	  * @return its index if there is a SharePoint at (x,y)
+	  * @return -1 otherwise
 	  */
 	 int findSharePoint(int x, int y) const;
 	 /**
+	  * @brief Gets SharePoint index (overloaading of function findSharePoint)
+	  * @return its index if there is a SharePoint with this name
+	  *  @return -1 otherwise
+	  */
+	 int findSharePoint(string name) const;
+	 /**
 	  * @brief Gets Client index
-	  * if there is a Client with clientID, @return its index else @return -1
+	  * @return its index if there is a Client with clientID
+	  * @return -1 otherwise
 	  */
 	 int findClient(unsigned int clientID) const;
 
@@ -189,6 +197,12 @@ public:
 	 * @return void
 	 */
 	void removeSharePoint(int x, int y);
+	/**
+	 * @brief Remove SharePoint (pointer) with name we insert (Overload of removeSharePoint function)
+	 * @param name SharePoint's name
+	 * @return void
+	 */
+	void removeSharePoint(string name);
 	 /**
 	 * @brief Add new client (pointer) to vector clients
 	 * @param Client Client you want to add
@@ -210,21 +224,20 @@ public:
 	 */
 	void changeClientLocation(unsigned int clientID, int x, int y);
 	 /**
-	 * @brief Add bike (pointer) of type bikeType to SharePoint at location (x,y)
-	 * @param x x-coordinate
-	 * @param y y-coordinate
+	 * @brief Add bike (pointer) of type bikeType to SharePoint with name nameSharePoint
+	 * @param nameSharePoint : SharePoint's name
 	 * @param bikeType type of the bike
 	 * @return void
 	 */
-	void addBike(int x, int y, string bikeType);
+	void addBike(string nameSharePoint, string bikeType);
 	/**
-	 * @brief Remove bike (pointer) of type bikeType from SharePoint at location (x,y)
+	 * @brief Remove bike (pointer) of type bikeType from SharePoint with name nameSharePoint
 	 * @param x x-coordinate
 	 * @param y y-coordinate
 	 * @param bikeType type of the bike
 	 * @return void
 	 */
-	void removeBike(int x, int y, string bikeType);
+	void removeBike(string nameSharePoint, string bikeType);
 	/**
 	 * @brief show Clients with type clientType from Company
 	 * @param clientType type of client
@@ -308,7 +321,7 @@ public:
 /**
  * @brief Location (x,y) already as a SharePoint (we can't add another with this coordinates)
  */
-class ExistentSharePoint
+class AlreadyExistentSharePointAtLocation
 {
 private:
 	int x, y;
@@ -317,30 +330,50 @@ public:
 	/**
 	 * @brief Existent SharePoint Constructor
 	 */
-	ExistentSharePoint(int x, int y) {this->x = x; this->y = y;}
+	AlreadyExistentSharePointAtLocation(int x, int y) {this->x = x; this->y = y;}
 	/**
 	 * @return String with coordinates trying to be repeated in the format "( x , y ) "
 	 */
-	string getInformation() {return ("( " + to_string(x) + " , " + to_string(y) + ") ");}
+	string getInformation() {return ("Already exists a SharePoint at location : (" + to_string(x) + " , " + to_string(y) + ") ");}
+};
+
+
+class AlreadyExistentSharePointWithName
+{
+private:
+	string name;
+
+public:
+	/**
+	 * @brief Existent SharePoint Constructor
+	 */
+	AlreadyExistentSharePointWithName(string name) {this->name = name;}
+	/**
+	 * @return String with coordinates trying to be repeated in the format "( x , y ) "
+	 */
+	string getInformation() {return ("Already exists a SharePoint with name : " + name);}
+
 };
 
 /**
- * @brief There isn't a SharePoint at coordinates (x,y) to remove
+ * @brief There isn't a SharePoint with name sharePointName to remove
  */
 class NotExistentSharePoint
 {
 private:
-	int x, y;
+	string sharePointName;
 
 public:
 	/**
-	 * @brief Non-Existent SharePoint Constructor
+	 * @brief Non-Existent SharePoint at location (x,y) Constructor
 	 */
-	NotExistentSharePoint(int x, int y) {this->x = x; this->y = y;}
+	NotExistentSharePoint(string sharePointName) {this->sharePointName = sharePointName;}
+
 	/**
 	 * @return String with coordinates not found in the format "( x , y ) "
 	 */
-	string getInformation() {return ("( " + to_string(x) + " , " + to_string(y) + ") ");}
+	string getName() {return sharePointName;}
+
 };
 
 /**
@@ -369,7 +402,7 @@ public:
 class FullSharePoint
 {
 private:
-	int x, y;
+	string nameSharePoint;
 
 public:
 	/**
@@ -377,20 +410,17 @@ public:
 	 * @param x x-coordinate
 	 * @param y y-coordinate
 	 */
-	FullSharePoint(int x, int y) {this->x = x; this->y = y;}
+	FullSharePoint(string nameSharePoint) {this->nameSharePoint = nameSharePoint;}
 	/**
-	 * @return FullSharePoint x-coordinate
+	 * @return FullSharePoint's name
 	 */
-	int getX() {return x;}
-	/**
-	 * @return FullSharePoint y-coordinate
-	 */
-	int getY() {return y;}
+	string getName() {return nameSharePoint;}
+
 
 };
 
 /**
- * @brief Non-Existent bike type
+ * @brief Non-Existent bike type at SharePoint
  */
 class NotExistentBikeType
 {
@@ -400,7 +430,7 @@ private:
 public:
 	/**
 	 * @brief Non-Existent bike type at SharePoint
-	 * @param type non-existing type
+	 * @param type non-existing type at SharePoint
 	 */
 	NotExistentBikeType(string type) {this->type = type;}
 	/**

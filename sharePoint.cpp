@@ -2,8 +2,9 @@
 
 
 //constructor
-SharePoint::SharePoint(int x, int y, unsigned int capacity)
+SharePoint::SharePoint(string name, int x, int y, unsigned int capacity)
 {
+	this->name = name;
 	this->x = x;
 	this->y = y;
 	this->capacity = capacity;
@@ -11,6 +12,11 @@ SharePoint::SharePoint(int x, int y, unsigned int capacity)
 
 
 //get functions
+string SharePoint::getName() const
+{
+	return name;
+}
+
 int SharePoint::getX() const
 {
 	return x;
@@ -115,7 +121,7 @@ bool SharePoint::operator == (SharePoint p2)
 
 ostream & operator << (ostream & os, SharePoint p1)
 {
-	os << "( " << p1.getX() << " , " << p1.getY() << " ) ; " << p1.getCapacity()
+	os << p1.getName() << " ; " << "( " << p1.getX() << " , " << p1.getY() << " ) ; " << p1.getCapacity()
 		<< " ; ( " << p1.countBikes("Urban")
 		<< " , " << p1.countBikes("SimpleUrban")
 		<< " , " << p1.countBikes("Race")

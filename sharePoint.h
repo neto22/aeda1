@@ -16,6 +16,7 @@ using namespace std;
 class SharePoint
 {
 protected:
+	string name;
 	int x;
 	int y;
 	unsigned int capacity;
@@ -25,14 +26,19 @@ public:
 
 	/**
 	 * @brief SharePoint constructor
+	 * @param name SharePoint's name
 	 * @param x x-coordinate
 	 * @param y y-coordinate
 	 * @param capacity maximum bikes to have simultaneous at SharePoint
 	 */
-	SharePoint(int x, int y, unsigned int capacity);
+	SharePoint(string name, int x, int y, unsigned int capacity);
 
 	//get functions
 
+	/**
+	 * @return name
+	 */
+	string getName() const;
 	/**
 	 * @return x-coordinate
 	 */

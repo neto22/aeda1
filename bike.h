@@ -10,7 +10,7 @@ using namespace std;
 //=================================================================
 
 /**
- * @brief Bike class: a bike has an ID, a price per hour, a speed value and a type. The bike class is abstract.
+ * @brief Bike class: a bike has an ID, a price per hour, a speed value and a type.
  */
 class Bike
 {

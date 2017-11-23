@@ -48,6 +48,6 @@ void displaySharePointAnalysis()
 	cout << setw(5) << 4 << ". Brief Statistic Analysis " << endl;
 	cout << setw(5) << 5 << ". Redistribute Bikes " << endl;
 	cout << setw(5) << 6 << ". Display Bikes by SharePoints" << endl;
-	cout << setw(5) << 7 << ". Back to Main Meny " << endl << endl;
+	cout << setw(5) << 7 << ". Back to Main Menu " << endl << endl;
 
 }

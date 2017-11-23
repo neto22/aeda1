@@ -1,16 +1,14 @@
 /* Type ; ID ; Name ; ( x , y ) ; Current Bike */
 
-Regular ; 1 ; UIui ; ( 15 , 20 ) ; Race
-Regular ; 4 ; Wahoy ; ( 5 , 5 ) ; NONE
-Regular ; 8 ; J ; ( 90 , 95 ) ; NONE
-Regular ; 9 ; J2 ; ( 90 , 99 ) ; Urban
-Partner ; 10 ; Try ; ( 20 , 20 ) ; Child
-Regular ; 11 ; Test ; ( 21 , 29 ) ; NONE
-Regular ; 15 ; Example ; ( 19 , 20 ) ; NONE
-Regular ; 17 ; Joao Miguel ; ( 420 , 120 ) ; NONE
-Regular ; 18 ;  ; ( 3 , 3 ) ; NONE
-Regular ; 19 ; 2 ; ( 32 , 2 ) ; NONE
-Partner ; 21 ;  ; ( 12 , 32 ) ; NONE
-Regular ; 22 ; Pedro ; ( 43 , 8 ) ; NONE
-Partner ; 23 ; Andre ; ( 12 , 32 ) ; NONE
-Regular ; 24 ; Joao MmMmMmMm ; ( 99 , 100 ) ; NONE
+Partner ; 1 ; Palia Pelia Polia Pulia dos Guimaraes ; ( -40 , -70 ) ; NONE
+Regular ; 2 ; Maria Silva ; ( 0 , 0 ) ; NONE
+Partner ; 3 ; Amanda Melo Cunha ; ( 50 , 50 ) ; NONE
+Regular ; 4 ; Leonardo Sousa ; ( -50 , -50 ) ; NONE
+Regular ; 5 ; Fabio Araujo ; ( 50 , 100 ) ; NONE
+Partner ; 6 ; Vitoria Ribeiro ; ( -10 , -10 ) ; NONE
+Regular ; 7 ; Tomas Rocha Lima ; ( -100 , -90 ) ; NONE
+Regular ; 8 ; Sofia Castro ; ( -90 , 40 ) ; NONE
+Regular ; 9 ; Luana Correia ; ( 60 , -130 ) ; NONE
+Partner ; 10 ; Aline Alves ; ( 80 , -60 ) ; NONE
+Regular ; 11 ; Erick Barbosa ; ( -120 , 90 ) ; NONE
+Partner ; 12 ; Guilherme Ferreira ; ( -150 , 0 ) ; NONE
