@@ -10,7 +10,7 @@
 //=================================================================
 
 /**
- * @brief Company class: a class to save Clients and SharePoints (pointers)
+ * @brief Company class: a class to save Clients and SharePoints (all pointers)
  */
 class Company
 {
@@ -43,7 +43,7 @@ public:
 	//=========================================================================
 
 	/**
-	 * @brief Menu for Clients Management
+	 * @brief Menu for Clients' Management
 	 * @return void
 	 */
 	void clientManagementMenu();
@@ -69,7 +69,7 @@ public:
 	 */
 	void tryPickBike();
 	/**
-	 * @brief Gets id from the client/user to return the Bike to the closest SharePoint where he is standing
+	 * @brief Gets id from the Client/user to return the Bike to the closest SharePoint where he is standing
 	 * @return void
 	 */
 	void tryReturnBike();
@@ -81,7 +81,7 @@ public:
 	//=========================================================================
 
 	/**
-	 * @brief Menu for SharePoints Management
+	 * @brief Menu for SharePoints' Management
 	 * @return void
 	 */
 	void sharePointManagementMenu();
@@ -111,7 +111,7 @@ public:
 	 //=========================================================================
 
 	 /**
-	  * @brief Menu for SharePoints analysis
+	  * @brief Menu for SharePoints' Analysis
 	  * @return void
 	  */
 	 void sharePointAnalysisMenu();
@@ -161,19 +161,19 @@ public:
 
 
 	 /**
-	  * @brief Gets SharePoint index
+	  * @brief Gets SharePoint's index
 	  * @return its index if there is a SharePoint at (x,y)
 	  * @return -1 otherwise
 	  */
 	 int findSharePoint(int x, int y) const;
 	 /**
-	  * @brief Gets SharePoint index (overloading of function findSharePoint)
+	  * @brief Gets SharePoint's index (overloading of function findSharePoint)
 	  * @return its index if there is a SharePoint with this name
 	  *  @return -1 otherwise
 	  */
 	 int findSharePoint(string name) const;
 	 /**
-	  * @brief Gets Client index
+	  * @brief Gets Client's index
 	  * @return its index if there is a Client with clientID
 	  * @return -1 otherwise
 	  */
@@ -197,14 +197,14 @@ public:
 	 */
 	void removeSharePoint(string name);
 	 /**
-	 * @brief Add new client (pointer) to vector clients
-	 * @param Client Client you want to add
+	 * @brief Add new Client (pointer) to vector clients
+	 * @param c1 Client (pointer) you want to add
 	 * @return void
 	 */
 	void addClient(Client * c1);
 	 /**
 	 * @brief Remove client with id clientID
-	 * @param clientID ID of the client
+	 * @param clientID ID of the Client we want to remove
 	 * @return void
 	 */
 	void removeClient(unsigned int clientID);
@@ -217,7 +217,7 @@ public:
 	 */
 	void changeClientLocation(unsigned int clientID, int x, int y);
 	 /**
-	 * @brief Add bike (pointer) of type bikeType to SharePoint with name nameSharePoint
+	 * @brief Add Bike (pointer) of type bikeType to SharePoint with name nameSharePoint
 	 * @param nameSharePoint SharePoint's name
 	 * @param bikeType type of the bike
 	 * @return void
@@ -251,7 +251,7 @@ public:
 	 /**
 	 * @brief if Client with clientID has no current bike, it picks a bikeType Bike from closest SharePoint
 	 * @param clientID ID of the client
-	 * @param bikeType type of bike
+	 * @param bikeType type of Bike
 	 * @return void
 	 */
 	void clientPickBike(unsigned int clientID, string bikeType);

@@ -94,7 +94,7 @@ public:
 
 	/**
 	 * @brief Calculates the distance between the Client and a SharePoint
-	 * @param SharePoint SharePoint you want to know the distance to
+	 * @param p1 SharePoint you want to know the distance to
 	 * @return distance to SharePoint
 	 */
 	double distance(SharePoint p1);
@@ -102,14 +102,14 @@ public:
 	 * @brief Finds closest SharePoint (pointer) to Client pick a Bike of type bikeType
 	 * @param sharePoints SharePoints' vector
 	 * @param bikeType type of bike you want to rent
-	 * @return closest SharePoint with bike of the type requested available
+	 * @return closest SharePoint (pointer) with bike of the type requested (if there is an avaible SharePoint)
 	 */
 	SharePoint * closestSHtoPick(const vector<SharePoint *> & sharePoints, string bikeType);
 
 	/**
 	 * @brief Finds closest not full SharePoint (pointer) to Client
 	 * @param sharePoints SharePoints (pointers) vector
-	 * @return closest not full SharePoint (pointer)
+	 * @return closest not full SharePoint (pointer), if there is one
 	 */
 	SharePoint * closestSHtoReturn(const vector<SharePoint *> & sharePoints);
 
@@ -135,7 +135,7 @@ public:
 //=================================================================
 
 /**
- * @brief Partner is a Client sub-class which makes the payments at the end of the month with a 5% discount or 10% discount (if total hours above 20), the discount it's applied at bikesPayment (excluding monthPayment)
+ * @brief Partner is a Client sub-class which makes the payments at the end of the month with a 5% discount or 10% discount (if total hours above 20), the discount is applied at bikesPayment (excluding monthPayment)
  */
 class Partner: public Client
 {
