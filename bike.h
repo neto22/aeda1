@@ -10,16 +10,15 @@ using namespace std;
 //=================================================================
 
 /**
- * @brief Bike class: a bike has an ID, a price per hour, a speed value and a type.
+ * @brief Bike class: a Bike has an ID, a price per hour and a type.
  */
 class Bike
 {
 protected:
 	//vector<Uses> historyUsages;
-	static unsigned int bikeID;	/*acho que deviamos tirar o id das bicicletas, nao vai ter utilidade*/
+	static unsigned int bikeID;	//maybe useful to next part
 	const unsigned int id;
 	unsigned int pricePerHour;	//euros
-	unsigned int speed;
 
 public:
 	/**
@@ -27,7 +26,7 @@ public:
 	 */
 	Bike();
 	/**
-	* @return bike ID
+	* @return Bike's ID
 	*/
 	unsigned int getID() const;
 	/**
@@ -35,7 +34,7 @@ public:
 	 */
 	unsigned int getPrice() const;
 	/**
-	 * @return bike type
+	 * @return Bike's type
 	 */
 	virtual string getType() const;
 };
@@ -57,7 +56,7 @@ public:
 	 */
 	Urban();
 	/**
-	 * @return bike type (urban)
+	 * @return Bike's type : "Urban"
 	 */
 	string getType() const;
 
@@ -76,11 +75,11 @@ private:
 
 public:
 	/**
-	 * @brief Simple urban bike constructor, sets price per hour
+	 * @brief SimpleUrban bike constructor, sets price per hour
 	 */
 	SimpleUrban();
 	/**
-	 * @return bike type (simple urban)
+	 * @return Bike's type : "SimpleUrban"
 	 */
 	string getType() const;
 };
@@ -102,7 +101,7 @@ public:
 	 */
 	Race();
 	/**
-	 * @return bike type (race)
+	 * @return Bike's type : "Race"
 	 */
 	string getType() const;
 };
@@ -123,7 +122,7 @@ public:
 	 */
 	Child();
 	/**
-	 * @return bike type (child)
+	 * @return Bike's type : "Child"
 	 */
 	string getType() const;
 };

@@ -7,18 +7,18 @@
  */
 void displayMainMenu();
 /**
- * @brief Displays the numbered options for the client management menu
+ * @brief Displays the numbered options for the Clients management menu
  * @return void
  */
 void displayClientManagement();
 /**
- * @brief Displays the numbered options for the sharepoint management menu
+ * @brief Displays the numbered options for the SharePoints Management menu
  * @return void
  */
 void displaySharePointManagement();
 
 /*
- * @brief Displays the numbered options for the sharepoint analysis menu
+ * @brief Displays the numbered options for the Sharepoints Analysis menu
  * @return void
  */
 void displaySharePointAnalysis();

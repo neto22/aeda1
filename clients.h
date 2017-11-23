@@ -11,7 +11,7 @@
 //=================================================================
 
 /**
- * @brief Client class: has a user ID, name, current position (x and y coordinates) and bike they are using. There are two types of Clients (Partner and Regulars) and so the Clients class is abstract.
+ * @brief Client class: has a user ID, name, current position (x and y coordinates) and bike they are using. There are two types of Clients (Partner and Regular), implemented as derived classes.
  */
 class Client
 {
@@ -66,26 +66,26 @@ public:
 	//set functions
 
 	/**
-	 * @brief Sets client's ID
+	 * @brief Sets Client's ID
 	 * @param user_id User ID
 	 * @return void
 	 */
 	void setID(unsigned int user_id);	//usefull to get clients correctly from file
 	/**
-	 * @brief Sets client's x-coordinate
+	 * @brief Sets Client's x-coordinate
 	 * @param x x-coordinate
 	 * @return void
 	 */
 	void setX(int x);
 	/**
-	 * @brief Sets client's y-coordinate
+	 * @brief Sets Client's y-coordinate
 	 * @param y y-coordinate
 	 * @return void
 	 */
 	void setY(int y);
 	/**
-	 * @brief Sets client's current bike
-	 * @param b1 bike to rent
+	 * @brief Sets Client's current bike
+	 * @param b1 Bike (pointer) to rent
 	 * @return void
 	 */
 	void setCurrentBike(Bike * b1);
@@ -93,14 +93,14 @@ public:
 	//distance to SharePoint
 
 	/**
-	 * @brief Calculates the distance between the client and a SharePoint
+	 * @brief Calculates the distance between the Client and a SharePoint
 	 * @param SharePoint SharePoint you want to know the distance to
 	 * @return distance to SharePoint
 	 */
 	double distance(SharePoint p1);
 	/**
-	 * @brief Finds closest SharePoint (pointer) to Client to pick a bike of type bikeType
-	 * @param sharePoints SharePoints vector
+	 * @brief Finds closest SharePoint (pointer) to Client pick a Bike of type bikeType
+	 * @param sharePoints SharePoints' vector
 	 * @param bikeType type of bike you want to rent
 	 * @return closest SharePoint with bike of the type requested available
 	 */
@@ -108,8 +108,8 @@ public:
 
 	/**
 	 * @brief Finds closest not full SharePoint (pointer) to Client
-	 * @param sharePoints SharePoints vector
-	 * @return closest SharePoint with not full
+	 * @param sharePoints SharePoints (pointers) vector
+	 * @return closest not full SharePoint (pointer)
 	 */
 	SharePoint * closestSHtoReturn(const vector<SharePoint *> & sharePoints);
 
@@ -117,12 +117,12 @@ public:
 
 	/**
 	 * @brief virtual pay function
-	 * @param hours Number of hours rented
+	 * @param hours Number of hours Bike was rented
 	 * @return void
 	 */
 	virtual void pay(unsigned int hours);
 	/**
-	 * @brief virtual pay function at the end of the month (for partners only)
+	 * @brief virtual pay function at the end of the month (for Partner class only)
 	 * @return void
 	 */
 	virtual void payMonth();	//only relevant to partner
@@ -135,7 +135,7 @@ public:
 //=================================================================
 
 /**
- * @brief Partner is a Client sub-class which makes the payments at the end of the month with a 5% discount or 10% discount (if total hours above 20)
+ * @brief Partner is a Client sub-class which makes the payments at the end of the month with a 5% discount or 10% discount (if total hours above 20), the discount it's applied at bikesPayment (excluding monthPayment)
  */
 class Partner: public Client
 {
@@ -154,15 +154,15 @@ public:
 	Partner(string name, int x, int y);
 
 	/**
-	 * @return string with Client's information in the format "Partner ; user_id ; name ; ( x , y ) ; "
+	 * @return string with Client's information in the format "Partner ; user_id ; name ; ( x , y ) ; Current Bike"
 	 */
 	string getInformation() const;
 	/**
-	 * @return Partner
+	 * @return type : "Partner"
 	 */
 	string getType() const;
 	/**
-	 * @brief Accumulate bike payment to bikesPayment and hoursMonth
+	 * @brief Accumulate bike payment to bikesPayment and hours rented to hoursMonth
 	 * @param hours hours used
 	 * @return void
 	 */
@@ -185,9 +185,19 @@ class Regular: public Client
 {
 public:
 	Regular(string name, int x, int y);
+	/**
+	 * @return string with Client's information in the format "Regular ; user_id ; name ; ( x , y ) ; Current Bike"
+	 */
 	string getInformation() const;
+	/**
+	 * @return type : "Regular"
+	 */
 	string getType() const;
-	//print value that regular pays ( bike->pricePerHour * hours)
+	/**
+	 * @brief Client pays automatically when returning Bike (print value that Regular pays: bike->pricePerHour * hours)
+	 * @param hours hours Bike was used
+	 * @return void
+	 */
 	void pay(unsigned int hours);
 };
 
@@ -210,11 +220,11 @@ public:
 	NotAvaibleSharePoints() {}
 	/**
 	 * @brief NotAvaibleSharePoints constructor
-	 * @param bikeType Type of bike trying to be returned
+	 * @param bikeType Type of Bike trying to be picked
 	 */
 	NotAvaibleSharePoints(string bikeType) {this->bikeType = bikeType;}
 	/**
-	 * @return Type of bike trying to be returned
+	 * @return Type of Bike trying to be picked
 	 */
 	string getBykeType() const {return bikeType;}
 };

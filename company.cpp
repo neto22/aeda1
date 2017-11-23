@@ -720,7 +720,7 @@ int Company::findSharePoint(int x, int y) const
 
 	return -1;	//didn't find SharePoint
 }
-//TO TEST
+//DONE AND TESTED
 int Company::findSharePoint(string name) const
 {
 	for(size_t i = 0; i < sharePoints.size(); i++)

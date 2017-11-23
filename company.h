@@ -10,7 +10,7 @@
 //=================================================================
 
 /**
- * @brief Company class: a class to save Clients and SharePoints
+ * @brief Company class: a class to save Clients and SharePoints (pointers)
  */
 class Company
 {
@@ -21,7 +21,7 @@ private:
 
 public:
 	/**
-	 * @brief Company constructor, just creates a company so we can save the clients and the sharepoints
+	 * @brief Company constructor, just creates a company so we can save the Clients and the SharePoints
 	 */
 	Company();
 
@@ -43,33 +43,33 @@ public:
 	//=========================================================================
 
 	/**
-	 * @brief Menu for client management
+	 * @brief Menu for Clients Management
 	 * @return void
 	 */
 	void clientManagementMenu();
 	/**
-	 * @brief Gets information from the user to add a new client
+	 * @brief Gets information from the user to add a new Client
 	 * @return void
 	 */
 	void tryAddNewClient();
 	/**
-	 * @brief Gets information from the user to add a new client
+	 * @brief Gets information from the user to add a new Client
 	 * @return void
 	 */
-	//Gets client ID from user and deletes that client
+	//Gets client ID from user and deletes that Client
 	void tryRemoveClient();
 	/**
-	 * @brief Gets new pair of coordinates and updates the location of a given client
+	 * @brief Gets new pair of coordinates and updates the location of a given Client
 	 * @return void
 	 */
 	void tryChangeClientLocation();
 	/**
-	 * @brief Gets information to set a bike to a user and delete it from the sharepoint it was in
+	 * @brief Gets information to set a Bike to a user and delete it from the closest SharePoint it was in
 	 * @return void
 	 */
 	void tryPickBike();
 	/**
-	 * @brief Gets id from the client/user to return the bike to the sharepoint where he is standing
+	 * @brief Gets id from the client/user to return the Bike to the closest SharePoint where he is standing
 	 * @return void
 	 */
 	void tryReturnBike();
@@ -81,27 +81,27 @@ public:
 	//=========================================================================
 
 	/**
-	 * @brief Menu for share point management
+	 * @brief Menu for SharePoints Management
 	 * @return void
 	 */
 	void sharePointManagementMenu();
 	/**
-	 * @brief Gets information from the user to create a new share point
+	 * @brief Gets information from the user to create a new SharePoint
 	 * @return void
 	 */
 	void tryAddNewSharePoint();
 	/**
-	 * @brief Removes a share point with the coordinates pointed by user
+	 * @brief Removes a SharePoint with the name given by user
 	 * @return void
 	 */
 	void tryRemoveSharePoint();
 	/**
-	 * @brief Gets information about which type of bike to add to which sharepoint (already has to exist)
+	 * @brief Gets information about which type of bike to add to which SharePoint (already has to exist)
 	 * @return void
 	 */
 	 void tryAddBikeToSharePoint();
 	 /**
-	  * @brief Gets information about which type of bike to remove from sharepoint (already has to exist)
+	  * @brief Gets information about which type of Bike to remove from SharePoint (already has to exist)
 	  * @return void
 	  */
 	 void tryRemoveBikeFromSharePoint();
@@ -111,46 +111,46 @@ public:
 	 //=========================================================================
 
 	 /**
-	  * @brief Menu for share point analysis
+	  * @brief Menu for SharePoints analysis
 	  * @return void
 	  */
 	 void sharePointAnalysisMenu();
 
 	 /**
-	  * @brief prints the number of bikes available in all sharepoints by type
+	  * @brief prints the number of Bikes available in all SharePoints by type
 	  * @return void
 	  */
 	 void printAllBikesAvailable();
 
 	 /**
-	  *@brief prints the information of a sharepoint ordered by the total number of bikes
+	  *@brief prints the information of a SharePoint ordered by the total number of Bikes
 	  *@return void
 	  */
 	 void printOrderedByTotalBikes();
 
 	 /**
-	  * @brief prints the information of a sharepoint ordered by its occupancy
+	  * @brief prints the information of a SharePoint ordered by its occupancy
 	  * @return void
 	  */
 	 void printOrderedByOccupancy();
 
 	 /**
-	  * @brief prints the average number of bikes per sharepoint, the lowest amount, the highest, and the standart deviaton
+	  * @brief prints the average number of Bikes per SharePoint, the lowest amount, the highest, and the standart deviaton
 	  * @return void
 	  */
 	 void statisticAnalysis();
 
 	 /**
-	  * @brief redistributes the bikes from all sharepoints so they are more balanced in quantity and type
-	  * 1 step: makes a vector with all the bikes
-	  * 2 step: makes an ordered vector with all the bikes (by type)
+	  * @brief redistributes the bikes from all SharePoints so they are more balanced in quantity and type
+	  * 1 step: makes a vector with all the Bikes
+	  * 2 step: makes an ordered vector with all the Bikes (by type)
 	  * 3 step: loop throught all the sharepoints and give a bike (therefore the quantity and type will be as well distributed as possible
 	  * @return void
 	  */
 	 void redistributeBikes();
 
 	 /**
-	  * @brief displays the bikes by type by sharepoint to auxiliate decision of redistribution
+	  * @brief displays the Bikes by type by SharePoint to auxiliate decision of redistribution
 	  * @return void
 	  */
 	 void displayBikesBySharePoint();
@@ -167,7 +167,7 @@ public:
 	  */
 	 int findSharePoint(int x, int y) const;
 	 /**
-	  * @brief Gets SharePoint index (overloaading of function findSharePoint)
+	  * @brief Gets SharePoint index (overloading of function findSharePoint)
 	  * @return its index if there is a SharePoint with this name
 	  *  @return -1 otherwise
 	  */
@@ -186,17 +186,10 @@ public:
 
 	 /**
 	 * @brief Add new SharePoint (pointer) to vector sharePointers
-	 * @param SharePoint SharePoint you want to add
+	 * @param p1 SharePoint (pointer) you want to add
 	 * @return void
 	 */
 	void addSharePoint(SharePoint * p1);
-	 /**
-	 * @brief Remove SharePoint (pointer) at location (x,y)
-	 * @param x x-coordinate
-	 * @param y y-coordinate
-	 * @return void
-	 */
-	void removeSharePoint(int x, int y);
 	/**
 	 * @brief Remove SharePoint (pointer) with name we insert (Overload of removeSharePoint function)
 	 * @param name SharePoint's name
@@ -216,7 +209,7 @@ public:
 	 */
 	void removeClient(unsigned int clientID);
 	/**
-	 * @brief Change client with id clientID location to (x,y)
+	 * @brief Move Client with id clientID to location (x,y)
 	 * @param clientID ID of the client
 	 * @param x - new x-coordinate
 	 * @param y - new y-coordinate
@@ -225,7 +218,7 @@ public:
 	void changeClientLocation(unsigned int clientID, int x, int y);
 	 /**
 	 * @brief Add bike (pointer) of type bikeType to SharePoint with name nameSharePoint
-	 * @param nameSharePoint : SharePoint's name
+	 * @param nameSharePoint SharePoint's name
 	 * @param bikeType type of the bike
 	 * @return void
 	 */
@@ -256,7 +249,7 @@ public:
 	//=========================================================================
 
 	 /**
-	 * @brief if Client with clientID has no current bike, it picks a bikeType bike from closest SharePoint
+	 * @brief if Client with clientID has no current bike, it picks a bikeType Bike from closest SharePoint
 	 * @param clientID ID of the client
 	 * @param bikeType type of bike
 	 * @return void
@@ -269,7 +262,7 @@ public:
 	 */
 	void clientReturnBike(unsigned int clientID);
 	 /**
-	 * @brief End of month (partners pay)
+	 * @brief End of month (clients of type Partner pay)
 	 * @return void
 	 */
 	void endOfMonth();
@@ -280,33 +273,42 @@ public:
 
 	/**
 	 * @brief Save SharePoint's information in a file connected to ostream outFile
+	 * @param outFile
+	 * @return void
 	 */
 	void saveSharePoints(ostream & outFile);
 	/**
 	 * @brief Save client's information in a file connected to ostream outFile
+	 * @param outFile
+	 * @return void
 	 */
 	void saveClients(ostream & outFile);
 	/**
-	 * @brief Converts a string from a file of SharePoint to a object of type SharePoint
-	 * @return pointer to SharePoint converted from string
+	 * @brief Converts a string from a file of a SharePoints to an object of type SharePoint
+	 * @param p1 string with SharePoint's information
+	 * @return pointer to SharePoint converted from string p1
 	 */
 	SharePoint * stringToSharePoint(string p1);
 	/**
-	 * @brief Converts a string from a file of clients to a object of type Client
-	 * @return pointer to Client converted from string
+	 * @brief Converts a string from a file of Clients to an object of type Client
+	 * @param c1 string with Client's information
+	 * @return pointer to Client converted from string c1
 	 */
 	Client * stringToClient(string c1);
 	/**
-	 * @return pointer to a bike of type b1
+	 * @brief Converts a string of a Bike to an objct of type Bike
+	 * @return pointer to a Bike converted from string b1
 	 */
 	Bike * stringToBike(string b1);
 	/**
 	 * @brief Read SharePoints from file connected to istream inFile and save them at sharePoints vector
+	 * @param inFile
 	 * @return void
 	 */
 	void readSharePoints(istream & inFile);
 	/**
 	 * @brief Read Clients from file connected to istream inFile and save them at clients vector
+	 * @param inFile
 	 * @return void
 	 */
 	void readClients(istream & inFile);
@@ -328,7 +330,7 @@ private:
 
 public:
 	/**
-	 * @brief Existent SharePoint Constructor
+	 * @brief Already Existent SharePoint at Location Constructor
 	 */
 	AlreadyExistentSharePointAtLocation(int x, int y) {this->x = x; this->y = y;}
 	/**
@@ -337,7 +339,9 @@ public:
 	string getInformation() {return ("Already exists a SharePoint at location : (" + to_string(x) + " , " + to_string(y) + ") ");}
 };
 
-
+/**
+ * @brief Already has a SharePoint with name specified (we can't add another with this name)
+ */
 class AlreadyExistentSharePointWithName
 {
 private:
@@ -345,7 +349,7 @@ private:
 
 public:
 	/**
-	 * @brief Existent SharePoint Constructor
+	 * @brief Already Existent SharePoint With Name Constructor
 	 */
 	AlreadyExistentSharePointWithName(string name) {this->name = name;}
 	/**
@@ -365,12 +369,12 @@ private:
 
 public:
 	/**
-	 * @brief Non-Existent SharePoint at location (x,y) Constructor
+	 * @brief Non-Existent SharePoint Constructor
 	 */
 	NotExistentSharePoint(string sharePointName) {this->sharePointName = sharePointName;}
 
 	/**
-	 * @return String with coordinates not found in the format "( x , y ) "
+	 * @return String with name not found : sharePointName
 	 */
 	string getName() {return sharePointName;}
 
@@ -407,8 +411,7 @@ private:
 public:
 	/**
 	 * @brief FullSharePoint constructor
-	 * @param x x-coordinate
-	 * @param y y-coordinate
+	 * @param nameSharePoint name of full SharePoint
 	 */
 	FullSharePoint(string nameSharePoint) {this->nameSharePoint = nameSharePoint;}
 	/**
@@ -420,7 +423,7 @@ public:
 };
 
 /**
- * @brief Non-Existent bike type at SharePoint
+ * @brief Non-Existent Bike's type at SharePoint
  */
 class NotExistentBikeType
 {
@@ -441,7 +444,7 @@ public:
 };
 
 /**
- * @brief Client is still with a bike
+ * @brief Client is still with a Bike, he must return it before pick another
  */
 class ClientAlreadyWithBike
 {
@@ -453,7 +456,7 @@ public:
 };
 
 /**
- * @brief Client doesn't have bike at the moment
+ * @brief Client doesn't have a Bike at the moment to return
  */
 class ClientWithoutBike
 {

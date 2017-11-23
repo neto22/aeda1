@@ -11,7 +11,7 @@ using namespace std;
 //=================================================================
 
 /**
- * @brief SharePoint class has x and y coordinates, capacity and a vector with the bikes allocated there
+ * @brief SharePoint class has a name, x and y coordinates, capacity and a vector with the Bikes (pointers) allocated there
  */
 class SharePoint
 {
@@ -29,7 +29,7 @@ public:
 	 * @param name SharePoint's name
 	 * @param x x-coordinate
 	 * @param y y-coordinate
-	 * @param capacity maximum bikes to have simultaneous at SharePoint
+	 * @param capacity maximum number of bikes to have simultaneously at SharePoint
 	 */
 	SharePoint(string name, int x, int y, unsigned int capacity);
 
@@ -48,15 +48,15 @@ public:
 	 */
 	int getY() const;
 	/**
-	 * @return vector with all the bikes available on this SharePoint
+	 * @return vector with all the Bikes (pointers) available on this SharePoint
 	 */
 	vector<Bike*> getBikes() const;
 	/**
-	 * @return number of bikes on this SharePoint
+	 * @return number of Bikes on this SharePoint
 	 */
 	unsigned int getNumBikes() const;
 	/**
-	 * @return capacity (maximum bikes possible to have on this SharePoint)
+	 * @return capacity (maximum Bikes possible to have on this SharePoint)
 	 */
 	unsigned int getCapacity() const;
 	/**
@@ -70,17 +70,20 @@ public:
 
 	/**
 	 * @brief checks if SharePoint is full
-	 * if there's space available @return false else @return true
+	 * @return true if it's full
+	 * @return false otherwise
 	 */
 	bool isFull() const;
 	/**
-	 * @brief removes bike to vector bikes if SharePoint isn't empty
-	 * if successful @return true else @return false
+	 * @brief removes Bike of bikeType from vector bikes if SharePoint isn't empty
+	 * @return true if successful
+	 * @return false otherwise
 	 */
 	bool removeBike(string bikeType);
 	/**
-	 * @brief adds bike to vector bikes if SharePoint isn't full
-	 * if successful @return true else @return false
+	 * @brief adds Bike (pointer) b1 to vector bikes if SharePoint isn't full
+	 * @return true if successful
+	 * @return false otherwise
 	 */
 	bool addBike(Bike* b1);
 
@@ -88,13 +91,13 @@ public:
 
 
 	/**
-	 * @param bikeType type of bike
-	 * @return number of bikes from a specific type
+	 * @param bikeType type of Bike
+	 * @return number of bikes from a specific type (bikeType)
 	 */
 	unsigned int countBikes(string bikeType) const;
 
 	/**
-	 * @brief checks if 2 SharePoints are the same by comparing their x and y coordinates
+	 * @brief checks if 2 SharePoints have the same location by comparing their x and y coordinates
 	 * if theirs position are the same @return true else @return false
 	 */
 	//operator to see if 2 SharePoints have the same location
@@ -108,7 +111,7 @@ public:
  *
  * converts SharePoint into a string in the format of:
  * ( x , y ) ; capacity ; ( number_of_urban_bikes ; number_of_simpleurban_bikes ; number_of_race_bikes ; number_of_child_bikes )
- * @return out stream with organized values of sharepoint as string
+ * @return out stream with organized values of SharePoint p1 as string
  */
 ostream & operator << (ostream & os, SharePoint p1);
 
