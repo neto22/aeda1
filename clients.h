@@ -11,7 +11,7 @@
 //=================================================================
 
 /**
- * @brief Client class: has a user ID, name, current position (x and y coordinates) and bike they are using. There are two types of Clients (Partner and Regular), implemented as derived classes.
+ * @brief Client cladss: has a user ID, name, current position (x and y coordinates) and bike they are using. There are two types of Clients (Partner and Regular), implemented as derived classes.
  */
 class Client
 {

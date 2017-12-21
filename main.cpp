@@ -78,7 +78,7 @@ int getDouble(string question, double min, double max)
 	return option;
 }
 
-int main()
+int main2()
 {
 
 	/*GETTING SAVED INFORMATION FROM FILES*/
@@ -241,4 +241,5 @@ int main()
 		outFile.close();
 
 	}while(option != 5);
+	return 0;
 }

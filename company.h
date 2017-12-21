@@ -3,6 +3,7 @@
 
 #include "sharePoint.h"
 #include "clients.h"
+#include "workshop.h"
 #include <sstream>
 
 //=================================================================
@@ -14,6 +15,8 @@
  */
 class Company
 {
+	friend class Workshop;
+
 private:
 	vector <SharePoint *> sharePoints;
 	vector<Client *> clients;
