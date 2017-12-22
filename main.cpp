@@ -6,6 +6,8 @@
 #include "company.h"
 #include "global.h"
 #include "display.h"
+#include "piece.h"
+#include "workshop.h"
 
 using namespace std;
 
@@ -78,12 +80,17 @@ int getDouble(string question, double min, double max)
 	return option;
 }
 
-int main2()
+int main()
 {
 
 	/*GETTING SAVED INFORMATION FROM FILES*/
 
 	Company bikesCompany;
+	Workshop ws;
+
+	//get information from file to workshop
+	ws.loadBstFromFile();
+
 
 	//reading SharePoints from file "SharePoints.txt" ========================
 
@@ -128,7 +135,7 @@ int main2()
 		displayMainMenu();
 
 		//get the option from the user
-		option = getInteger("Choose an option: ",1 , 5);
+		option = getInteger("Choose an option: ",1 , 6);
 
 		switch(option)
 		{
@@ -152,7 +159,12 @@ int main2()
 			bikesCompany.endOfMonth();
 			break;
 		}
-		case 5:
+		case 5:				//workshop related menu (BINARY SEARCH TREE)
+		{
+			ws.menu();
+			break;
+		}
+		case 6:
 		{
 			cout << "End of program"<< endl;
 			break;
@@ -169,42 +181,6 @@ int main2()
 		//===============================| TESTING  |==============================
 		//=========================================================================
 
-		/*other tests: to remove later
-
-		cout << "number of SharePoints : " << bikesCompany.getSharePoints().size() << endl;
-
-		cout << "number of Clients  : " << bikesCompany.getClients().size() << endl;
-
-		//closest SharePoint
-		int clientInd;
-		cout << "Client index to find closest SharePoint to return bike: "; cin >>clientInd;
-
-		try
-		{
-			SharePoint * p1 = bikesCompany.getClients().at(clientInd)->closestSHtoReturn(bikesCompany.getSharePoints());
-			cout << "Closest SharePoint : "<< *p1 << endl;
-		}
-
-		catch(NotAvaibleSharePoints & e)
-		{
-			cout << "Not Avaible SharePoints" << endl;
-		}
-
-		string bikeType;
-		cout << "Client index to find closest SharePoint to peek bike: "; cin >> clientInd;
-		cout << "Bike Type : "; cin >> bikeType;
-
-		try
-		{
-			SharePoint * p1 = bikesCompany.getClients().at(clientInd)->closestSHtoPeek(bikesCompany.getSharePoints(), bikeType);
-			cout << "Closest SharePoint : "<< *p1 << endl;
-		}
-
-		catch(NotAvaibleSharePoints & e)
-		{
-			cout << "Not Avaible SharePoints with : " << e.getBykeType() <<  endl;
-		}
-		 */
 
 		//=========================================================================
 		//=========================| SAVING INFORMATIONS |=========================
@@ -240,6 +216,9 @@ int main2()
 
 		outFile.close();
 
-	}while(option != 5);
+		//save information related to workshop
+		ws.saveBstToFile();
+
+	}while(option != 6);
 	return 0;
 }

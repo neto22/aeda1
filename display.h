@@ -23,5 +23,9 @@ void displaySharePointManagement();
  */
 void displaySharePointAnalysis();
 
+/*
+ * @brief Displays the numbered options for the Workshop menu (BST - second part)
+ */
+void displayWorkshopMenu();
 
 #endif /* DISPLAY_H */

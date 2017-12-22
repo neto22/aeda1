@@ -1,3 +1,9 @@
-daedfesf ; 13 ; 3123 ; 9952
-daedfesf ; deed ; 3213 ; 100
-stesrtght ; ergesg ; 21 ; 21
+Guiao ; Trek ; 1 ; 1
+Guiao ; Scott ; 2 ; 21
+Pedal ; Cannondale ; 50 ; 1
+Pneu ; Schwinn ; 20 ; 14
+Quadro ; Cannondale ; 100 ; 21
+Quadro ; BH ; 120 ; 2
+Selim ; Giant ; 2 ; 2
+Travao ; Specialized ; 23 ; 1
+Travao ; Scott ; 33 ; 1

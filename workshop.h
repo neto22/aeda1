@@ -34,6 +34,12 @@ public:
 	 */
 	void printAllPieces() const;
 
+	/*
+	 * @brief prints the information given as argument
+	 * @param piecesToPrint vector of Piece
+	 */
+	void printVectorPieces(const vector<Piece> &piecesToPrint) const;
+
 
 	//=========================================================================
 	//======================| EDIT |====================================
@@ -44,6 +50,13 @@ public:
 	 * @return void
 	 */
 	void addNewPiece(Piece wanted);
+
+	/*
+	 * @brief Takes a vector of Piece as argument and returns it backwards
+	 * @param vecPiece - vector of Piece to reverse
+	 * @return the backwards vector
+	 */
+	vector<Piece> reverseVector(vector<Piece> vecPiece);
 
 	//=========================================================================
 	//======================| USER OPERATIONS |================================
@@ -67,6 +80,23 @@ public:
 	 */
 	void supplierCheapeastPiece();
 
+	/*
+	 * @brief Gets from the BST pieces the information wanted by the user (to be defined inside function - associated with a piece name)
+	 * @return ordered vector of Piece
+	 */
+	vector<Piece> infoAboutGivenPiece();
+
+	/*
+	 * @brief menu that allows multiple ways of listing pieces
+	 * @return void
+	 */
+	void listingsMenu();
+
+	/*
+	 * @brief menu to all workshop related user operations
+	 * @return void
+	 */
+	void menu();
 	//=========================================================================
 	//================================| FILES |================================
 	//=========================================================================

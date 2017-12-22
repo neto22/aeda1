@@ -11,7 +11,8 @@ void displayMainMenu()
 	cout << setw(5) << 2 << ". SharePoint's Management " << endl;
 	cout << setw(5) << 3 << ". SharePoint Analysis" << endl;
 	cout << setw(5)	<< 4 << ". End of the month " << endl;
-	cout << setw(5) << 5 << ". Exit " << endl;
+	cout << setw(5) << 5 << ". Workshop menu" << endl;
+	cout << setw(5) << 6 << ". Exit " << endl;
 	cout << "::::::::::::::::::::::::::::" << endl << endl;
 }
 
@@ -49,5 +50,16 @@ void displaySharePointAnalysis()
 	cout << setw(5) << 5 << ". Redistribute Bikes " << endl;
 	cout << setw(5) << 6 << ". Display Bikes by SharePoints" << endl;
 	cout << setw(5) << 7 << ". Back to Main Menu " << endl << endl;
+
+}
+
+void displayWorkshopMenu()
+{
+	cout << endl;
+	cout << setw(5) << 1 << ". Purchase pieces " << endl;
+	cout << setw(5) << 2 << ". Look for cheapest piece " << endl;
+	cout << setw(5) << 3 << ". Remove pieces " << endl;
+	cout << setw(5) << 4 << ". Multiple Listings " << endl;
+	cout << setw(5)	<< 5 << ". Back to Main Menu " << endl << endl;
 
 }
