@@ -3,6 +3,7 @@
 #include "global.h"
 #include <iomanip>
 #include <math.h>
+#include <cmath>
 
 //constructor
 Company::Company()
@@ -826,7 +827,7 @@ void Company::addBike(string sharePointName, string bikeType)
 		throw NotExistentSharePoint(sharePointName);
 
 	if(sharePoints.at(sharePointIndex)->isFull())
-		throw FullSharePoint(sharePointName);	//SharePoint can´t take more bikes
+		throw FullSharePoint(sharePointName);	//SharePoint canï¿½t take more bikes
 
 	//if we have all conditions to add bike
 	sharePoints.at(sharePointIndex)->addBike(stringToBike(bikeType));

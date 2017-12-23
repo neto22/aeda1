@@ -19,6 +19,29 @@ Workshop::Workshop(): pieces(Piece("","",0,0))
 	//DO NOTHING
 }
 
+string Workshop::getName() {
+	return name;
+}
+
+float Workshop::getReputation() {
+	return reputation;
+}
+
+vector<int> Workshop::getRatings() {
+	return ratings;
+}
+
+vector<BikeForSale *> Workshop::getBikes() {
+	return bikes;
+}
+
+
+void Workshop::pushRating(int rating) {
+	ratings.push_back(rating);
+	calcReputation();
+}
+
+
 //=========================================================================
 //======================| PRINT |====================================
 //=========================================================================
@@ -230,7 +253,7 @@ void Workshop::removePiece()
 	//if it reaches here, not found
 	cout << "No such registry found with those specifications" << endl;
 
-	//TODO - se chegar aqui quer dizer que nao existe registo nenhum com o mesmo nome e com o mesmo fornecedor por isso podes lançar a exceçao em vez da mensagem que tenho
+	//TODO - se chegar aqui quer dizer que nao existe registo nenhum com o mesmo nome e com o mesmo fornecedor por isso podes lanï¿½ar a exceï¿½ao em vez da mensagem que tenho
 }
 
 void Workshop::supplierCheapeastPiece()
@@ -434,3 +457,47 @@ void Workshop::saveBstToFile(void)
 }
 
 
+bool Workshop::operator<(const Workshop & w) const
+{
+	return reputation < w.reputation;
+}
+
+int Workshop::bikesInStock (string type) {
+
+	int total;
+
+	for (int i = 0; i < bikes.size(); i++) {
+		if (bikes[i]->getType() == type) {
+			total++;
+		}
+	}
+
+	return total;
+}
+
+void Workshop::calcReputation() {
+
+	float r = 0;
+
+	for (int i = 0; i < ratings.size(); i++) {
+		r += ratings[i];
+	}
+
+	r /= ratings.size();
+
+	reputation = r;
+}
+
+void Workshop::sellBikes(string type, int n) {
+	int rem = 0;
+	int i = 0;
+
+	while ((rem < n) && (i < bikes.size())) {
+		if (bikes[i]->getType() == type) {
+			bikes.erase(bikes.begin()+i);
+			rem++;
+		} else {
+			i++;
+		}
+	}
+}

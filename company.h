@@ -1,10 +1,12 @@
 #ifndef COMPANY_H
 #define COMPANY_H
 
+#include <sstream>
+#include <queue>
+
 #include "sharePoint.h"
 #include "clients.h"
 #include "workshop.h"
-#include <sstream>
 
 //=================================================================
 //Company//========================================================
@@ -20,8 +22,7 @@ class Company
 private:
 	vector <SharePoint *> sharePoints;
 	vector<Client *> clients;
-
-
+	priority_queue <Workshop> workshops;
 public:
 	/**
 	 * @brief Company constructor, just creates a company so we can save the Clients and the SharePoints
@@ -181,6 +182,12 @@ public:
 	  * @return -1 otherwise
 	  */
 	 int findClient(unsigned int clientID) const;
+	 /**
+	  * @param type bike type
+	  * @param nbikes number of bikes to purchase
+	  * @return name of the workshop with better reputation and number of bikes from a certain type on stock
+	  */
+	 string findWorkshop(string type, int nbikes);
 
 	 //=========================================================================
 	 //===================| VECTORS MANAGEMENT |===============================
