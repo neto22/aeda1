@@ -22,7 +22,7 @@ class Company
 private:
 	vector <SharePoint *> sharePoints;
 	vector<Client *> clients;
-	priority_queue <Workshop> workshops;
+	priority_queue <Workshop *> workshops;
 public:
 	/**
 	 * @brief Company constructor, just creates a company so we can save the Clients and the SharePoints
