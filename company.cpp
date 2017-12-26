@@ -703,6 +703,11 @@ vector<Client *> Company::getClients() const
 	return clients;
 }
 
+priority_queue<Store> Company::getStores() const
+{
+	return stores;
+}
+
 //=========================================================================
 //===========================| SEARCH |====================================
 //=========================================================================
@@ -947,9 +952,268 @@ void Company::endOfMonth()
 			clients.at(i)->payMonth();
 }
 
+
+
+//=========================================================================
+//==================| STARTS 2º PART |=====================================
+//=========================================================================
+
+	//=========================================================================
+	//==================| SHOPS MANAGEMENT |===================================
+	//=========================================================================
+
+void Company::addStore(string name, int numUrban, int numSimpleUrban, int numRace, int numChild)
+{
+	vector<Bike *> bikesForSale;
+
+	//adding bikes to sale to vector above
+	for(int i = 0; i < numUrban; i++)
+		bikesForSale.push_back(new Urban());
+
+	for(int i = 0; i < numSimpleUrban; i++)
+		bikesForSale.push_back(new SimpleUrban());
+
+	for(int i = 0; i < numRace; i++)
+		bikesForSale.push_back(new Race());
+
+	for(int i = 0; i < numChild; i++)
+		bikesForSale.push_back(new Child());
+
+	Store newStore(name, bikesForSale);
+
+	stores.push(newStore);
+}
+
+
+void Company::removeStore(string name)
+{
+	priority_queue<Store> tmp;
+
+	if(stores.empty())
+		return;
+
+	//search for store we want to remove
+	while(!stores.empty())
+	{
+		Store s1 = stores.top();
+		stores.pop();
+
+		if(s1.getName() == name)
+			break;
+		else
+			tmp.push(s1);	//if not wished store, save it in temporary queue
+	}
+
+	//relocate stores we don't want to remove
+	while(!tmp.empty())
+	{
+		stores.push(tmp.top());
+		tmp.pop();
+	}
+
+}
+
+
+Store Company::popAvailableShop(string bikeType, int numBikes)
+{
+	priority_queue<Store> tmp;
+
+	while(!stores.empty())
+	{
+		Store s1 = stores.top();
+		stores.pop();
+
+		//if it finds available store
+		if(s1.hasEnoughStock(bikeType, numBikes))
+		{
+			//relocate Stores at queue
+			while(!tmp.empty())
+			{
+				stores.push(tmp.top());
+				tmp.pop();
+			}
+
+			//return available Store removed from queue
+			return s1;
+		}
+		else
+		{
+			//saves not available store
+			tmp.push(s1);
+		}
+
+	}
+
+	//in case it doesn't find an available store
+
+	//relocate Stores at queue
+	while(!tmp.empty())
+	{
+		stores.push(tmp.top());
+		tmp.pop();
+	}
+
+	//throw exception
+	throw NotAvailableStores(bikeType, numBikes);
+
+}
+
+
+void Company::showTopStores()
+{
+	priority_queue<Store> tmp = stores;
+	int counter = 0;
+
+	if(stores.empty())
+		return;
+
+	while((counter < 5) && (!tmp.empty()))
+	{
+		cout << "::::::::::::TOP " << counter + 1 << "::::::::::::" << endl;
+		cout << tmp.top() << endl;
+		tmp.pop();
+		counter++;
+	}
+
+}
+
+
+	//=========================================================================
+	//==================| SHOPS MENU/FUNCIONALITIES |==========================
+	//=========================================================================
+
+void Company::storeManagementMenu()
+{
+	//local variables
+	int option;
+
+	//print the menu
+	displayStoreMenu();
+
+	//choose the option
+	option = getInteger("Choose option: ",1,5);
+	switch(option)
+	{
+
+	case 1:
+	{
+		userAddStore();		//user choose values to add new store
+		break;
+	}
+	case 2:
+	{
+		userRemoveStore();		//user inserts name of store to be removed
+		break;
+	}
+	case 3:
+	{
+		userPurchasesBikes();	//purchase a certain number of bikes of a certain bike type, both specified by the user
+		break;
+	}
+	case 4:
+	{
+		showTopStores();	//show top 5 best stores
+		break;
+	}
+
+	case 5:
+	{
+		cout << "Leaving Shops Management Menu" << endl;
+		break;
+	}
+	default:
+	{
+			//it never gets to default since the menu option is delimited by getInteger()
+	}
+
+	}
+
+}
+
+
+void Company::userAddStore()
+{
+	string name;
+	int numUrban, numSimpleUrban, numRace, numChild;
+
+	//getting the name of the new Store
+	name = askString("Name: ");
+
+	//getting bikes' number
+	numUrban = getInteger("Number Urban bikes: ", 0,500);
+	numSimpleUrban = getInteger("Number SimpleUrban bikes: ",0, 500);
+	numRace = getInteger("Number Race bikes: ", 0, 500);
+	numChild = getInteger("Number Child bikes: ", 0, 500);
+
+	addStore(name, numUrban, numSimpleUrban, numRace, numChild);
+}
+
+
+void Company::userRemoveStore()
+{
+	string name;
+
+	//getting the name of the Store to remove
+	name = askString("Name: ");
+
+	removeStore(name);
+}
+
+
+void Company::userPurchasesBikes()
+{
+	string bikeType;
+	int numBikes;
+	int rating;
+
+	//getting bike type
+	do
+	{
+		bikeType = askString("Bike Type (Urban/SimpleUrban/Race/Child) : ");
+
+	}while( (bikeType != "Urban") && (bikeType != "SimpleUrban") && (bikeType != "Race") && (bikeType != "Child") );
+
+	//getting number of bikes
+	numBikes = getInteger("Number bikes: ", 0, 500);
+
+	try
+	{
+		Store s1 = popAvailableShop(bikeType, numBikes);
+
+		//printing available store
+		cout << "::::::::Best Store with stock (before pursache)::::::::" << endl;
+		cout << s1 << endl << endl;
+
+		//updating store's stock and printing payment
+		cout << "User pays : " << s1.sellBikes(bikeType, numBikes) << endl << endl;
+
+		//getting user's rating
+		rating = getInteger("Rating (1 to 10): ", 1, 10);
+
+		//updating store's reputation
+		s1.addRating(rating);
+		s1.updateReputation();
+
+		//printing available store after pursache
+		cout << endl;
+		cout << "::::::::Same Store with stock (after pursache)::::::::" << endl;
+		cout << s1 << endl << endl;
+		stores.push(s1);
+	}
+
+
+	catch(NotAvailableStores & e)
+	{
+		cout << "There isn't a Store with enough stock: " << e.getNumBikes() << " bikes of type " << e.getBikeType() << endl;
+	}
+
+}
+
+
 //=========================================================================
 //=======================| FILES MANAGEMENT |==============================
 //=========================================================================
+
 //DONE AND TESTED
 void Company::saveSharePoints(ostream & outFile)
 {
@@ -976,6 +1240,8 @@ void Company::saveClients(ostream & outFile)
 		outFile << clients.at(i)->getInformation();
 	}
 }
+
+
 //DONE AND TESTED
 SharePoint * Company::stringToSharePoint(string p1)
 {
@@ -1099,5 +1365,101 @@ void Company::readClients(istream & inFile)
 		Client::id_counter = 1;
 	else
 		Client::id_counter = clients.at(clients.size()-1)->getID() + 1;
+
+}
+
+
+//TODO
+void Company::saveStores(ostream & outFile)
+{
+	outFile << "/* Name ; Reputation ; Sum Ratings ; Num Ratings ; Urban , SimpleUrban , Race , Child */" << endl << endl;
+
+	priority_queue<Store> tmp = stores;
+	int i = 0;
+
+	while(!tmp.empty())
+	{
+		Store s1 = tmp.top();
+		tmp.pop();
+
+		if(i != 0)
+			outFile << endl;
+
+		outFile << s1.storeToString();
+
+		i++;
+	}
+
+}
+
+//TODO
+Store Company::stringToStore(string s1)
+{
+	string irrelevant, name;
+	int numUrban, numSimpleUrban, numRace, numChild;
+	double reputation;
+	int totalSumRatings, numRatings;
+
+
+	istringstream iStr(s1);
+
+
+	char next;
+	iStr.get(next);
+	while (next != ';')
+	{
+		name = name + next;
+		iStr.get(next);
+
+	} 	//saving name at string name
+
+	name = name.substr(0, name.length() - 1); //removing space after name
+
+	iStr >> reputation;	//saving reputation
+	iStr >> irrelevant >> totalSumRatings >> irrelevant >> numRatings;	//saving total sum of ratings and number of ratings
+	iStr >> irrelevant >> numUrban >> irrelevant >> numSimpleUrban >> irrelevant >> numRace >> irrelevant >> numChild;	//saving numbers of bikes
+
+
+	vector<Bike *> bikesForSale;
+
+	//adding bikes for sale to vector above
+	for(int i = 0; i < numUrban; i++)
+		bikesForSale.push_back(new Urban());
+
+	for(int i = 0; i < numSimpleUrban; i++)
+		bikesForSale.push_back(new SimpleUrban());
+
+	for(int i = 0; i < numRace; i++)
+		bikesForSale.push_back(new Race());
+
+	for(int i = 0; i < numChild; i++)
+		bikesForSale.push_back(new Child());
+
+	//constructing Store object
+	Store storeToAdd(name, bikesForSale);
+
+	storeToAdd.setReputation(reputation);
+	storeToAdd.setTotalSumRatings(totalSumRatings);
+	storeToAdd.setNumRatings(numRatings);
+
+	return storeToAdd;
+
+}
+
+
+//TODO
+void Company::readStores(istream & inFile)
+{
+	string irrelevant;
+
+	getline(inFile, irrelevant); getline(inFile, irrelevant);	//two lines before SharePoints' information
+
+	while(!inFile.eof())
+	{
+		string s1;
+
+		getline(inFile, s1);
+		stores.push(stringToStore(s1));
+	}
 
 }

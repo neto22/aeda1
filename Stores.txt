@@ -1,0 +1,5 @@
+/* Name ; Reputation ; Sum Ratings ; Num Ratings ; Urban , SimpleUrban , Race , Child */
+
+Fanzeres ; 5.500000 ; 22 ; 4 ; 2 , 2 , 0 , 1
+Jardim do Morro ; 4.444444 ; 40 ; 9 ; 30 , 62 , 78 , 1
+General Torres ; 0.000000 ; 0 ; 0 ; 7 , 55 , 0 , 0

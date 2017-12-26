@@ -17,6 +17,11 @@ unsigned int Bike::getPrice() const
 	return pricePerHour;
 }
 
+unsigned int Bike::getTotalPrice() const
+{
+	return totalPrice;
+}
+
 unsigned int Bike::getID() const
 {
 	return id;
@@ -34,6 +39,7 @@ string Bike::getType() const
 Urban::Urban() : Bike()
 {
 	pricePerHour = 30;
+	totalPrice = 300;
 }
 
 
@@ -48,6 +54,7 @@ string Urban::getType() const
 SimpleUrban::SimpleUrban() : Bike()
 {
 	pricePerHour = 20;
+	totalPrice = 200;
 }
 
 string SimpleUrban::getType() const
@@ -61,6 +68,7 @@ string SimpleUrban::getType() const
 Race::Race() : Bike()
 {
 	pricePerHour = 50;
+	totalPrice = 500;
 }
 
 string Race::getType() const
@@ -74,6 +82,7 @@ string Race::getType() const
 Child::Child() : Bike()
 {
 	pricePerHour = 10;
+	totalPrice = 100;
 }
 
 string Child::getType() const

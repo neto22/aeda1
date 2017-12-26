@@ -4,7 +4,10 @@
 #include "sharePoint.h"
 #include "clients.h"
 #include "workshop.h"
+#include "store.h"
+
 #include <sstream>
+#include <queue>
 
 //=================================================================
 //Company//========================================================
@@ -20,6 +23,7 @@ class Company
 private:
 	vector <SharePoint *> sharePoints;
 	vector<Client *> clients;
+	priority_queue<Store> stores;
 
 
 public:
@@ -27,6 +31,12 @@ public:
 	 * @brief Company constructor, just creates a company so we can save the Clients and the SharePoints
 	 */
 	Company();
+
+
+//=========================================================================
+//==================| STARTS 1º PART |=====================================
+//=========================================================================
+
 
 	//=========================================================================
 	//=================| GET FUNCTIONS |===================================
@@ -40,6 +50,10 @@ public:
 	 * @return vector of all Clients (pointers)
 	 */
 	vector<Client *> getClients() const;
+	/**
+	 * @return priority_queue with all stores
+	 */
+	priority_queue<Store> getStores() const;
 
 	//=========================================================================
 	//=================| DRIVER MANAGEMENT |===================================
@@ -270,8 +284,48 @@ public:
 	 */
 	void endOfMonth();
 
+
+
+
+//=========================================================================
+//==================| STARTS 2º PART |=====================================
+//=========================================================================
+
 	//=========================================================================
-	//======================| FILES MANAGEMENT |===============================
+	//==================| SHOPS MANAGEMENT |===================================
+	//=========================================================================
+
+	void addStore(string name, int numUrban, int numSimpleUrban, int numRace, int numChild);	//MAYBE ADD EXEPTIONS
+
+	void removeStore(string name);	//MAYBE ADD EXEPTIONS
+
+	Store popAvailableShop(string bikeType, int numBikes);	//TODO
+
+	void showTopStores();	//TOTEST
+
+
+	//=========================================================================
+	//==================| SHOPS MENU/FUNCIONALITIES|===========================
+	//=========================================================================
+
+	void storeManagementMenu();
+
+	void userAddStore();
+
+	void userRemoveStore();
+
+	void userPurchasesBikes();	//TODO
+
+
+
+//=========================================================================
+//==================| FOR BOTH PARTS |=====================================
+//=========================================================================
+
+
+
+	//=========================================================================
+	//======================| FILES |==========================================
 	//=========================================================================
 
 	/**
@@ -316,6 +370,27 @@ public:
 	 */
 	void readClients(istream & inFile);
 
+
+	/**
+	 * @brief Save Stores' information in a file connected to ostream outFile
+	 * @param outFile
+	 * @return void
+	 */
+	void saveStores(ostream & outFile);
+
+	/**
+	 * @brief Converts a string of a Store to an object of type Store
+	 * @return Store converted from string s1
+	 */
+	Store stringToStore(string s1);
+
+	/**
+	 * @brief Read Stores from file connected to istream inFile and save them at stores vector
+	 * @param inFile
+	 * @return void
+	 */
+	void readStores(istream & inFile);
+
 };
 
 
@@ -342,6 +417,7 @@ public:
 	string getInformation() {return ("Already exists a SharePoint at location : (" + to_string(x) + " , " + to_string(y) + ") ");}
 };
 
+
 /**
  * @brief Already has a SharePoint with name specified (we can't add another with this name)
  */
@@ -361,6 +437,7 @@ public:
 	string getInformation() {return ("Already exists a SharePoint with name : " + name);}
 
 };
+
 
 /**
  * @brief There isn't a SharePoint with name sharePointName to remove
@@ -383,6 +460,7 @@ public:
 
 };
 
+
 /**
  * @brief There isn't a client with id user_id to remove
  */
@@ -402,6 +480,7 @@ public:
 	unsigned int getID() {return user_id;}
 
 };
+
 
 /**
  * @brief If we try to add a bike to a Full SharePoint
@@ -425,6 +504,7 @@ public:
 
 };
 
+
 /**
  * @brief Non-Existent Bike's type at SharePoint
  */
@@ -446,6 +526,7 @@ public:
 
 };
 
+
 /**
  * @brief Client is still with a Bike, he must return it before pick another
  */
@@ -458,6 +539,7 @@ public:
 	ClientAlreadyWithBike() {}
 };
 
+
 /**
  * @brief Client doesn't have a Bike at the moment to return
  */
@@ -468,6 +550,25 @@ public:
 	 * @brief ClientWithoutBike constructor
 	 */
 	ClientWithoutBike() {}
+};
+
+
+/**
+ * @brief There isn't any Store with enough stock  to satisfy user's request
+ */
+class NotAvailableStores
+{
+private:
+	string bikeType;
+	int numBikes;
+
+public:
+	/**
+	 * @brief ClientWithoutBike constructor
+	 */
+	NotAvailableStores(string bikeType, int numBikes) {this->bikeType = bikeType; this->numBikes = numBikes;}
+	string getBikeType() const {return bikeType;}
+	int getNumBikes() const {return numBikes;}
 };
 
 #endif

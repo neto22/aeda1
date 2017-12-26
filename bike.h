@@ -19,6 +19,7 @@ protected:
 	static unsigned int bikeID;	//maybe useful to next part
 	const unsigned int id;
 	unsigned int pricePerHour;	//euros
+	unsigned int totalPrice;	//euros
 
 public:
 	/**
@@ -33,6 +34,10 @@ public:
 	 * @return price per hour
 	 */
 	unsigned int getPrice() const;
+	/**
+	 * @return total bike price
+	 */
+	unsigned int getTotalPrice() const;
 	/**
 	 * @return Bike's type
 	 */

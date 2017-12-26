@@ -8,6 +8,7 @@
 #include "display.h"
 #include "piece.h"
 #include "workshop.h"
+#include "store.h"
 
 using namespace std;
 
@@ -125,6 +126,22 @@ int main()
 	inFile.close();
 
 
+
+	//reading Stores from file Stores.txt ====================================
+
+	inFile.open("Stores.txt");
+
+	if(inFile.fail())
+	{
+		cerr << "Error opening 'Stores.txt' file" << endl;
+		exit(1);
+	}
+
+	bikesCompany.readStores(inFile);
+
+	inFile.close();
+
+
 //=========================================================================
 //===========================| MENU |======================================
 //=========================================================================
@@ -135,7 +152,7 @@ int main()
 		displayMainMenu();
 
 		//get the option from the user
-		option = getInteger("Choose an option: ",1 , 6);
+		option = getInteger("Choose an option: ",1 , 7);
 
 		switch(option)
 		{
@@ -164,7 +181,12 @@ int main()
 			ws.menu();
 			break;
 		}
-		case 6:
+		case 6:				//stores related menu (Priority Queue)
+		{
+			bikesCompany.storeManagementMenu();
+			break;
+		}
+		case 7:
 		{
 			cout << "End of program"<< endl;
 			break;
@@ -180,13 +202,40 @@ int main()
 		//=========================================================================
 		//===============================| TESTING  |==============================
 		//=========================================================================
+/*
 
+		vector<Bike *> bikes;
+
+		for(int i = 0; i < 35; i++)
+			bikes.push_back(new Urban());
+		for(int i = 0; i < 67; i++)
+			bikes.push_back(new SimpleUrban());
+		for(int i = 0; i < 2;  i++)
+			bikes.push_back(new Race());
+		for(int i = 0; i < 6; i++)
+			bikes.push_back(new Child());
+
+		Store s1("Alvorim das Moscas", bikes);
+
+		cout << s1.storeToString() << endl;
+
+		priority_queue<Store> tmp = bikesCompany.getStores();
+
+		while(!tmp.empty())
+		{
+			Store s1 = tmp.top();
+			tmp.pop();
+
+			cout << s1.storeToString() << endl;
+		}
+
+		bikesCompany.removeStore("Campanha");		*/
 
 		//=========================================================================
 		//=========================| SAVING INFORMATIONS |=========================
 		//=========================================================================
 
-		//saving SharePoints in file "SharePoints.txt"
+		//saving SharePoints in file "SharePoints.txt"=============================
 
 		ofstream outFile;
 
@@ -194,7 +243,7 @@ int main()
 
 		if(outFile.fail())
 		{
-			cerr << "Error opening 'SharePoints' file" << endl;
+			cerr << "Error opening 'SharePoints.txt' file" << endl;
 			exit(1);
 		}
 
@@ -202,13 +251,13 @@ int main()
 
 		outFile.close();
 
-		//saving Clients in file "Clients.txt"
+		//saving Clients in file "Clients.txt"====================================
 
 		outFile.open("Clients.txt");
 
 		if(outFile.fail())
 		{
-			cerr << "Error opening 'SharePoints' file" << endl;
+			cerr << "Error opening 'Clients.txt' file" << endl;
 			exit(1);
 		}
 
@@ -216,9 +265,24 @@ int main()
 
 		outFile.close();
 
-		//save information related to workshop
+		//save information related to workshop===================================
 		ws.saveBstToFile();
 
-	}while(option != 6);
+		//saving Stores in file "Stores.txt"=====================================
+
+		outFile.open("Stores.txt");
+
+		if(outFile.fail())
+		{
+			cerr << "Error opening 'Stores.txt' file" << endl;
+			exit(1);
+		}
+
+		bikesCompany.saveStores(outFile);
+
+		outFile.close();
+
+
+	}while(option != 7);
 	return 0;
 }
