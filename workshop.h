@@ -4,9 +4,6 @@
 #include "company.h"
 #include "BST.h"
 #include "piece.h"
-#include "bike.h"
-#include "bikeForSale.h"
-#include <string>
 
 /*
  * @brief Class of a Workshop to repair Bike with Piece
@@ -14,29 +11,9 @@
 class Workshop
 {
 private:
-	string name;
-	float reputation;
-	vector<int> ratings;
 	BST<Piece> pieces;		/**< Binary Search Tree with all Pieces in Workshop */
-	vector<BikeForSale*> bikes;
 
 public:
-
-	//=========================================================================
-	//=================| GET FUNCTIONS |===================================
-	//=========================================================================
-
-	string getName();
-	float getReputation();
-	vector<int> getRatings();
-	vector<BikeForSale *> getBikes();
-
-
-	/*
-	 * @brief Adds a new rating to vector and re-calculates reputation
-	 */
-	void pushRating(int rating);
-
 	int add(int num);
 
 	//=========================================================================
@@ -149,35 +126,6 @@ public:
 	 * @return void
 	 */
 	void saveBstToFile(void);
-
-	/*
-	 * @brief Operator < to organize priority_queue
-	 */
-
-	bool operator<(const Workshop & w) const;
-
-	/*
-	 * @return number of bikes of a certain type in workshop's stock
-	 */
-
-	int bikesInStock (string type);
-
-	/*
-	 * @brief sets reputation to the average value of ratings
-	 * @return void
-	 */
-
-	void calcReputation();
-
-	/*
-	 * @brief removes n type bikes from vector
-	 * @param type type
-	 * @param n number of bikes sold
-	 * @return void
-	 */
-
-	void sellBikes(string type, int n);
-
 };
 
 

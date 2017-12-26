@@ -1,10 +1,8 @@
 #include "company.h"
 #include "display.h"
 #include "global.h"
-#include "queue"
 #include <iomanip>
 #include <math.h>
-#include <cmath>
 
 //constructor
 Company::Company()
@@ -828,7 +826,7 @@ void Company::addBike(string sharePointName, string bikeType)
 		throw NotExistentSharePoint(sharePointName);
 
 	if(sharePoints.at(sharePointIndex)->isFull())
-		throw FullSharePoint(sharePointName);	//SharePoint canï¿½t take more bikes
+		throw FullSharePoint(sharePointName);	//SharePoint can´t take more bikes
 
 	//if we have all conditions to add bike
 	sharePoints.at(sharePointIndex)->addBike(stringToBike(bikeType));
@@ -1102,18 +1100,4 @@ void Company::readClients(istream & inFile)
 	else
 		Client::id_counter = clients.at(clients.size()-1)->getID() + 1;
 
-}
-
-string Company::findWorkshop(string type, int nbikes) {
-	priority_queue<Workshop *> aux = workshops;
-
-	while(!aux.empty()) {
-		if (aux.top()->bikesInStock(type) >= nbikes) {
-			return aux.top()->getName();
-		} else {
-			aux.pop();
-		}
-	}
-
-	return "";
 }
