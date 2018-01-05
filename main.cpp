@@ -9,6 +9,8 @@
 #include "piece.h"
 #include "workshop.h"
 #include "store.h"
+#include "date.h"
+#include "junkyard.h"
 
 using namespace std;
 
@@ -88,10 +90,13 @@ int main()
 
 	Company bikesCompany;
 	Workshop ws;
+	Junkyard jy;
 
-	//get information from file to workshop
+	//get information from file to workshop===================================
 	ws.loadBstFromFile();
 
+	//get information from file to junkyard===================================
+	jy.loadBrokenBikes();
 
 	//reading SharePoints from file "SharePoints.txt" ========================
 
@@ -148,11 +153,11 @@ int main()
 	int option;
 	do
 	{
-		//Main menu has 4 possible options ( from 1 to 4 inclusive )
+		//Main menu has 4 possible options ( from 1 to 8 inclusive )
 		displayMainMenu();
 
 		//get the option from the user
-		option = getInteger("Choose an option: ",1 , 7);
+		option = getInteger("Choose an option: ",1 , 9);
 
 		switch(option)
 		{
@@ -188,6 +193,16 @@ int main()
 		}
 		case 7:
 		{
+			jy.menu();
+			break;
+		}
+		case 8:
+		{
+			bikesCompany.sendBikeToJunkyard(jy);
+			break;
+		}
+		case 9:
+		{
 			cout << "End of program"<< endl;
 			break;
 		}
@@ -202,34 +217,7 @@ int main()
 		//=========================================================================
 		//===============================| TESTING  |==============================
 		//=========================================================================
-/*
 
-		vector<Bike *> bikes;
-
-		for(int i = 0; i < 35; i++)
-			bikes.push_back(new Urban());
-		for(int i = 0; i < 67; i++)
-			bikes.push_back(new SimpleUrban());
-		for(int i = 0; i < 2;  i++)
-			bikes.push_back(new Race());
-		for(int i = 0; i < 6; i++)
-			bikes.push_back(new Child());
-
-		Store s1("Alvorim das Moscas", bikes);
-
-		cout << s1.storeToString() << endl;
-
-		priority_queue<Store> tmp = bikesCompany.getStores();
-
-		while(!tmp.empty())
-		{
-			Store s1 = tmp.top();
-			tmp.pop();
-
-			cout << s1.storeToString() << endl;
-		}
-
-		bikesCompany.removeStore("Campanha");		*/
 
 		//=========================================================================
 		//=========================| SAVING INFORMATIONS |=========================
@@ -282,7 +270,10 @@ int main()
 
 		outFile.close();
 
+		//save information related to junkyard===================================
+		jy.saveBrokenBikes();
 
-	}while(option != 7);
+
+	}while(option != 9);
 	return 0;
 }

@@ -1,15 +1,15 @@
 #include "bike.h"
 
 //this needs to be updated when the program restarts (saved in file)
-unsigned int Bike::bikeID = 0;
+//unsigned int Bike::bikeID = 1;
 
 
 //=================================================================
 //BIKE//===========================================================
 //=================================================================
-Bike::Bike() : id(bikeID)
+Bike::Bike() //: id(bikeID)
 {
-	bikeID++;
+	//bikeID++;
 }
 
 unsigned int Bike::getPrice() const
@@ -32,6 +32,10 @@ string Bike::getType() const
 	return "NONE";
 }
 
+void Bike::setID(int id)
+{
+	this->id = id;
+}
 
 //=================================================================
 //URBAN//==========================================================

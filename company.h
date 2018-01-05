@@ -5,6 +5,7 @@
 #include "clients.h"
 #include "workshop.h"
 #include "store.h"
+#include "junkyard.h"
 
 #include <sstream>
 #include <queue>
@@ -19,11 +20,13 @@
 class Company
 {
 	friend class Workshop;
+	friend class Junkyard;
 
 private:
 	vector <SharePoint *> sharePoints;
 	vector<Client *> clients;
 	priority_queue<Store> stores;
+	Junkyard junkyard;
 
 
 public:
@@ -301,6 +304,8 @@ public:
 
 	Store popAvailableShop(string bikeType, int numBikes);	//TODO
 
+	void showAllStores();	//TOTEST
+
 	void showTopStores();	//TOTEST
 
 
@@ -316,13 +321,21 @@ public:
 
 	void userPurchasesBikes();	//TODO
 
+	//=========================================================================
+	//==================| JUNKYADR AUXILIAR FUNCTION|==========================
+	//=========================================================================
+
+	/**
+	 * @brief Takes information of SharePoint where the broken/damaged bike is and its type and send it to the Junkyard j1
+	 * @param j1 Junkyard to where broken bike is sent to wait to be wrecked/demolished
+	 */
+	void sendBikeToJunkyard(Junkyard & j1);
+
 
 
 //=========================================================================
 //==================| FOR BOTH PARTS |=====================================
 //=========================================================================
-
-
 
 	//=========================================================================
 	//======================| FILES |==========================================
@@ -380,6 +393,7 @@ public:
 
 	/**
 	 * @brief Converts a string of a Store to an object of type Store
+	 * @param s1 String with Store's information we want to an object of type Store
 	 * @return Store converted from string s1
 	 */
 	Store stringToStore(string s1);

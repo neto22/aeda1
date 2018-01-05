@@ -1059,6 +1059,22 @@ Store Company::popAvailableShop(string bikeType, int numBikes)
 }
 
 
+void Company::showAllStores()
+{
+	priority_queue<Store> tmp = stores;
+
+	if(stores.empty())
+		return;
+
+	while(!tmp.empty())
+	{
+		cout << "::::::::::::::::::::::::::::::" << endl;
+		cout << tmp.top() << endl;
+		tmp.pop();
+	}
+}
+
+
 void Company::showTopStores()
 {
 	priority_queue<Store> tmp = stores;
@@ -1091,7 +1107,7 @@ void Company::storeManagementMenu()
 	displayStoreMenu();
 
 	//choose the option
-	option = getInteger("Choose option: ",1,5);
+	option = getInteger("Choose option: ",1,6);
 	switch(option)
 	{
 
@@ -1112,11 +1128,16 @@ void Company::storeManagementMenu()
 	}
 	case 4:
 	{
-		showTopStores();	//show top 5 best stores
+		showAllStores();	//print all stores
+		break;
+	}
+	case 5:
+	{
+		showTopStores();	//prints top 5 best stores
 		break;
 	}
 
-	case 5:
+	case 6:
 	{
 		cout << "Leaving Shops Management Menu" << endl;
 		break;
@@ -1208,6 +1229,43 @@ void Company::userPurchasesBikes()
 	}
 
 }
+
+
+	//=========================================================================
+	//==================| JUNKYADR AUXILIAR FUNCTION|==========================
+	//=========================================================================
+
+void Company::sendBikeToJunkyard(Junkyard & j1)
+{
+	string nameSharePoint = askString("Sharepoint name: ");	//name of SharePoint that contains the damaged bike
+	string bikeType;	//type of the broken bike
+	do
+	{
+		bikeType = askString("Bike (Urban/SimpleUrban/Race/Child): ");
+
+	}while((bikeType != "Urban") && (bikeType != "SimpleUrban") && (bikeType != "Race") && (bikeType != "Child"));
+
+	//remove bike from SharePoint
+	try
+	{
+		removeBike(nameSharePoint, bikeType);
+
+		//send bike to Junkyard
+		j1.addBike(stringToBike(bikeType));
+	}
+
+	catch(NotExistentSharePoint & e)
+	{
+		cout << "There isn't a SharePoint with name: " << e.getName() << endl;
+	}
+	catch(NotExistentBikeType & e)
+	{
+		cout << "SharePoint does not have such type: " << e.getType() << endl;
+	}
+
+}
+
+
 
 
 //=========================================================================

@@ -13,7 +13,9 @@ void displayMainMenu()
 	cout << setw(5)	<< 4 << ". End of the month " << endl;
 	cout << setw(5) << 5 << ". Workshop menu" << endl;
 	cout << setw(5) << 6 << ". Shops menu" << endl;
-	cout << setw(5) << 7 << ". Exit " << endl;
+	cout << setw(5) << 7 << ". Junkyard menu" << endl;
+	cout << setw(5) << 8 << ". Send Bike to Junkyard" << endl;
+	cout << setw(5) << 9 << ". Exit " << endl;
 	cout << "::::::::::::::::::::::::::::" << endl << endl;
 }
 
@@ -72,7 +74,20 @@ void displayStoreMenu()
 	cout << setw(5) << 1 << ". Add Store " << endl;
 	cout << setw(5) << 2 << ". Remove Store " << endl;
 	cout << setw(5) << 3 << ". Purchase bikes " << endl;
-	cout << setw(5) << 4 << ". Show Top 5 Stores " << endl;
-	cout << setw(5) << 5 << ". Back to Main Menu " << endl << endl;
+	cout << setw(5) << 4 << ". Show All Stores " << endl;
+	cout << setw(5) << 5 << ". Show Top 5 Stores " << endl;
+	cout << setw(5) << 6 << ". Back to Main Menu " << endl << endl;
 
+}
+
+
+void displayJunkyardMenu()
+{
+	cout << endl;
+	cout << setw(5) << 1 << ". Send bike to Junkyard " << endl;
+	cout << setw(5) << 2 << ". Wreck Bike " << endl;
+	cout << setw(5) << 3 << ". Remove Bike " << endl;
+	cout << setw(5) << 4 << ". Show all Junkyard Information (Total Listing) " << endl;
+	cout << setw(5) << 5 << ". Partial Listing " << endl;
+	cout << setw(5) << 6 << ". Back to Main Menu " << endl << endl;
 }

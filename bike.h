@@ -14,10 +14,13 @@ using namespace std;
  */
 class Bike
 {
+	friend class BrokenBike;
+	friend class Junkyard;
+
 protected:
 	//vector<Uses> historyUsages;
+	unsigned int id;
 	static unsigned int bikeID;	//maybe useful to next part
-	const unsigned int id;
 	unsigned int pricePerHour;	//euros
 	unsigned int totalPrice;	//euros
 
@@ -42,6 +45,11 @@ public:
 	 * @return Bike's type
 	 */
 	virtual string getType() const;
+
+	/**
+	 * @brief Sets bike id to value given as argument
+	 */
+	void setID(int id);
 };
 
 //=================================================================
