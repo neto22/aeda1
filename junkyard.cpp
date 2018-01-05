@@ -77,9 +77,12 @@ void Junkyard::addBike(Bike * b1)
 
 void Junkyard::wreckBike(unsigned int id, const Date & d1)
 {
+	unsigned int lastID = Bike::bikeID;		//saving last ID, because creating BrokenBikes will change it
+
 	Bike * bike = new Bike();
 	BrokenBike toFind(bike);
 	toFind.getBike()->setID(id);	//to check if there is already a bike with id in the HashTable
+	Bike::bikeID = lastID;
 
 	HashTable::iterator findAttempt;
 
@@ -97,9 +100,12 @@ void Junkyard::wreckBike(unsigned int id, const Date & d1)
 
 void Junkyard::removeBike(unsigned int id)
 {
+	unsigned int lastID = Bike::bikeID;		//saving last ID, because creating BrokenBikes will change it
+
 	Bike * bike = new Bike();
 	BrokenBike toFind(bike);
 	toFind.getBike()->setID(id);	//to check if there is already a bike with id in the HashTable
+	Bike::bikeID = lastID;
 
 	HashTable::iterator findAttempt;
 
@@ -234,14 +240,24 @@ void Junkyard::showNotWreckedTypeBikes(string bikeType)
 
 void Junkyard::userWreckBike()
 {
-	unsigned int id = getInteger("Bike's ID: ",0,99999);
-	unsigned int day = getInteger("Day of the month: ", 0, 31);
-	unsigned int month = getInteger("Month: ",0, 12);
-	unsigned int year = getInteger("Year: ", 2000, 4000);
+	unsigned int id, day, month, year;	//information that user will give
+
+	id = getInteger("Bike's ID: ",0,99999);
+	cout << "Last Wreck at: " << lastDate << " (not allowed dates before that)" << endl;
+	do
+	{
+		day = getInteger("Day of the month: ", 0, 31);
+		month = getInteger("Month: ",0, 12);
+		year = getInteger("Year: ", 2000, 4000);
+
+	}while(Date(day,month, year) < lastDate);
 
 	try
 	{
 		wreckBike(id, Date(day, month, year));
+
+		//if bike was wrecked successfuly
+		lastDate = Date(day,month,year);
 	}
 
 	catch(NotExistentBike & e)
@@ -287,7 +303,7 @@ void Junkyard::listingsMenu()
 	{
 		do
 		{
-		bikeType = askString("Bike Type: ");
+		bikeType = askString("Bike Type (Urban/SimpleUrban/Race/Child): ");
 
 		}while((bikeType != "Urban") && (bikeType != "SimpleUrban") && (bikeType != "Race") && (bikeType != "Child"));
 
@@ -332,40 +348,36 @@ void Junkyard::listingsMenu()
 void Junkyard::menu()
 {
 	displayJunkyardMenu();
-	int option = getInteger("Option: ",1,7);
+	int option = getInteger("Option: ",1,6);
 
 	switch(option)
 	{
 	case 1:
 	{
+		userWreckBike();
 		break;
 	}
 	case 2:
 	{
-		userWreckBike();
+		userRemoveBike();
 		break;
 	}
 	case 3:
 	{
-		userRemoveBike();
+		showAllBikes();
 		break;
 	}
 	case 4:
 	{
-		showAllBikes();
+		listingsMenu();
 		break;
 	}
 	case 5:
 	{
-		listingsMenu();
-		break;
-	}
-	case 6:
-	{
 		cleanJunkyard();
 		break;
 	}
-	case 7:
+	case 6:
 	{
 		cout << "Leaving Junkyard Menu" << endl;
 		break;
@@ -476,6 +488,44 @@ void Junkyard::saveBrokenBikes()
 		outFile << brokenBikeToString(*it);
 	}
 
+	outFile.close();
+}
+
+void Junkyard::readLastWreckDate()
+{
+	ifstream inFile;
+	inFile.open("lastDate.txt");
+
+	if(inFile.fail())
+	{
+		cerr << "Error opening 'lastDate.txt' file" << endl;
+		exit(1);
+	}
+
+	string date, irrelevant;
+	unsigned int day, month, year;
+
+	getline(inFile, date);
+	istringstream iStr(date);
+
+	iStr >> day >> irrelevant >> month >>irrelevant >> year;
+
+	lastDate = Date(day, month, year);
+}
+
+
+void Junkyard::saveLastWreckDate()
+{
+	ofstream outFile;
+	outFile.open("lastDate.txt");
+
+	if(outFile.fail())
+	{
+		cerr << "Error opening 'lastDate.txt' file" << endl;
+		exit(1);
+	}
+
+	outFile << lastDate.getInformation();
 	outFile.close();
 }
 

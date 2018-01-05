@@ -27,11 +27,6 @@ public:
 	 */
 	Date(unsigned int day, unsigned int month, unsigned int year);
 
-	/**
-	 * @brief Constructor of Date
-	 * @param date String with date information with format dd/mm/yyyy
-	 */
-	Date(std::string date);	//	dd/mm/yyyy
 
 	//=========================================================================
 	//=================| GET |=================================================

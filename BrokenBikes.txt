@@ -1,0 +1,6 @@
+1 ; Urban ; 0 , 0 , 0
+2 ; Urban ; 0 , 0 , 0
+3 ; Race ; 0 , 0 , 0
+5 ; SimpleUrban ; 0 , 0 , 0
+7 ; Child ; 0 , 0 , 0
+9 ; Race ; 0 , 0 , 0

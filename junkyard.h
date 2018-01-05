@@ -91,7 +91,7 @@ class Junkyard
 
 private:
 	HashTable brokenBikes;
-	Date currentDate;	//actual date, when we wreck a car, the date of sucj event must be after this date (update this value)
+	Date lastDate;	//lastWreck date, when we wreck a car, the date of sucj event must be after this date or equal to this (update this value)
 	static unsigned int bikeID; //id to give to bikes sent to the hashtable
 
 
@@ -239,6 +239,16 @@ public:
 	 * @return void
 	 */
 	void saveBrokenBikes();
+
+	/**
+	 * @brief Reads the last date a bike was wrecked from a txt file and saves it at lastDate attribute
+	 */
+	void readLastWreckDate();
+
+	/**
+	 * @brief Saves the last date a bike was wrecked in a txt file to later use
+	 */
+	void saveLastWreckDate();
 
 };
 

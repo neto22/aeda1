@@ -97,6 +97,7 @@ int main()
 
 	//get information from file to junkyard===================================
 	jy.loadBrokenBikes();
+	jy.readLastWreckDate();
 
 	//reading SharePoints from file "SharePoints.txt" ========================
 
@@ -272,6 +273,7 @@ int main()
 
 		//save information related to junkyard===================================
 		jy.saveBrokenBikes();
+		jy.saveLastWreckDate();
 
 
 	}while(option != 9);
