@@ -26,7 +26,6 @@ private:
 	vector <SharePoint *> sharePoints;
 	vector<Client *> clients;
 	priority_queue<Store> stores;
-	Junkyard junkyard;
 
 
 public:
@@ -298,28 +297,77 @@ public:
 	//==================| SHOPS MANAGEMENT |===================================
 	//=========================================================================
 
+	/**
+	 * @brief Receives a name and searches a Store named with it
+	 * @returns Returns true if there is a Store with the name given and false otherwise
+	 */
+	bool findStore(string name);
+
+	/**
+	 * @brief Receives the needed arguments to create a Store (name  and number of bikes of each type), creates it and add it to the priority_queue
+	 *
+	 * @param name String with name of the Store
+	 * @param numUrban Integer with number of Urban bikes the Store will have
+	 * @param numSimpleUrban Integer with number of SimpleUrban bikes the Store will have
+	 * @param numChild Integer with number of Child bikes the Store will have
+	 */
 	void addStore(string name, int numUrban, int numSimpleUrban, int numRace, int numChild);	//MAYBE ADD EXEPTIONS
 
+	/**
+	 * @brief Removes Store with given name from priority_queue stores
+	 * @param name String with the name of the store to remove
+	 */
 	void removeStore(string name);	//MAYBE ADD EXEPTIONS
 
-	Store popAvailableShop(string bikeType, int numBikes);	//TODO
+	/**
+	 * @brief Searches best store with enough stock of bikes (numBikes of type bikeType) take it (removing it) from the stores priority_queue
+	 *  and returning it
+	 *
+	 * @param bikeType type of bikes wich stock we want to check
+	 * @param numBikes number of bikes
+	 * @return Returns best store with stock enough
+	 */
+	Store popAvailableShop(string bikeType, int numBikes);
 
-	void showAllStores();	//TOTEST
+	/**
+	 * @brief Prints informarion of all stores
+	 */
+	void showAllStores();
 
-	void showTopStores();	//TOTEST
+	/**
+	 * @brief Prints information of top 5 best stores (5 stores with best reputation)
+	 */
+	void showTopStores();
 
 
 	//=========================================================================
 	//==================| SHOPS MENU/FUNCIONALITIES|===========================
 	//=========================================================================
 
+	/**
+	 * @brief Menu for Clients' Management
+	 * @return void
+	 */
 	void storeManagementMenu();
 
+	/**
+	 * @brief Takes information from user of the Store atributes as name and number of bikes of each type
+	 *  to create and add a Store to the priority_queue
+	 *  If there already is a Store with given name the addStore function throws an exception
+	 */
 	void userAddStore();
 
+	/**
+	 * @brief Takes information from user of the name of the Store to remove
+	 *  If there is Store with given name it is removed, otherwise an exception is thrown by the remove function
+	 */
 	void userRemoveStore();
 
-	void userPurchasesBikes();	//TODO
+	/**
+	 * @brief Takes information from user of the number and tipe of bikes to purchase and sells the bikes wished from the best store with stock
+	 * If there isn't  store with enough stock an exception is thrown
+	 */
+	void userPurchasesBikes();
 
 	//=========================================================================
 	//==================| JUNKYADR AUXILIAR FUNCTION|==========================
@@ -583,6 +631,38 @@ public:
 	NotAvailableStores(string bikeType, int numBikes) {this->bikeType = bikeType; this->numBikes = numBikes;}
 	string getBikeType() const {return bikeType;}
 	int getNumBikes() const {return numBikes;}
+};
+
+/**
+ * @brief There is already a Store with name give so we can add it to the priority_queue
+ */
+class AlreadyExistentStore
+{
+private:
+	string name;
+
+public:
+	/**
+	 * @brief AlreadyExistentStore constructor
+	 */
+	AlreadyExistentStore(string name) {this->name = name;}
+	string getName() const {return name;}
+};
+
+/**
+ * @brief There isn't a Store with given name so we can't remove it from the priority_queue
+ */
+class NotExistentStore
+{
+private:
+	string name;
+
+public:
+	/**
+	 * @brief NotExistentStore
+	 */
+	NotExistentStore(string name) {this->name = name;}
+	string getName() const {return name;}
 };
 
 #endif

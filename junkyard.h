@@ -91,7 +91,7 @@ class Junkyard
 
 private:
 	HashTable brokenBikes;
-	Date currentDate;
+	Date currentDate;	//actual date, when we wreck a car, the date of sucj event must be after this date (update this value)
 	static unsigned int bikeID; //id to give to bikes sent to the hashtable
 
 
@@ -181,14 +181,8 @@ public:
 
 
 	//=========================================================================
-	//======================| USER OPERATIONS |================================
+	//======================| SOME USER OPERATIONS |================================
 	//=========================================================================
-
-	/**
-	 * @brief Allows user to
-	 */
-	void selectBikeToJunkyar();
-
 	/**
 	 * @brief Allows user to insert the id of the bike he wishes to wreck
 	 */

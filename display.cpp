@@ -89,5 +89,6 @@ void displayJunkyardMenu()
 	cout << setw(5) << 3 << ". Remove Bike " << endl;
 	cout << setw(5) << 4 << ". Show all Junkyard Information (Total Listing) " << endl;
 	cout << setw(5) << 5 << ". Partial Listing " << endl;
-	cout << setw(5) << 6 << ". Back to Main Menu " << endl << endl;
+	cout << setw(5) << 6 << ". Clean Junkyard (Remove all wrecked bikes) " << endl;
+	cout << setw(5) << 7 << ". Back to Main Menu " << endl << endl;
 }

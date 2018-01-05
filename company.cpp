@@ -961,9 +961,33 @@ void Company::endOfMonth()
 	//=========================================================================
 	//==================| SHOPS MANAGEMENT |===================================
 	//=========================================================================
+bool Company::findStore(string name)
+{
+	bool found = false;
+	priority_queue<Store> tmp = stores;
+
+	while(!tmp.empty())
+	{
+		if(tmp.top().getName() == name)
+		{
+			found = true;
+			break;
+		}
+
+		tmp.pop();
+	}
+
+	return found;
+}
+
 
 void Company::addStore(string name, int numUrban, int numSimpleUrban, int numRace, int numChild)
 {
+	//if there is already a store with this name
+	if(findStore(name))
+		throw AlreadyExistentStore(name);
+
+	//if there isn't we can add it
 	vector<Bike *> bikesForSale;
 
 	//adding bikes to sale to vector above
@@ -987,6 +1011,11 @@ void Company::addStore(string name, int numUrban, int numSimpleUrban, int numRac
 
 void Company::removeStore(string name)
 {
+	//if there isn't a store with this name we can't remove it
+	if(!findStore(name))
+		throw NotExistentStore(name);
+
+	//if there is remove it
 	priority_queue<Store> tmp;
 
 	if(stores.empty())
@@ -1166,7 +1195,15 @@ void Company::userAddStore()
 	numRace = getInteger("Number Race bikes: ", 0, 500);
 	numChild = getInteger("Number Child bikes: ", 0, 500);
 
-	addStore(name, numUrban, numSimpleUrban, numRace, numChild);
+	try
+	{
+		addStore(name, numUrban, numSimpleUrban, numRace, numChild);
+	}
+
+	catch(AlreadyExistentStore & e)
+	{
+		cout << "Already existent Store: " << e.getName() << endl;
+	}
 }
 
 
@@ -1177,7 +1214,15 @@ void Company::userRemoveStore()
 	//getting the name of the Store to remove
 	name = askString("Name: ");
 
-	removeStore(name);
+	try
+	{
+		removeStore(name);
+	}
+
+	catch(NotExistentStore & e)
+	{
+		cout << "Not existent Store: " << e.getName() << endl;
+	}
 }
 
 
@@ -1427,7 +1472,7 @@ void Company::readClients(istream & inFile)
 }
 
 
-//TODO
+
 void Company::saveStores(ostream & outFile)
 {
 	outFile << "/* Name ; Reputation ; Sum Ratings ; Num Ratings ; Urban , SimpleUrban , Race , Child */" << endl << endl;
@@ -1450,7 +1495,7 @@ void Company::saveStores(ostream & outFile)
 
 }
 
-//TODO
+
 Store Company::stringToStore(string s1)
 {
 	string irrelevant, name;
@@ -1505,7 +1550,6 @@ Store Company::stringToStore(string s1)
 }
 
 
-//TODO
 void Company::readStores(istream & inFile)
 {
 	string irrelevant;

@@ -120,7 +120,20 @@ void Junkyard::removeBike(unsigned int id)
 
 void Junkyard::cleanJunkyard()
 {
+	HashTable tmp;
+	HashTable::iterator it;
 
+	if(brokenBikes.empty())
+		return;
+
+	for(it = brokenBikes.begin(); it != brokenBikes.end(); it++)
+	{
+		if(!it->wrecked())	//bike was not wrecked yet (save it)
+			tmp.insert(*it);
+	}
+
+	//tmp has all not wrecked bikes, so we swap it contents with the brokenBikes, so the brokenBikes lose all wrecked bikes
+	swap(brokenBikes, tmp);
 
 }
 
@@ -271,7 +284,14 @@ void Junkyard::listingsMenu()
 
 	string bikeType;
 	if(option != 1 && option != 2)
+	{
+		do
+		{
 		bikeType = askString("Bike Type: ");
+
+		}while((bikeType != "Urban") && (bikeType != "SimpleUrban") && (bikeType != "Race") && (bikeType != "Child"));
+
+	}
 
 	switch(option)
 	{
@@ -312,7 +332,7 @@ void Junkyard::listingsMenu()
 void Junkyard::menu()
 {
 	displayJunkyardMenu();
-	int option = getInteger("Option: ",1,6);
+	int option = getInteger("Option: ",1,7);
 
 	switch(option)
 	{
@@ -341,6 +361,11 @@ void Junkyard::menu()
 		break;
 	}
 	case 6:
+	{
+		cleanJunkyard();
+		break;
+	}
+	case 7:
 	{
 		cout << "Leaving Junkyard Menu" << endl;
 		break;

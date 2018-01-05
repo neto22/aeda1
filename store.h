@@ -11,7 +11,6 @@ private:
 	string name;
 	double reputation;
 	vector<Bike *> bikes;
-	//vector<int> ratings;
 	int totalSumRatings = 0;	//so we can save at file
 	int numRatings = 0;			//so we can save at file
 
@@ -20,6 +19,7 @@ public:
 	//=========================================================================
 	//=================| CONSTRUCTORS |========================================
 	//=========================================================================
+
 	/**
 	 * @brief Store constructor
 	 * @param name Store's name
@@ -38,17 +38,18 @@ public:
 	 * @return Store's name
 	 */
 	string getName() const;
+
 	/**
 	 * @brief Reputation get function
 	 * @return Store's reputation
 	 */
 	double getReputation() const;
+
 	/**
 	 * @brief Bikes get function
 	 * @return Store's bikes in stock
 	 */
 	vector<Bike *> getBikes() const;
-	//vector<int> getRatings() const;
 
 
 	//=========================================================================
