@@ -354,21 +354,21 @@ Piece Workshop::stringToPiece(string pieceStr)
 
 	istringstream iStr(pieceStr);
 
+	iStr.get(next);
 	while(next != ';')
 	{
 		name += next;
 		iStr.get(next);
 	}
-	name = name.substr(1, name.length() - 2); //removes spaces
+	name = name.substr(0, name.length() - 1); //removing space after name
 
-	next = 0;
-
+	iStr.get(next); //next with first space
 	while(next != ';')
 	{
 		supplier += next;
 		iStr.get(next);
 	}
-	supplier = supplier.substr(2,supplier.length()-3);
+	supplier = supplier.substr(1,supplier.length()-2);	//removing spaces before and after supplier
 
 	iStr >> price >> trash >> quantity;
 

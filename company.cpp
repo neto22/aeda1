@@ -1355,13 +1355,14 @@ SharePoint * Company::stringToSharePoint(string p1)
 
 	istringstream iStr(p1);
 
+	iStr.get(next);
 	while (next != ';')
 	{
 		name = name + next;
 		iStr.get(next);
 
 	} 	//saving name at string name
-	name = name.substr(1, name.length() - 2); //removing spaces before and after name
+	name = name.substr(0, name.length() - 1); //removing space after name
 
 	iStr >> irrelevant >> x >> irrelevant >> y >> irrelevant >> irrelevant >> capacity >> irrelevant >> irrelevant;
 	iStr >> numUrban >> irrelevant >> numSimpleUrban >> irrelevant >> numRace >> irrelevant >> numChild;
